@@ -42,6 +42,6 @@ export const useProjectsStore = defineStore("projects", () => {
     currentProject,
     isLoading,
     error,
-    refetch: fetchProjects,
+    refetchProjects: fetchProjects,
   };
 });

@@ -54,6 +54,6 @@ const projectsStore = useProjectsStore();
 const { error, isLoading, projects } = storeToRefs(projectsStore);
 
 onMounted(async () => {
-  await projectsStore.refetch(true);
+  await projectsStore.refetchProjects(true);
 });
 </script>

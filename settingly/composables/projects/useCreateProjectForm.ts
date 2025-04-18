@@ -45,7 +45,7 @@ export default function useCreateProjectForm() {
           if (response.ok) {
             isSubmitting.value = false;
             toast.success("Project created successfully!");
-            await useProjectsStore().refetch(true);
+            await useProjectsStore().refetchProjects(true);
           }
         },
       });

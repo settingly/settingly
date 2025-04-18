@@ -38,7 +38,7 @@ export default defineEventHandler(async (event) => {
       statusMessage:
         "Forbidden: You are not allowed to delete files for this user",
     });
-  } else if (orgId && !has({ permission: "org:files:read" })) {
+  } else if (orgId && !has({ permission: "org:files:delete" })) {
     return createError({
       statusCode: 403,
       statusMessage:

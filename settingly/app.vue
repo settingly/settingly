@@ -1,5 +1,15 @@
 <template>
   <Toaster :rich-colors="true" />
+  <SharedConfirmDialog
+    :open="isOpen"
+    :title="title"
+    :message="message"
+    @confirm="handleConfirm"
+    @cancel="handleCancel"
+  />
+
+  <button @click="confirmDialog('abc')">Open Confirm Dialog</button>
+
   <div class="font-yaldevi" id="nuxt">
     <NuxtLayout>
       <NuxtPage />
@@ -10,6 +20,9 @@
 import { Toaster } from "vue-sonner";
 
 const { organization } = useOrganization();
+
+const { isOpen, title, message, confirmDialog, handleConfirm, handleCancel } =
+  useConfirm();
 
 watch(
   () => organization.value,

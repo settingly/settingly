@@ -28,6 +28,7 @@
         :options="organizationOptions"
         v-model="organizationId"
       />
+
       <div class="flex flex-row justify-end gap-2">
         <button class="button-ghost" @click="isCreatingNewProject = false">
           Cancel

@@ -11,6 +11,16 @@
       :show-cancel-button="false"
       :hide-spinner="true"
     >
+      <template #title-action>
+        <button
+          class="icon-button-wrapper"
+          type="button"
+          @click="deleteProject"
+        >
+          <TrashIcon class="w-4 h-4" style="color: #dc2626 !important" />
+        </button>
+      </template>
+
       <FormsInput
         v-model="name"
         type="text"
@@ -25,6 +35,18 @@
         placeholder="Enter project description"
         label="Description (Optional)"
       />
+
+      <p class="text-xs text-gray-500 max-w-md">
+        Due to security reasons, the project organization cannot be changed
+        after the project has been created. If you need to change the
+        organization, please contact us at
+        <NuxtLink
+          to="mailto:support@settingly.xyz"
+          class="text-primary hover:underline"
+        >
+          support@settingly.xyz</NuxtLink
+        >.
+      </p>
 
       <div v-if="!isSubmitting" class="pt-0 flex justify-end gap-2">
         <NuxtLink :to="'/_'" class="button-ghost"> Cancel </NuxtLink>
@@ -53,5 +75,8 @@
 </template>
 
 <script setup lang="ts">
-const { name, description, isSubmitting, submit } = useProjectSettingsForm();
+import { Trash, TrashIcon } from "lucide-vue-next";
+
+const { name, description, isSubmitting, submit, deleteProject } =
+  useProjectSettingsForm();
 </script>
