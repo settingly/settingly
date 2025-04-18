@@ -32,4 +32,10 @@ export default defineNuxtConfig({
     "nuxt-mongoose",
     "@pinia/nuxt",
   ],
+
+  nitro: {
+    experimental: {
+      openAPI: true,
+    },
+  },
 });

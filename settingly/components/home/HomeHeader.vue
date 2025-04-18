@@ -5,9 +5,9 @@
     >
       Settingly
     </h1>
-    <h2 class="text-2xl max-w-2xl text-center">
-      A no-frills, self-hosted configuration storage solution with a clean user
-      interface and RESTful API.
+    <h2 class="text-2xl max-w-xl text-center">
+      Streamline, control, and elevate your server-side utilities – all in one
+      smart platform.
     </h2>
     <div class="mt-6 grid grid-rows-1 grid-cols-2 gap-5">
       <NuxtLink class="button-fancy text-xl text-center" to="#"

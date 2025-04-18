@@ -30,5 +30,17 @@ export default defineEventHandler(async (event) => {
     })) as Project[];
   }
 
-  return projects;
+  return await Promise.all(
+    projects.map(async (project) => {
+      const files = await FileSchema.find({
+        projectId: project._id,
+      });
+      const filesCount = files.length;
+
+      return {
+        ...(project as any).toObject(),
+        filesCount,
+      };
+    })
+  );
 });

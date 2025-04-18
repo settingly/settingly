@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { BracesIcon, ServerIcon, SettingsIcon } from "lucide-vue-next";
+import {
+  BracesIcon,
+  DatabaseZapIcon,
+  ServerIcon,
+  SettingsIcon,
+} from "lucide-vue-next";
 import { ref } from "vue";
 
 const servicesData = ref([
@@ -8,21 +13,24 @@ const servicesData = ref([
     title: "Configuration Storage",
     paragraph:
       "Empower your projects with seamless configuration management that scales with your business.",
-    href: "/#",
+    to: "/#",
+    soon: false,
   },
   {
     icon: BracesIcon,
-    title: "REST & GraphQL API",
+    title: "Logging",
     paragraph:
-      "Unlock powerful integration capabilities with our intuitive APIs that developers love to work with.",
-    href: "/#",
+      "Streamline your development process with our powerful logging service, designed to give you insight into your applications.",
+    to: "/#",
+    soon: true,
   },
   {
-    icon: ServerIcon,
-    title: "Self-Hostable",
+    icon: DatabaseZapIcon,
+    title: "Cache Storage",
     paragraph:
-      "Take full control of your data and infrastructure while reducing costs and increasing security.",
-    href: "/#",
+      "Boost your app's performance with our Redis-based cache storage, reducing latency and improving user experience.",
+    to: "/#",
+    soon: true,
   },
 ]);
 </script>
@@ -36,18 +44,18 @@ const servicesData = ref([
         <div class="w-full px-4">
           <div class="mx-auto mb-[60px] max-w-[510px] text-center lg:mb-[90px]">
             <span class="mb-2 block text-lg font-semibold text-primary">
-              Core Features
+              Our Services
             </span>
             <h2
-              class="mb-3 text-3xl font-bold leading-[1.2] text-dark sm:text-4xl md:text-[40px]"
+              class="mb-3 text-3xl font-bold text-dark sm:text-4xl md:text-[40px]"
             >
-              Why Choose Settingly
+              What Settingly Offers
             </h2>
             <p class="text-base text-body-color">
-              Settingly supercharges your development workflow with powerful
-              configuration management that's built for teams. Intuitive,
-              flexible, and secure - everything you need to build better
-              applications faster.
+              Settingly enhances your development with services that boost
+              productivity and simplify processes. We prioritize a
+              developer-friendly experience, self-hosting, minimalism, and
+              simplicity.
             </p>
           </div>
         </div>
@@ -64,14 +72,19 @@ const servicesData = ref([
                 >
                   <component
                     :is="service.icon"
-                    class="text-primary/50 w-24 h-24 filter drop-shadow-[0_0_15px_rgba(252,153,58,1.2)]"
+                    class="!text-primary/90 w-24 h-24"
                   />
                 </div>
               </div>
               <div class="text-center">
-                <h3 class="mb-4 text-2xl font-bold text-dark">
+                <p class="text-base text-primary">
+                  <span v-if="service.soon">Coming Soon</span>
+                  <span v-else> Try it Now </span>
+                </p>
+                <h3 class="mb-4 text-2xl font-bold">
                   {{ service.title }}
                 </h3>
+
                 <p class="mb-6 text-body-color">
                   {{ service.paragraph }}
                 </p>

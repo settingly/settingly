@@ -1,13 +1,13 @@
 <template>
-  <div class="max-w-2xl mx-auto p-4">
-    <FormsBase
-      @submit.prevent="submit"
-      title="New Project"
-      subtitle="Create a new project to start managing your configurations and settings."
-      :is-submitting="isSubmitting"
-      submit-button-text="Create Project"
-      :show-cancel-button="true"
-    >
+  <button @click="isCreatingNewProject = true" class="button">
+    New Project
+  </button>
+  <SharedDialog
+    @close="isCreatingNewProject = false"
+    :open="isCreatingNewProject"
+    title="Create New Project"
+  >
+    <form @submit.prevent="submit" class="space-y-4">
       <FormsInput
         v-model="projectName"
         type="text"
@@ -28,8 +28,14 @@
         :options="organizationOptions"
         v-model="organizationId"
       />
-    </FormsBase>
-  </div>
+      <div class="flex flex-row justify-end gap-2">
+        <button class="button-ghost" @click="isCreatingNewProject = false">
+          Cancel
+        </button>
+        <button class="button" type="submit">Create</button>
+      </div>
+    </form></SharedDialog
+  >
 </template>
 
 <script setup lang="ts">
@@ -42,5 +48,5 @@ const {
   submit,
 } = useCreateProjectForm();
 
-const { user } = useUser();
+const isCreatingNewProject = ref<boolean>(false);
 </script>

@@ -6,13 +6,17 @@ export const useFilesStore = defineStore("files", () => {
   const currentProjectId = useCurrentProjectId();
   const currentFileId = useCurrentFileId();
 
-  async function fetchFiles() {
+  const currentFile = computed(() => {
+    return files.value.find((file) => file._id === currentFileId.value);
+  });
+
+  async function fetchFiles(projectId: string = "") {
     isLoading.value = true;
     try {
       const files_ = await $fetch<File_[]>("/api/v1/files", {
         method: "GET",
         params: {
-          projectId: currentProjectId.value,
+          projectId: currentProjectId.value || projectId,
         },
       });
       files.value = files_;
@@ -22,10 +26,6 @@ export const useFilesStore = defineStore("files", () => {
 
     isLoading.value = false;
   }
-
-  const currentFile = computed(() => {
-    return files.value.find((file) => file._id === currentFileId.value);
-  });
 
   watch(
     () => currentProjectId.value,

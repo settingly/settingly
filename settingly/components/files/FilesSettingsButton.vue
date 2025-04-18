@@ -7,13 +7,19 @@
     :open="isUpdatingFile"
     @close="isUpdatingFile = false"
   >
-    <form @submit.prevent="submit">
+    <form
+      @submit.prevent="
+        submit().then(() => {
+          isUpdatingFile = false;
+        })
+      "
+    >
       <FormsInput
         type="text"
         placeholder="Enter file name"
         label="File Name"
+        v-model="name"
         required
-        v-model="fileName"
       />
 
       <p class="text-xs mt-2 text-gray-500">
@@ -27,19 +33,49 @@
         v-model="enabledEndpoints"
       />
 
-      <div class="mt-6 flex flex-row-reverse items-center gap-2">
-        <button v-if="!isSubmitting" class="button" type="submit">Save</button>
-        <button v-if="!isSubmitting" class="button-ghost">Cancel</button>
-        <SharedSpinner v-if="isSubmitting" />
+      <p
+        class="text-xs text-error max-w-md mt-2"
+        v-if="enabledEndpoints.length === 0"
+      >
+        It looks like neither the Rest nor GraphQL endpoints are enabled for
+        this file. This means that the file will not be accessible via any
+        endpoint.
+      </p>
+
+      <br />
+
+      <div class="flex flex-row justify-end mt-6 gap-2">
+        <div class="flex flex-row items-center gap-2">
+          <button v-if="!isSubmitting" class="button-ghost">Cancel</button>
+          <button v-if="!isSubmitting" class="button" type="submit">
+            Save
+          </button>
+
+          <SharedSpinner v-if="isSubmitting" />
+        </div>
+      </div>
+
+      <div class="flex flex-col mt-6 border-t border-gray-200 pt-6">
+        <FormsInput
+          type="text"
+          :placeholder="`Type ${currentFile?.name}`"
+          label="Delete File"
+          required
+        />
+        <button type="button" class="button bg-error hover:bg-error/90 mt-4">
+          Delete
+        </button>
       </div>
     </form>
   </SharedDialog>
 </template>
 
 <script setup lang="ts">
-import { SettingsIcon } from "lucide-vue-next";
+import { SettingsIcon, TrashIcon } from "lucide-vue-next";
 
 const { currentFile } = storeToRefs(useFilesStore());
+
+const { isSubmitting, name, enabledEndpoints, submit } = useUpdateFileForm();
 
 const isUpdatingFile = ref<boolean>(false);
 </script>

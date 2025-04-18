@@ -94,20 +94,32 @@ const copyToClipboard = () => {
 const resetToUnsaved = () => {
   if (currentFile.value) {
     confirm("Are you sure you want to reset the file to its unsaved state?") &&
-      (configString.value = JSON.stringify(
-        getNewestFileVersion(currentFile.value).content,
-        null,
-        2
-      ));
+      (configString.value = getNewestFileVersion(currentFile.value).content);
   }
 };
 
 const save = async () => {
   if (currentFile.value) {
+    // format the JSON before saving
+    let formattedJson = "";
+
+    try {
+      const parsed = JSON.parse(configString.value);
+      formattedJson = JSON.stringify(parsed, null, 2);
+    } catch (e: any) {
+      toast.error("Invalid JSON: " + e.message);
+      return;
+    }
+
+    if (getNewestFileVersion(currentFile.value).content === formattedJson) {
+      toast.info("No changes detected");
+      return;
+    }
+
     try {
       const body = v.parse(CreateFileContentVersionSchema, {
         fileId: currentFile.value._id,
-        content: configString.value,
+        content: formattedJson,
       });
 
       const a = await $fetch("/api/v1/files/create-version", {
@@ -127,11 +139,7 @@ watch(
   () => currentFile.value,
   (newFile) => {
     if (newFile) {
-      configString.value = JSON.stringify(
-        JSON.parse(getNewestFileVersion(newFile).content),
-        null,
-        2
-      );
+      configString.value = getNewestFileVersion(newFile).content;
     }
   },
   { immediate: true, deep: true }

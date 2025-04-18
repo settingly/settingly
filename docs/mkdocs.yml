@@ -1,0 +1,6 @@
+site_name: Settingly
+theme:
+  name: material
+  palette:
+    primary: deep purple
+    accent: deep orange

@@ -2,12 +2,12 @@ export default function useCurrentFileId() {
   const route = useRoute();
 
   return computed(() => {
-    const fileId = route.params.fileId;
+    const file = route.query.file as string | string[] | undefined;
 
-    if (!fileId) {
+    if (!file) {
       return undefined;
     }
 
-    return fileId.at(0);
+    return typeof file === "string" ? file : file.at(0);
   });
 }

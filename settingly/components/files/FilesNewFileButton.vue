@@ -52,12 +52,14 @@ function useCreateFileForm() {
   const isSubmitting = ref(false);
 
   const { currentProject } = storeToRefs(useProjectsStore());
+  const { refetch: refetchProjects } = useProjectsStore();
   const { refetchFiles } = useFilesStore();
 
   const submit = async () => {
     isSubmitting.value = true;
 
     try {
+      debugger;
       const body = v.parse(CreateFileSchema, {
         name: fileName.value,
         projectId: currentProject.value?._id,
@@ -90,6 +92,10 @@ function useCreateFileForm() {
       toast.error((error as Error).message);
     }
   };
+
+  onMounted(async () => {
+    await refetchProjects(true);
+  });
 
   return {
     fileName,

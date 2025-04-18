@@ -9,6 +9,7 @@ export default {
         tlight: "#ffffff",
         error: "#dc2626",
         success: "#22c55e",
+        warning: "#fbbf24",
       },
       fontFamily: {
         yaldevi: ["Yaldevi", "sans-serif"],

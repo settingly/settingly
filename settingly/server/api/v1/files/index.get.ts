@@ -24,25 +24,19 @@ export default defineEventHandler(async (event) => {
   }
 
   if (
-    has({
-      permission: "org:files:read",
-    })
+    project.organization.id !== user.id &&
+    project.organization.type === "user"
   ) {
-    if (project.organization.id !== orgId) {
-      console.log("Org ID", orgId);
-      console.log("Project Organization ID", project.organization.id);
-
-      throw createError({
-        statusCode: 403,
-        statusMessage:
-          "Forbidden: You do not have permission to read files for this organization",
-      });
-    }
-  } else {
-    throw createError({
+    return createError({
       statusCode: 403,
       statusMessage:
         "Forbidden: You are not allowed to read files for this user",
+    });
+  } else if (orgId && !has({ permission: "org:files:read" })) {
+    return createError({
+      statusCode: 403,
+      statusMessage:
+        "Forbidden: You do not have permission to read files for this organization",
     });
   }
 

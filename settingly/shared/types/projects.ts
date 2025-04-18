@@ -5,6 +5,9 @@ export interface Project {
   organization: ProjectOrganization;
   name: string;
   description?: string;
+
+  // only for projects, which were fetched from the server
+  filesCount?: number;
 }
 
 export interface ProjectOrganization {

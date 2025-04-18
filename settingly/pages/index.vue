@@ -1,7 +1,8 @@
 <template>
   <div>
+    <HomeWarningBanner />
     <HomeHeader />
     <hr />
-    <HomeFeatureCards />
+    <HomeServicesList />
   </div>
 </template>

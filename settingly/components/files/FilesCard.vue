@@ -1,6 +1,6 @@
 <template>
   <NuxtLink
-    :to="`/_/${file.projectId}/files/${file._id}`"
+    :to="`/_/${file.projectId}?file=${file._id}`"
     class="block rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden transition-all duration-200 hover:shadow-md max-w-md"
   >
     <!-- Card Header -->
