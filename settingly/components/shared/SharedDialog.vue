@@ -29,12 +29,25 @@
             <DialogPanel
               class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
             >
-              <DialogTitle
-                as="h3"
-                class="text-lg font-medium leading-6 text-gray-700"
-              >
-                {{ title }}
-              </DialogTitle>
+              <div class="flex flex-row items-center justify-between">
+                <DialogTitle
+                  as="h3"
+                  class="text-lg font-medium leading-6 text-gray-700"
+                >
+                  {{ title }}
+                </DialogTitle>
+                <div v-if="titleAction" class="flex items-center">
+                  <button
+                    @click="emit('titel-action-clicked')"
+                    class="icon-button-wrapper"
+                  >
+                    <component
+                      :is="titleAction?.icon"
+                      :class="titleAction?.style"
+                    />
+                  </button>
+                </div>
+              </div>
               <div class="mt-2">
                 <slot />
               </div>
@@ -58,10 +71,15 @@ import {
 const { open } = defineProps<{
   title: string;
   open: boolean;
+  titleAction?: {
+    icon: object;
+    style?: string;
+  };
 }>();
 
 const emit = defineEmits<{
   (e: "close"): void;
+  (e: "titel-action-clicked"): void;
 }>();
 
 function closeModal() {

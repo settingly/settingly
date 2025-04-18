@@ -24,6 +24,10 @@ export const UpdateFileSchema = v.object({
   enabledEndpoints: v.optional(enabledEndpointsSchema),
 });
 
+export const DeleteFileSchema = v.object({
+  id: v.string(),
+});
+
 export const CreateFileContentVersionSchema = v.object({
   fileId: v.string(),
   content: v.string(),

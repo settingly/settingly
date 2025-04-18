@@ -5,6 +5,11 @@
   <SharedDialog
     :title="`Update File: ${currentFile?.name}`"
     :open="isUpdatingFile"
+    :title-action="{
+      icon: TrashIcon,
+      style: 'text-error w-4 h-4',
+    }"
+    @titel-action-clicked="deleteFile"
     @close="isUpdatingFile = false"
   >
     <form
@@ -54,18 +59,6 @@
           <SharedSpinner v-if="isSubmitting" />
         </div>
       </div>
-
-      <div class="flex flex-col mt-6 border-t border-gray-200 pt-6">
-        <FormsInput
-          type="text"
-          :placeholder="`Type ${currentFile?.name}`"
-          label="Delete File"
-          required
-        />
-        <button type="button" class="button bg-error hover:bg-error/90 mt-4">
-          Delete
-        </button>
-      </div>
     </form>
   </SharedDialog>
 </template>
@@ -75,7 +68,8 @@ import { SettingsIcon, TrashIcon } from "lucide-vue-next";
 
 const { currentFile } = storeToRefs(useFilesStore());
 
-const { isSubmitting, name, enabledEndpoints, submit } = useUpdateFileForm();
+const { isSubmitting, name, enabledEndpoints, submit, isDeleting, deleteFile } =
+  useFileSettingsForm();
 
 const isUpdatingFile = ref<boolean>(false);
 </script>

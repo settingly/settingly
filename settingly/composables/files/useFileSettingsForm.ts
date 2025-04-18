@@ -2,9 +2,10 @@ import * as v from "valibot";
 import { toast } from "vue-sonner";
 import { UpdateFileSchema } from "~/shared/schemas/files";
 
-export default function useUpdateFileForm() {
+export default function useFileSettingsForm() {
   const filesStore = useFilesStore();
   const isSubmitting = ref(false);
+  const isDeleting = ref(false);
 
   const { currentFile } = storeToRefs(filesStore);
 
@@ -24,6 +25,7 @@ export default function useUpdateFileForm() {
 
   const submit = async () => {
     isSubmitting.value = true;
+
     try {
       const body = v.parse(UpdateFileSchema, {
         id: currentFile.value?._id,
@@ -46,11 +48,42 @@ export default function useUpdateFileForm() {
     }
   };
 
+  const deleteFile = async () => {
+    isDeleting.value = true;
+
+    if (
+      !confirm(
+        `Are you sure you want to delete the file "${name.value}"? This action cannot be undone.`
+      )
+    ) {
+      toast.info("File deletion cancelled");
+      isDeleting.value = false;
+      return;
+    }
+
+    try {
+      await $fetch<File_>(`/api/v1/files/${currentFile.value?._id}`, {
+        method: "DELETE",
+      });
+
+      toast.success("File deleted successfully");
+
+      await filesStore.refetchFiles();
+      await navigateTo(`/_/${useCurrentProjectId().value}`);
+    } catch (error) {
+      toast.error(`Failed to delete file: ${(error as Error).message}`);
+    } finally {
+      isDeleting.value = false;
+    }
+  };
+
   return {
     currentFile,
     name,
     enabledEndpoints,
     isSubmitting,
     submit,
+    isDeleting,
+    deleteFile,
   };
 }
