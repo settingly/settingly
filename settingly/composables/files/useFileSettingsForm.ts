@@ -28,12 +28,11 @@ export default function useFileSettingsForm() {
 
     try {
       const body = v.parse(UpdateFileSchema, {
-        id: currentFile.value?._id,
         name: name.value,
         enabledEndpoints: enabledEndpoints.value,
       });
 
-      await $fetch<File_>("/api/v1/files/update", {
+      await $fetch<File_>(`/api/v1/files/${currentFile.value?._id}`, {
         method: "PATCH",
         body: body,
       });

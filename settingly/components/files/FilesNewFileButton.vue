@@ -59,14 +59,13 @@ function useCreateFileForm() {
     isSubmitting.value = true;
 
     try {
-      debugger;
       const body = v.parse(CreateFileSchema, {
         name: fileName.value,
         projectId: currentProject.value?._id,
         enabledEndpoints: enabledEndpoints.value,
       });
 
-      $fetch("/api/v1/files/create-file", {
+      await $fetch<File_>("/api/v1/files", {
         method: "POST",
         body,
       })

@@ -1,6 +1,6 @@
 import { ProjectSchema } from "~/server/models/project";
 import * as v from "valibot";
-import { clerkClient } from "@clerk/nuxt/server";
+import crypto from "node:crypto";
 import { authenticate } from "~/server/utils/auth";
 import toMongooseUpdatable from "~/shared/utils/to-mongoose-updatable";
 import { UpdateFileSchema } from "~/shared/schemas/files";
@@ -8,9 +8,11 @@ import { UpdateFileSchema } from "~/shared/schemas/files";
 export default defineEventHandler(async (event) => {
   const { has, orgId, user } = await authenticate(event);
 
+  const fileId = getRouterParam(event, "id");
+
   const body = v.parse(UpdateFileSchema, await readBody(event));
 
-  const currentFile = (await FileSchema.findById(body.id)) as File_;
+  const currentFile = (await FileSchema.findById(fileId)) as File_;
 
   if (!currentFile) {
     return createError({
@@ -47,18 +49,47 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const newFile = await FileSchema.findByIdAndUpdate(
-    body.id,
-    {
-      $set: toMongooseUpdatable({
-        name: body.name,
-        enabledEndpoints: body.enabledEndpoints,
-      }),
-    },
-    { new: true }
-  );
+  let newFile;
+  if (body.enabledEndpoints || body.name) {
+    newFile = await FileSchema.findByIdAndUpdate(
+      fileId,
+      {
+        $set: toMongooseUpdatable({
+          name: body.name,
+          enabledEndpoints: body.enabledEndpoints,
+        }),
+      },
+      { new: true }
+    );
+  }
 
-  console.log("Updated file", newFile);
+  if (body.content) {
+    let contentAsJSON;
+    try {
+      contentAsJSON = JSON.parse(body.content);
+    } catch (error) {
+      return createError({
+        statusCode: 400,
+        statusMessage: "Invalid JSON",
+      });
+    }
+
+    const newVersion = {
+      id: crypto.randomBytes(16).toString("hex"),
+      content: body.content,
+      createdAt: new Date(),
+    };
+
+    newFile = await FileSchema.findByIdAndUpdate(
+      fileId,
+      {
+        $push: {
+          contentVersions: newVersion,
+        },
+      },
+      { new: true }
+    );
+  }
 
   setResponseStatus(event, 200, "File updated successfully");
 

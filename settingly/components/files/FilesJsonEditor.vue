@@ -56,7 +56,10 @@
 import { CopyIcon, SignatureIcon } from "lucide-vue-next";
 import { toast } from "vue-sonner";
 import * as v from "valibot";
-import { CreateFileContentVersionSchema } from "~/shared/schemas/files";
+import {
+  CreateFileContentVersionSchema,
+  UpdateFileSchema,
+} from "~/shared/schemas/files";
 
 const { refetchFiles } = useFilesStore();
 const { currentFile } = storeToRefs(useFilesStore());
@@ -117,13 +120,12 @@ const save = async () => {
     }
 
     try {
-      const body = v.parse(CreateFileContentVersionSchema, {
-        fileId: currentFile.value._id,
+      const body = v.parse(UpdateFileSchema, {
         content: formattedJson,
       });
 
-      const a = await $fetch("/api/v1/files/create-version", {
-        method: "POST",
+      await $fetch<File_>(`/api/v1/files/${currentFile.value._id}`, {
+        method: "PATCH",
         body,
       });
       toast.success("File updated successfully");
