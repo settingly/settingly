@@ -31,7 +31,7 @@ export default function useCreateProjectForm() {
     isSubmitting.value = true;
 
     try {
-      await $fetch("/api/v1/projects/create", {
+      await $fetch("/api/v1/projects", {
         method: "POST",
         body: {
           name: projectName.value,
@@ -46,7 +46,6 @@ export default function useCreateProjectForm() {
             isSubmitting.value = false;
             toast.success("Project created successfully!");
             await useProjectsStore().refetch(true);
-            await navigateTo(`/_/${response._data._id}`);
           }
         },
       });

@@ -23,14 +23,11 @@ export default function useProjectSettingsForm() {
     isSubmitting.value = true;
 
     try {
-      await $fetch("/api/v1/projects/update", {
+      await $fetch(`/api/v1/projects/${currentProject.value?._id}`, {
         method: "PATCH",
         body: {
-          id: currentProject.value?._id,
-          updates: {
-            name: name.value,
-            description: description.value,
-          },
+          name: name.value,
+          description: description.value,
         },
         onResponse: async ({ response }) => {
           if (response.ok) {

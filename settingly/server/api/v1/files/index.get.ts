@@ -4,7 +4,7 @@ import { authenticate } from "~/server/utils/auth";
 import { Project } from "~/shared/types/projects";
 
 import * as v from "valibot";
-
+// TODO: 1. Move this to a shared folder; 2. Move to route /files/[...projectId] 3. Add single file fetch endpoint in /files/[...projectId]/[...fileId]
 const ListFilesSchema = v.object({
   projectId: v.string(),
 });
