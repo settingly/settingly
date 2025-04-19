@@ -8,7 +8,7 @@
     @close="isUpdatingFile = false"
   >
     <template #title-action>
-      <SharedProtect permission="org:files:delete">
+      <SharedProtect group="org:member">
         <button type="button" class="icon-button-wrapper" @click="deleteFile">
           <TrashIcon class="w-4 h-4 !text-error" />
         </button>

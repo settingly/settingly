@@ -26,11 +26,15 @@ export default defineEventHandler(async (event) => {
       statusMessage:
         "Forbidden: You are not allowed to read files for this user",
     });
-  } else if (orgId && !has({ permission: "org:files:read" })) {
+  } else if (
+    orgId &&
+    !has({ role: "org:member" }) &&
+    !has({ role: "org:admin" })
+  ) {
     return createError({
       statusCode: 403,
       statusMessage:
-        "Forbidden: You do not have permission to read files for this organization",
+        "Forbidden: You have to be a member of the organization to read files",
     });
   }
 

@@ -1,5 +1,5 @@
 <template>
-  <SharedProtect permission="org:projects:create">
+  <SharedProtect group="org:admin">
     <button @click="isCreatingNewProject = true" class="button">
       New Project
     </button>

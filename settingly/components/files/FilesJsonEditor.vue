@@ -5,11 +5,6 @@
       @input="updateFromJson"
       class="w-full h-96 p-3 font-mono text-sm rounded-md border border-input focus:border-primary focus:ring-1 focus:ring-primary resize-none"
       spellcheck="false"
-      :disabled="
-        !useOrganization().membership.value?.permissions.includes(
-          'org:files:update'
-        )
-      "
     >
     </textarea>
 
@@ -23,7 +18,7 @@
         >
           <CopyIcon class="h-4 w-4" />
         </button>
-        <SharedProtect permission="org:files:update">
+        <SharedProtect group="org:member">
           <button
             @click="format"
             type="button"
@@ -35,7 +30,7 @@
         </SharedProtect>
       </div>
 
-      <SharedProtect permission="org:files:update">
+      <SharedProtect group="org:member">
         <div class="flex flex-row gap-3 items-center">
           <button
             @click="resetToUnsaved"

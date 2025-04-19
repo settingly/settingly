@@ -1,5 +1,5 @@
 <template>
-  <SharedProtect permission="org:files:create">
+  <SharedProtect group="org:member">
     <button @click="isCreatingNewFile = true" class="button">New File</button>
   </SharedProtect>
   <SharedDialog

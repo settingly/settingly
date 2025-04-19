@@ -55,7 +55,7 @@
     @close="toView = null"
   >
     <template #title-action>
-      <SharedProtect permission="org:tokens:delete">
+      <SharedProtect group="org:admin">
         <button
           class="icon-button-wrapper"
           @click="

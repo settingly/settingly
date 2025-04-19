@@ -25,13 +25,16 @@ export default defineEventHandler(async (event) => {
   if (orgId) {
     if (
       !has({
-        permission: "org:files:create",
+        role: "org:member",
+      }) &&
+      !has({
+        role: "org:admin",
       })
     ) {
       return createError({
         statusCode: 403,
         statusMessage:
-          "Forbidden: You do not have permission to create files for this organization",
+          "Forbidden: You have to be a member of the organization to create files",
       });
     }
   } else {

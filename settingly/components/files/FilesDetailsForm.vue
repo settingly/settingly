@@ -9,7 +9,7 @@
           {{ currentFile?.name }}
         </h3>
       </div>
-      <SharedProtect permission="org:files:update">
+      <SharedProtect group="org:member">
         <FilesSettingsButton />
       </SharedProtect>
     </div>

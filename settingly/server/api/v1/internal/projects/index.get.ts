@@ -15,13 +15,14 @@ export default defineEventHandler(async (event) => {
   } else {
     if (
       !has({
-        permission: "org:projects:read",
-      })
+        role: "org:member",
+      }) &&
+      !has({ role: "org:admin" })
     ) {
       return createError({
         statusCode: 403,
         statusMessage:
-          "Forbidden: You do not have permission to read projects for this organization",
+          "Forbidden: You have to be a member of the organization to view projects",
       });
     }
 

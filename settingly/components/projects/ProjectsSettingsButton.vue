@@ -1,5 +1,5 @@
 <template>
-  <SharedProtect permission="org:projects:update">
+  <SharedProtect group="org:admin">
     <div class="flex items-center justify-center w-12 h-12 rounded-lg">
       <NuxtLink
         class="block icon-button-wrapper"

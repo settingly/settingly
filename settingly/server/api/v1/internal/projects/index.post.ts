@@ -17,11 +17,11 @@ export default defineEventHandler(async (event) => {
       statusMessage:
         "Forbidden: You are not allowed to create projects for this user",
     });
-  } else if (orgId && !has({ permission: "org:projects:create" })) {
+  } else if (orgId && !has({ role: "org:admin" })) {
     return createError({
       statusCode: 403,
       statusMessage:
-        "Forbidden: You do not have permission to create projects for this organization",
+        "Forbidden: You have to be a admin of the organization to create projects",
     });
   }
 

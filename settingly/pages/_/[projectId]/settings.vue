@@ -12,7 +12,7 @@
       :hide-spinner="true"
     >
       <template #title-action>
-        <SharedProtect permission="org:projects:delete">
+        <SharedProtect group="org:admin">
           <button
             class="icon-button-wrapper"
             type="button"
@@ -60,7 +60,7 @@
         <SharedSpinner />
       </div>
 
-      <SharedProtect permission="org:tokens:read">
+      <SharedProtect group="org:admin">
         <div class="mt-6">
           <div>
             <h3 class="block text-sm font-medium text-gray-700">Tokens</h3>
@@ -71,7 +71,7 @@
           </div>
 
           <TokensTable />
-          <SharedProtect permission="org:tokens:create">
+          <SharedProtect group="org:admin">
             <TokensCreateButton />
           </SharedProtect>
         </div>

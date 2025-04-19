@@ -1,7 +1,15 @@
 <template>
   <Protect
     v-if="isInOrganization"
-    :permission="permission"
+    :condition="
+      (has) => {
+        if (group === 'org:member') {
+          return has({ role: 'org:member' }) || has({ role: 'org:admin' });
+        } else {
+          return has({ role: group });
+        }
+      }
+    "
     :fallback="fallback"
   >
     <slot></slot>
@@ -15,7 +23,7 @@
 const organizationData = useOrganization();
 
 defineProps<{
-  permission: string;
+  group: "org:member" | "org:admin";
   fallback?: string;
 }>();
 
