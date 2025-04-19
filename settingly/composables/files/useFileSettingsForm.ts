@@ -35,7 +35,7 @@ export default function useFileSettingsForm() {
       });
 
       await $fetch<File_>(
-        `/api/v1/projects/${currentFile.value?.projectId}/files/${currentFile.value?._id}`,
+        `/api/v1/internal/projects/${currentFile.value?.projectId}/files/${currentFile.value?._id}`,
         {
           method: "PATCH",
           body: body,
@@ -46,7 +46,11 @@ export default function useFileSettingsForm() {
 
       await filesStore.refetchFiles();
     } catch (error) {
-      toast.error(`Failed to update file: ${(error as Error).message}`);
+      toast.error(
+        `Failed to update file: ${parseReadableServerError(
+          (error as Error).message
+        )}`
+      );
     } finally {
       isSubmitting.value = false;
     }
@@ -67,7 +71,7 @@ export default function useFileSettingsForm() {
 
     try {
       await $fetch<File_>(
-        `/api/v1/projects/${currentFile.value?.projectId}/files/${currentFile.value?._id}`,
+        `/api/v1/internal/projects/${currentFile.value?.projectId}/files/${currentFile.value?._id}`,
         {
           method: "DELETE",
         }

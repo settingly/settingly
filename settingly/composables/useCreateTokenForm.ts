@@ -21,7 +21,7 @@ export default function useCreateTokenForm() {
       });
 
       const jwt = await $fetch<string>(
-        `/api/v1/projects/${useCurrentProjectId().value}/tokens`,
+        `/api/v1/internal/projects/${useCurrentProjectId().value}/tokens`,
         {
           method: "POST",
           body: body,

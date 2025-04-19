@@ -31,7 +31,7 @@ export default function useCreateProjectForm() {
     isSubmitting.value = true;
 
     try {
-      await $fetch("/api/v1/projects", {
+      await $fetch("/api/v1/internal/projects", {
         method: "POST",
         body: {
           name: projectName.value,

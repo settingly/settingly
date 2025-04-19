@@ -38,4 +38,10 @@ export default defineNuxtConfig({
       openAPI: true,
     },
   },
+
+  mongoose: {
+    options: {
+      autoIndex: true,
+    },
+  },
 });

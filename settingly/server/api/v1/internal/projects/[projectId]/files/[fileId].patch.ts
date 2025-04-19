@@ -41,6 +41,18 @@ export default defineEventHandler(async (event) => {
 
   let newFile;
   if (body.enabledEndpoints || body.name) {
+    const filesWithSameName = await FileSchema.find({
+      name: body.name,
+      projectId: projectId,
+    });
+
+    if (filesWithSameName.length > 0) {
+      return createError({
+        statusCode: 409,
+        statusMessage: "File with the same name already exists",
+      });
+    }
+
     newFile = await FileSchema.findByIdAndUpdate(
       fileId,
       {

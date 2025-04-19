@@ -8,6 +8,7 @@ export const FileSchema = defineMongooseModel<File_>(
     name: {
       type: String,
       required: true,
+      unique: true,
     },
 
     enabledEndpoints: {
@@ -60,6 +61,8 @@ export const FileSchema = defineMongooseModel<File_>(
   },
   {},
   (schema) => {
+    schema.index({ projectId: 1, name: 1 }, { unique: true });
+
     schema.pre("save", function (this: File_) {
       this.updatedAt = new Date();
     });

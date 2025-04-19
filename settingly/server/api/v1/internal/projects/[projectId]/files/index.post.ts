@@ -44,6 +44,18 @@ export default defineEventHandler(async (event) => {
     }
   }
 
+  const filesWithSameName = await FileSchema.find({
+    name: body.name,
+    projectId: body.projectId,
+  });
+
+  if (filesWithSameName.length > 0) {
+    return createError({
+      statusCode: 409,
+      statusMessage: "File with the same name already exists",
+    });
+  }
+
   let createdFile: File_ | null = null;
   try {
     createdFile = await FileSchema.create({

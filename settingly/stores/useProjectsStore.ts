@@ -15,7 +15,7 @@ export const useProjectsStore = defineStore("projects", () => {
       isLoading.value = true;
       lastOrgId.value = orgId;
 
-      projects.value = await $fetch<Project[]>("/api/v1/projects");
+      projects.value = await $fetch<Project[]>("/api/v1/internal/projects");
     } catch (err) {
       error.value = `Failed to fetch projects: ${(err as Error).message}`;
       lastOrgId.value = null;

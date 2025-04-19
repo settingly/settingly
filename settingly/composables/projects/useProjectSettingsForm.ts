@@ -14,7 +14,7 @@ export default function useProjectSettingsForm() {
     isSubmitting.value = true;
 
     try {
-      await $fetch(`/api/v1/projects/${currentProject.value?._id}`, {
+      await $fetch(`/api/v1/internal/projects/${currentProject.value?._id}`, {
         method: "PATCH",
         body: {
           name: name.value,
@@ -53,7 +53,7 @@ export default function useProjectSettingsForm() {
     }
 
     try {
-      await $fetch(`/api/v1/projects/${currentProject.value?._id}`, {
+      await $fetch(`/api/v1/internal/projects/${currentProject.value?._id}`, {
         method: "DELETE",
         onResponse: async ({ response }) => {
           if (response.ok) {

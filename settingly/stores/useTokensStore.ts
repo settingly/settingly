@@ -12,7 +12,7 @@ export const useTokensStore = defineStore("tokens", () => {
     isLoading.value = true;
     try {
       tokens.value = await $fetch<Token[]>(
-        `/api/v1/projects/${currentProjectId.value}/tokens`
+        `/api/v1/internal/projects/${currentProjectId.value}/tokens`
       );
       error.value = null;
     } catch (err) {
@@ -27,7 +27,7 @@ export const useTokensStore = defineStore("tokens", () => {
     isLoading.value = true;
     try {
       await $fetch(
-        `/api/v1/projects/${currentProjectId.value}/tokens/${tokenId}`,
+        `/api/v1/internal/projects/${currentProjectId.value}/tokens/${tokenId}`,
         { method: "DELETE" }
       );
       tokens.value = tokens.value.filter((t) => t._id !== tokenId);

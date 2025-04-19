@@ -68,7 +68,7 @@ function useCreateFileForm() {
       });
 
       await $fetch<File_>(
-        `/api/v1/projects/${currentProject.value?._id}/files`,
+        `/api/v1/internal/projects/${currentProject.value?._id}/files`,
         {
           method: "POST",
           body,
@@ -88,7 +88,7 @@ function useCreateFileForm() {
         .catch((error) => {
           isSubmitting.value = false;
 
-          toast.error((error as Error).message);
+          toast.error(parseReadableServerError((error as Error).message));
         });
     } catch (error) {
       isSubmitting.value = false;

@@ -14,7 +14,7 @@ export const useFilesStore = defineStore("files", () => {
     isLoading.value = true;
     try {
       const files_ = await $fetch<File_[]>(
-        `/api/v1/projects/${currentProjectId.value}/files`,
+        `/api/v1/internal/projects/${currentProjectId.value}/files`,
         {
           method: "GET",
         }

@@ -3,7 +3,7 @@
     <div class="flex items-center justify-center w-12 h-12 rounded-lg">
       <NuxtLink
         class="block icon-button-wrapper"
-        :to="`/_/${project?._id || ''}/settings`"
+        :to="project?._id ? `/_/${project._id}/settings` : '#'"
       >
         <SettingsIcon class="w-4 h-4" />
       </NuxtLink>

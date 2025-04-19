@@ -137,7 +137,7 @@ const save = async () => {
       });
 
       await $fetch<File_>(
-        `/api/v1/projects/${currentFile.value.projectId}/files/${currentFile.value._id}`,
+        `/api/v1/internal/projects/${currentFile.value.projectId}/files/${currentFile.value._id}`,
         {
           method: "PATCH",
           body,
