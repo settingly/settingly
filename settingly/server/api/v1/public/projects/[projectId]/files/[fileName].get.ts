@@ -36,7 +36,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  if (!tokenFromDb.projectId === payload.projectId) {
+  if (tokenFromDb.projectId !== payload.projectId) {
     return createError({
       statusCode: 401,
       statusMessage: "Unauthorized: Token does not belong to this project.",
