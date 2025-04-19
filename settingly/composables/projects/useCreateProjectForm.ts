@@ -46,6 +46,12 @@ export default function useCreateProjectForm() {
             isSubmitting.value = false;
             toast.success("Project created successfully!");
             await useProjectsStore().refetchProjects(true);
+
+            projectName.value = "";
+            description.value = "";
+            selectedOrganizationId.value = organization.value
+              ? organization.value.id
+              : user.value?.id;
           }
         },
       });

@@ -9,18 +9,18 @@ import { DeleteFileSchema } from "~/shared/schemas/files";
 export default defineEventHandler(async (event) => {
   const { user, orgId, has } = await authenticate(event);
 
-  const body = v.parse(DeleteFileSchema, getRouterParams(event));
+  const tokenId = getRouterParam(event, "tokenId");
 
-  const file = (await FileSchema.findById(body.id)) as File_;
+  const token = await TokenSchema.findById(tokenId);
 
-  if (!file) {
+  if (!token) {
     return createError({
       statusCode: 404,
-      statusMessage: "File not found",
+      statusMessage: "Token not found",
     });
   }
 
-  const project = (await ProjectSchema.findById(file.projectId)) as Project;
+  const project = (await ProjectSchema.findById(token.projectId)) as Project;
 
   if (!project) {
     return createError({
@@ -36,17 +36,17 @@ export default defineEventHandler(async (event) => {
     return createError({
       statusCode: 403,
       statusMessage:
-        "Forbidden: You are not allowed to delete files for this user",
+        "Forbidden: You are not allowed to delete tokens for this user",
     });
-  } else if (orgId && !has({ permission: "org:files:delete" })) {
+  } else if (orgId && !has({ permission: "org:tokens:delete" })) {
     return createError({
       statusCode: 403,
       statusMessage:
-        "Forbidden: You do not have permission to delete files for this organization",
+        "Forbidden: You do not have permission to delete tokens for this organization",
     });
   }
 
-  await FileSchema.deleteOne({
-    _id: body.id,
+  await TokenSchema.deleteOne({
+    _id: tokenId,
   });
 });

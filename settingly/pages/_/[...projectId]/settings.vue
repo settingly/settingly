@@ -60,15 +60,15 @@
 
       <div class="mt-6">
         <div>
-          <h3 class="block text-sm font-medium text-gray-700">Access Tokens</h3>
+          <h3 class="block text-sm font-medium text-gray-700">Tokens</h3>
           <p class="text-xs text-gray-500 max-w-md">
-            Please ensure the confidentiality of the access token, as it is
-            critical for authenticating your requests to the API.
+            Please ensure the confidentiality of the token, as it is critical
+            for authenticating your requests to the API.
           </p>
         </div>
 
-        <ProjectsAccessTokensTable />
-        <ProjectsCreateAccessTokenButton />
+        <TokensTable />
+        <TokensCreateButton />
       </div>
     </FormsBase>
   </div>

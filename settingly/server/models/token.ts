@@ -1,10 +1,10 @@
 import { defineMongooseModel } from "#nuxt/mongoose";
-import crypto from "node:crypto";
+import { Token } from "~/shared/types/tokens";
 
-export const AccessTokenSchema = defineMongooseModel<AccessToken>(
-  "AccessToken",
+export const TokenSchema = defineMongooseModel<Token>(
+  "Token",
   {
-    partialToken: {
+    token: {
       type: String,
       required: true,
     },
@@ -15,21 +15,19 @@ export const AccessTokenSchema = defineMongooseModel<AccessToken>(
         return new Date();
       },
     },
-
     name: {
       type: String,
       required: true,
     },
-    permissions: {
-      type: [String],
-      required: true,
-      default: () => {
-        return [];
-      },
-    },
+
     projectId: {
       type: String,
       required: true,
+    },
+    lastUsedAt: {
+      type: Date,
+      required: false,
+      default: null,
     },
   },
   {},

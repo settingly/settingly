@@ -32,10 +32,13 @@ export default function useFileSettingsForm() {
         enabledEndpoints: enabledEndpoints.value,
       });
 
-      await $fetch<File_>(`/api/v1/files/${currentFile.value?._id}`, {
-        method: "PATCH",
-        body: body,
-      });
+      await $fetch<File_>(
+        `/api/v1/projects/${currentFile.value?.projectId}/files/${currentFile.value?._id}`,
+        {
+          method: "PATCH",
+          body: body,
+        }
+      );
 
       toast.success("File updated successfully");
 
@@ -61,9 +64,12 @@ export default function useFileSettingsForm() {
     }
 
     try {
-      await $fetch<File_>(`/api/v1/files/${currentFile.value?._id}`, {
-        method: "DELETE",
-      });
+      await $fetch<File_>(
+        `/api/v1/projects/${currentFile.value?.projectId}/files/${currentFile.value?._id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       toast.success("File deleted successfully");
 

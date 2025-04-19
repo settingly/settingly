@@ -8,22 +8,12 @@ import { UpdateFileSchema } from "~/shared/schemas/files";
 export default defineEventHandler(async (event) => {
   const { has, orgId, user } = await authenticate(event);
 
-  const fileId = getRouterParam(event, "id");
+  const fileId = getRouterParam(event, "fileId");
+  const projectId = getRouterParam(event, "projectId");
 
   const body = v.parse(UpdateFileSchema, await readBody(event));
 
-  const currentFile = (await FileSchema.findById(fileId)) as File_;
-
-  if (!currentFile) {
-    return createError({
-      statusCode: 404,
-      statusMessage: "File not found",
-    });
-  }
-
-  const project = (await ProjectSchema.findById(
-    currentFile.projectId
-  )) as Project;
+  const project = (await ProjectSchema.findById(projectId)) as Project;
 
   if (!project) {
     return createError({

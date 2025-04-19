@@ -52,7 +52,7 @@ function useCreateFileForm() {
   const isSubmitting = ref(false);
 
   const { currentProject } = storeToRefs(useProjectsStore());
-  const { refetch: refetchProjects } = useProjectsStore();
+  const { refetchProjects } = useProjectsStore();
   const { refetchFiles } = useFilesStore();
 
   const submit = async () => {
@@ -65,10 +65,13 @@ function useCreateFileForm() {
         enabledEndpoints: enabledEndpoints.value,
       });
 
-      await $fetch<File_>("/api/v1/files", {
-        method: "POST",
-        body,
-      })
+      await $fetch<File_>(
+        `/api/v1/projects/${currentProject.value?._id}/files`,
+        {
+          method: "POST",
+          body,
+        }
+      )
         .then(async () => {
           isSubmitting.value = false;
           isCreatingNewFile.value = false;

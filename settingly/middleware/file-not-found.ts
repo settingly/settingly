@@ -10,7 +10,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
   const { files } = storeToRefs(useFilesStore());
 
-  if (!files.value.find((file) => file._id === fileId)) {
+  if (!files.value.find((file: File_) => file._id === fileId)) {
     toast.warning("The file you are looking for does not exist");
     return navigateTo(`/_/${projectId.value}`);
   }

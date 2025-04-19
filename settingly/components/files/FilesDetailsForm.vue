@@ -39,6 +39,17 @@
         >
           UI Editor
         </button>
+        <button
+          @click="activeTab = 'api'"
+          class="py-2 px-1 text-sm font-medium relative -mb-px"
+          :class="
+            activeTab === 'api'
+              ? 'text-primary border-b-2 border-primary'
+              : ' hover:text-foreground'
+          "
+        >
+          API Reference
+        </button>
       </div>
     </div>
 
@@ -59,12 +70,33 @@
 
       <!-- JSON Editor -->
       <FilesJsonEditor v-if="activeTab === 'json'" />
+
+      <!-- API Reference -->
+      <div v-if="activeTab === 'api'" class="space-y-4">
+        <p class="text-tdark"></p>
+
+        <h4 class="text-lg font-semibold">API Status</h4>
+        <ul>
+          <li class="flex flex-row items-center gap-2">
+            <BracesIcon class="h-4 w-4 text-success" />
+            <span class="text-sm">
+              Rest API (<i>/api/files/...</i>): Available</span
+            >
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { SofaIcon, SettingsIcon } from "lucide-vue-next";
+import {
+  SofaIcon,
+  SettingsIcon,
+  CloudIcon,
+  Brackets,
+  BracesIcon,
+} from "lucide-vue-next";
 
 const { currentFile } = storeToRefs(useFilesStore());
 

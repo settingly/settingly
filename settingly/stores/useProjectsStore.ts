@@ -1,5 +1,3 @@
-import { debounce } from "perfect-debounce"; // 34 B ES‑module, kein Lodash‑Monster
-
 export const useProjectsStore = defineStore("projects", () => {
   const projects = ref<Project[]>([]);
   const isLoading = ref(false);

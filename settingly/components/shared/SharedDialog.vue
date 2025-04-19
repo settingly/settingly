@@ -36,17 +36,7 @@
                 >
                   {{ title }}
                 </DialogTitle>
-                <div v-if="titleAction" class="flex items-center">
-                  <button
-                    @click="emit('titel-action-clicked')"
-                    class="icon-button-wrapper"
-                  >
-                    <component
-                      :is="titleAction?.icon"
-                      :class="titleAction?.style"
-                    />
-                  </button>
-                </div>
+                <slot name="title-action" />
               </div>
               <div class="mt-2">
                 <slot />
@@ -71,15 +61,10 @@ import {
 const { open } = defineProps<{
   title: string;
   open: boolean;
-  titleAction?: {
-    icon: object;
-    style?: string;
-  };
 }>();
 
 const emit = defineEmits<{
   (e: "close"): void;
-  (e: "titel-action-clicked"): void;
 }>();
 
 function closeModal() {

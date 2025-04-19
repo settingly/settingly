@@ -8,7 +8,7 @@ import { UpdateProjectSchema } from "~/shared/schemas/projects";
 export default defineEventHandler(async (event) => {
   const { has, orgId, user } = await authenticate(event);
 
-  const projectId = getRouterParam(event, "id");
+  const projectId = getRouterParam(event, "projectId");
   const body = v.parse(UpdateProjectSchema, await readBody(event));
 
   const currentProject = (await ProjectSchema.findById(projectId)) as Project;

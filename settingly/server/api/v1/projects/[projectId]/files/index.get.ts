@@ -1,3 +1,4 @@
+import { clerkClient } from "@clerk/nuxt/server";
 import { ProjectSchema } from "~/server/models/project";
 import { authenticate } from "~/server/utils/auth";
 import { Project } from "~/shared/types/projects";
@@ -5,7 +6,7 @@ import { Project } from "~/shared/types/projects";
 export default defineEventHandler(async (event) => {
   const { user, orgId, has } = await authenticate(event);
 
-  const projectId = getRouterParam(event, "id");
+  const projectId = getRouterParam(event, "projectId");
 
   const project = (await ProjectSchema.findById(projectId)) as Project;
 
@@ -23,21 +24,19 @@ export default defineEventHandler(async (event) => {
     return createError({
       statusCode: 403,
       statusMessage:
-        "Forbidden: You are not allowed to delete projects for this user",
+        "Forbidden: You are not allowed to read files for this user",
     });
-  } else if (orgId && !has({ permission: "org:projects:delete" })) {
+  } else if (orgId && !has({ permission: "org:files:read" })) {
     return createError({
       statusCode: 403,
       statusMessage:
-        "Forbidden: You do not have permission to delete projects for this organization",
+        "Forbidden: You do not have permission to read files for this organization",
     });
   }
 
-  await ProjectSchema.deleteOne({
-    _id: projectId,
+  const files = await FileSchema.find({
+    projectId: projectId,
   });
 
-  await FileSchema.deleteMany({
-    projectId,
-  });
+  return files;
 });

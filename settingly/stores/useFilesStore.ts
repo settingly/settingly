@@ -13,12 +13,12 @@ export const useFilesStore = defineStore("files", () => {
   async function fetchFiles(projectId: string = "") {
     isLoading.value = true;
     try {
-      const files_ = await $fetch<File_[]>("/api/v1/files", {
-        method: "GET",
-        params: {
-          projectId: currentProjectId.value || projectId,
-        },
-      });
+      const files_ = await $fetch<File_[]>(
+        `/api/v1/projects/${currentProjectId.value}/files`,
+        {
+          method: "GET",
+        }
+      );
       files.value = files_;
     } catch (err) {
       error.value = `Failed to fetch files: ${(err as Error).message}`;

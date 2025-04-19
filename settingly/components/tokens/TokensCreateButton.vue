@@ -1,9 +1,15 @@
 <template>
   <button
-    @click="isCreatingNewToken = true"
+    @click="
+      () => {
+        reset();
+        isCreatingNewToken = true;
+      }
+    "
+    type="button"
     class="text-primary flex flex-row gap-1 items-center"
   >
-    <PlusCircleIcon class="w-4 h-4 text-primary" />
+    <PlusCircleIcon class="w-4 h-4 !text-primary" />
     <span class="text-sm"> Create New Token </span>
   </button>
   <SharedDialog
@@ -11,7 +17,11 @@
     :open="isCreatingNewToken"
     @close="onClose"
   >
-    <form v-if="generatedToken === null" class="flex flex-col gap-4">
+    <form
+      v-if="generatedToken === null"
+      class="flex flex-col gap-4"
+      @submit.prevent="submit"
+    >
       <FormsInput
         id="tokenName"
         label="Token Name"
@@ -19,29 +29,14 @@
         placeholder="Enter token name"
         class="mt-4"
         required
+        v-model="name"
       />
-      <fieldset>
-        <label class="block text-sm font-medium text-gray-800">
-          Select Permissions
-        </label>
-        <div class="mt-2 flex flex-col gap-1">
-          <div
-            v-for="permission in ACCESS_TOKEN_PERMISSIONS"
-            class="flex items-center"
-          >
-            <input
-              id="readOnly"
-              type="checkbox"
-              name="permission"
-              value="read-only"
-              class="h-4 w-4 text-primary border-gray-300 rounded accent-primary"
-            />
-            <label for="readOnly" class="ml-2 block text-sm text-gray-700">{{
-              permission
-            }}</label>
-          </div>
-        </div>
-      </fieldset>
+
+      <FormsCheckboxList
+        label="Select Permissions"
+        :options="TOKEN_PERMISSIONS"
+        v-model="permissions"
+      />
       <div class="flex flex-row gap-3">
         <button type="submit" class="button">Create</button>
         <button
@@ -55,11 +50,12 @@
     </form>
     <div v-else>
       <p class="text-xs text-gray-500 max-w-md">
-        You can only see this access token once. Store it safely.
+        This is your new token. You can only see it once, so store it safely. It
+        will be valid for 90 days.
       </p>
       <div class="mt-6">
         <label :for="id" class="block text-sm font-medium text-gray-700">
-          Access Token
+          Token
         </label>
         <input
           v-model="generatedToken"
@@ -112,6 +108,14 @@ function onClose() {
   }, 300);
 }
 
-const { generatedToken, canViewGeneratedToken, copyToken, wasCopied, reset } =
-  useCreateTokenForm();
+const {
+  generatedToken,
+  canViewGeneratedToken,
+  copyToken,
+  wasCopied,
+  reset,
+  permissions,
+  submit,
+  name,
+} = useCreateTokenForm();
 </script>

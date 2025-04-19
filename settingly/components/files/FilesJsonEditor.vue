@@ -124,10 +124,13 @@ const save = async () => {
         content: formattedJson,
       });
 
-      await $fetch<File_>(`/api/v1/files/${currentFile.value._id}`, {
-        method: "PATCH",
-        body,
-      });
+      await $fetch<File_>(
+        `/api/v1/projects/${currentFile.value.projectId}/files/${currentFile.value._id}`,
+        {
+          method: "PATCH",
+          body,
+        }
+      );
       toast.success("File updated successfully");
 
       await refetchFiles();

@@ -7,7 +7,12 @@
     :open="isCreatingNewProject"
     title="Create New Project"
   >
-    <form @submit.prevent="submit" class="space-y-4">
+    <form
+      @submit.prevent="
+        async () => await submit().then(() => (isCreatingNewProject = false))
+      "
+      class="space-y-4"
+    >
       <FormsInput
         v-model="projectName"
         type="text"
@@ -30,13 +35,19 @@
       />
 
       <div class="flex flex-row justify-end gap-2">
-        <button class="button-ghost" @click="isCreatingNewProject = false">
+        <button
+          v-if="!isSubmitting"
+          class="button-ghost"
+          @click="isCreatingNewProject = false"
+        >
           Cancel
         </button>
-        <button class="button" type="submit">Create</button>
-      </div>
-    </form></SharedDialog
-  >
+        <button v-if="!isSubmitting" class="button" type="submit">
+          Create
+        </button>
+        <SharedSpinner v-if="isSubmitting" />
+      </div></form
+  ></SharedDialog>
 </template>
 
 <script setup lang="ts">

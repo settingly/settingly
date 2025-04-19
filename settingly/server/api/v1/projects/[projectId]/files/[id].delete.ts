@@ -4,17 +4,15 @@ import { authenticate } from "~/server/utils/auth";
 import { Project } from "~/shared/types/projects";
 
 import * as v from "valibot";
-// TODO: 1. Move this to a shared folder; 2. Move to route /files/[...projectId] 3. Add single file fetch endpoint in /files/[...projectId]/[...fileId]
-const ListFilesSchema = v.object({
-  projectId: v.string(),
-});
+import { DeleteFileSchema } from "~/shared/schemas/files";
 
 export default defineEventHandler(async (event) => {
   const { user, orgId, has } = await authenticate(event);
 
-  const query = v.parse(ListFilesSchema, getQuery(event));
+  const projectId = getRouterParam(event, "projectId");
+  const fileId = getRouterParam(event, "id");
 
-  const project = (await ProjectSchema.findById(query.projectId)) as Project;
+  const project = (await ProjectSchema.findById(projectId)) as Project;
 
   if (!project) {
     return createError({
@@ -30,19 +28,17 @@ export default defineEventHandler(async (event) => {
     return createError({
       statusCode: 403,
       statusMessage:
-        "Forbidden: You are not allowed to read files for this user",
+        "Forbidden: You are not allowed to delete files for this user",
     });
-  } else if (orgId && !has({ permission: "org:files:read" })) {
+  } else if (orgId && !has({ permission: "org:files:delete" })) {
     return createError({
       statusCode: 403,
       statusMessage:
-        "Forbidden: You do not have permission to read files for this organization",
+        "Forbidden: You do not have permission to delete files for this organization",
     });
   }
 
-  const files = await FileSchema.find({
-    projectId: query.projectId,
+  await FileSchema.deleteOne({
+    _id: fileId,
   });
-
-  return files;
 });
