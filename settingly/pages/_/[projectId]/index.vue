@@ -13,18 +13,27 @@ const fileId = useCurrentFileId();
 watch(
   () => useFilesStore().currentFile,
   (newFile) => {
+    const { files } = useFilesStore();
+
+    if (
+      useCurrentFileId().value &&
+      !files.find((file) => file._id === useCurrentFileId().value)
+    ) {
+      navigateTo(`/_/${useCurrentProjectId().value}`);
+    }
+
     if (newFile) {
       useHead({
         title: `Settingly - ${useFilesStore().currentFile?.name} (File)`,
       });
     }
   },
-  { immediate: true }
+  { immediate: true, deep: true }
 );
 
 watch(
   () => useProjectsStore().currentProject,
-  (newProject) => {
+  async (newProject) => {
     if (newProject && !useFilesStore().currentFile) {
       useHead({
         title: `Settingly - ${

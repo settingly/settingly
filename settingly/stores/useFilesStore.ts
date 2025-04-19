@@ -21,6 +21,9 @@ export const useFilesStore = defineStore("files", () => {
       );
       files.value = files_;
     } catch (err) {
+      if ((err as any).status) {
+        await navigateTo(`/_`);
+      }
       error.value = `Failed to fetch files: ${(err as Error).message}`;
     }
 
