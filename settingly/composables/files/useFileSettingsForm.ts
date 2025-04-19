@@ -12,15 +12,11 @@ export default function useFileSettingsForm() {
   const { currentFile } = storeToRefs(filesStore);
 
   const name = ref<string>(currentFile.value?.name || "");
-  const enabledEndpoints = ref<("rest" | "graphql")[]>(
-    currentFile.value?.enabledEndpoints || []
-  );
 
   watch(
     () => currentFile.value,
     (newFile) => {
       name.value = newFile?.name || "";
-      enabledEndpoints.value = newFile?.enabledEndpoints || [];
     },
     { deep: true }
   );
@@ -31,7 +27,6 @@ export default function useFileSettingsForm() {
     try {
       const body = v.parse(UpdateFileSchema, {
         name: name.value,
-        enabledEndpoints: enabledEndpoints.value,
       });
 
       await $fetch<File_>(
@@ -91,7 +86,6 @@ export default function useFileSettingsForm() {
   return {
     currentFile,
     name,
-    enabledEndpoints,
     isSubmitting,
     submit,
     isDeleting,

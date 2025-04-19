@@ -1,12 +1,12 @@
 <template>
   <div class="mx-auto max-w-4xl py-36">
     <div class="mb-6">
-      <h1 class="text-4xl font-bold text-tdark">Privacy Policy</h1>
+      <h1 class="text-4xl font-bold text-dark">Privacy Policy</h1>
 
-      <span class="text-sm text-tdark">Last updated: April 18, 2025</span>
+      <span class="text-sm text-dark">Last updated: April 18, 2025</span>
     </div>
 
-    <div class="space-y-8 text-tdark">
+    <div class="space-y-8 text-dark">
       <!-- Introduction Section -->
       <section class="space-y-4">
         <p>
@@ -27,7 +27,7 @@
 
       <!-- Information Collection Section -->
       <section>
-        <h2 class="text-2xl font-semibold mb-4 text-tdark">
+        <h2 class="text-2xl font-semibold mb-4 text-dark">
           Information Collection and Use
         </h2>
         <h3 class="text-xl font-semibold mb-2 mt-5">Data We Collect</h3>
@@ -62,7 +62,7 @@
       <!-- Third Party Access, Services & International Data Transfer Section -->
 
       <section>
-        <h2 class="text-2xl font-semibold mb-4 text-tdark">
+        <h2 class="text-2xl font-semibold mb-4 text-dark">
           Third Party Access, Services & International Data Transfer
         </h2>
         <p class="mb-1">
@@ -140,7 +140,7 @@
       <!-- User Rights -->
 
       <section>
-        <h2 class="text-2xl font-semibold mb-4 text-tdark">User Rights</h2>
+        <h2 class="text-2xl font-semibold mb-4 text-dark">User Rights</h2>
         <p>
           You have the right to access, rectify, erase, or object to the
           processing of your data. Please contact
@@ -151,7 +151,7 @@
 
       <!-- Data Retention -->
       <section>
-        <h2 class="text-2xl font-semibold mb-4 text-tdark">Data Retention</h2>
+        <h2 class="text-2xl font-semibold mb-4 text-dark">Data Retention</h2>
         <p>
           We retain your data as long as you use the Application and for a
           specified period thereafter to comply with legal obligations. If you
@@ -163,7 +163,7 @@
       <!-- Children's Privacy -->
 
       <section>
-        <h2 class="text-2xl font-semibold mb-4 text-tdark">
+        <h2 class="text-2xl font-semibold mb-4 text-dark">
           Children's Privacy
         </h2>
         <p>
@@ -177,7 +177,7 @@
       <!-- Security -->
 
       <section>
-        <h2 class="text-2xl font-semibold mb-4 text-tdark">Security</h2>
+        <h2 class="text-2xl font-semibold mb-4 text-dark">Security</h2>
         <p>
           We implement a variety of security measures to maintain the safety of
           your personal information, including encryption, access controls, and
@@ -187,7 +187,7 @@
 
       <!-- Your Consent -->
       <section>
-        <h2 class="text-2xl font-semibold mb-4 text-tdark">Your Consent</h2>
+        <h2 class="text-2xl font-semibold mb-4 text-dark">Your Consent</h2>
         <p>
           By using the Application, you consent to the processing of your
           information as outlined in this Privacy Policy, including any
@@ -197,7 +197,7 @@
 
       <!-- Changes to Privacy Policy -->
       <section>
-        <h2 class="text-2xl font-semibold mb-4 text-tdark">
+        <h2 class="text-2xl font-semibold mb-4 text-dark">
           Changes to Privacy Policy
         </h2>
         <p>

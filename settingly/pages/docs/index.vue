@@ -4,6 +4,30 @@
       <h1 class="text-4xl font-semibold">Documentation</h1>
     </div>
 
+    <div class="prose">
+      <h2>What is Settingly?</h2>
+      <p>
+        Settingly is a platform offering various server-side utilities for
+        storage, for example a simple cache, configuration storage and logging.
+        We prioritize data privacy, simplicity, and performance.
+      </p>
+      <h2>Key Features</h2>
+      <ul>
+        <li>
+          <strong> JSON-based configuration storage </strong>: Store and manage
+          your configuration data in a structured JSON format.
+        </li>
+        <li>
+          <strong> RESTful API </strong>: Access and manipulate your data using
+          a simple RESTful API.
+        </li>
+        <li>
+          <strong> Projects & Organizations </strong>: Organize your data into
+          projects and manage them within organizations.
+        </li>
+      </ul>
+    </div>
+    <hr class="my-16" />
     <div class="flex flex-col space-y-12">
       <div v-for="category in categories" class="flex flex-col">
         <h2 class="text-2xl font-semibold mb-4">
@@ -15,7 +39,7 @@
           <NuxtLink
             v-for="(page, index) in category.pages"
             :key="index"
-            :to="`/docs/${page.stem}`"
+            :to="`/docs/${category.slug}/${page.meta.slug}`"
             class="block rounded-lg border shadow-sm overflow-hidden transition-all duration-200 hover:shadow-md max-w-md"
           >
             <div class="flex flex-col space-y-1.5 p-6">
@@ -32,23 +56,5 @@
 </template>
 
 <script setup lang="ts">
-const { data: pages } = await useAsyncData(() =>
-  queryCollection("content").all()
-);
-
-const categories = computed(() => {
-  return [...new Set(pages.value?.map((page) => page.stem.split("/")[0]))].map(
-    (categoryName) => {
-      return {
-        name: categoryName
-          ? categoryName?.at(0)?.toUpperCase() + categoryName?.slice(1)
-          : "",
-        slug: categoryName,
-        pages: pages.value?.filter((page) => {
-          return page.stem.startsWith(categoryName + "/");
-        }),
-      };
-    }
-  );
-});
+const { categories } = await useCategories();
 </script>

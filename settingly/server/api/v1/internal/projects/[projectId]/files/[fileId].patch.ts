@@ -40,7 +40,7 @@ export default defineEventHandler(async (event) => {
   }
 
   let newFile;
-  if (body.enabledEndpoints || body.name) {
+  if (body.name) {
     const filesWithSameName = await FileSchema.find({
       name: body.name,
       projectId: projectId,
@@ -58,7 +58,6 @@ export default defineEventHandler(async (event) => {
       {
         $set: toMongooseUpdatable({
           name: body.name,
-          enabledEndpoints: body.enabledEndpoints,
         }),
       },
       { new: true }

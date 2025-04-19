@@ -11,12 +11,6 @@ export const FileSchema = defineMongooseModel<File_>(
       unique: true,
     },
 
-    enabledEndpoints: {
-      type: [String],
-      enum: ["rest", "graphql"],
-      required: true,
-      default: [],
-    },
     contentVersions: {
       type: [
         {

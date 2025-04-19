@@ -5,8 +5,8 @@ export default {
       colors: {
         primary: "#bf32d1",
         secondary: "#fc993a",
-        tdark: "#1e293b",
-        tlight: "#ffffff",
+        dark: "#1e293b",
+        body: "#637381",
         error: "#dc2626",
         success: "#22c55e",
         warning: "#fbbf24",
@@ -18,5 +18,5 @@ export default {
     },
   },
 
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };

@@ -20,13 +20,6 @@
         Allowed Characters: a-z, A-Z, 0-9, -, _
       </p>
 
-      <FormsCheckboxList
-        class="mt-4"
-        label="Enabled Endpoints"
-        :options="['Rest', 'GraphQL']"
-        v-model="enabledEndpoints"
-      />
-
       <div class="mt-6 flex flex-row-reverse items-center gap-2">
         <button v-if="!isSubmitting" class="button" type="submit">
           Create
@@ -45,12 +38,10 @@ import { CreateFileSchema } from "~/shared/schemas/files";
 
 const isCreatingNewFile = ref(false);
 
-const { fileName, enabledEndpoints, isSubmitting, submit } =
-  useCreateFileForm();
+const { fileName, isSubmitting, submit } = useCreateFileForm();
 
 function useCreateFileForm() {
   const fileName = ref("");
-  const enabledEndpoints = ref<string[]>([]);
   const isSubmitting = ref(false);
 
   const { currentProject } = storeToRefs(useProjectsStore());
@@ -64,7 +55,6 @@ function useCreateFileForm() {
       const body = v.parse(CreateFileSchema, {
         name: fileName.value,
         projectId: currentProject.value?._id,
-        enabledEndpoints: enabledEndpoints.value,
       });
 
       await $fetch<File_>(
@@ -81,7 +71,6 @@ function useCreateFileForm() {
           toast.success("File created successfully!");
 
           fileName.value = "";
-          enabledEndpoints.value = [];
 
           await refetchFiles();
         })
@@ -103,7 +92,6 @@ function useCreateFileForm() {
 
   return {
     fileName,
-    enabledEndpoints,
     isSubmitting,
     submit,
   };

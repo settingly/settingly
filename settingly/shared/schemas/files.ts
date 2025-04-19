@@ -8,19 +8,13 @@ const fileNameSchema = v.pipe(
   )
 );
 
-const enabledEndpointsSchema = v.array(
-  v.union([v.literal("rest"), v.literal("graphql")])
-);
-
 export const CreateFileSchema = v.object({
   name: fileNameSchema,
   projectId: v.string(),
-  enabledEndpoints: enabledEndpointsSchema,
 });
 
 export const UpdateFileSchema = v.object({
   name: v.optional(fileNameSchema),
-  enabledEndpoints: v.optional(enabledEndpointsSchema),
   content: v.optional(v.string()),
 });
 

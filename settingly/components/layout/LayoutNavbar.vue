@@ -22,14 +22,19 @@
             >
               <ul class="space-x-8 flex flex-row">
                 <template v-for="(item, index) in navLinkItems" :key="index">
-                  <li v-if="item !== null">
-                    <a
+                  <li
+                    v-if="item !== null"
+                    class="flex flex-row gap-2 items-center text-gray-600 hover:text-gray-800"
+                  >
+                    <component :is="item.icon" class="w-5 h-5 !text-inherit" />
+                    <NuxtLink
                       v-if="item.to"
-                      :href="item.to"
-                      class="block text-base font-medium text-gray-800 hover:text-gray-600 whitespace-nowrap"
+                      :target="item.target"
+                      :to="item.to"
+                      class="block text-base font-medium !text-inherit whitespace-nowrap"
                     >
                       {{ item.text }}
-                    </a>
+                    </NuxtLink>
                   </li>
                 </template>
               </ul>
@@ -67,13 +72,13 @@
         <template v-for="(item, index) in navLinkItems" :key="index">
           <li v-if="item !== null" class="flex flex-row items-center gap-2">
             <component :is="item.icon" class="w-5 h-5 !text-inherit" />
-            <a
+            <NuxtLink
               v-if="item.to"
               :href="item.to"
               class="block text-base text-gray-800 hover:text-gray-600 whitespace-nowrap"
             >
               {{ item.text }}
-            </a>
+            </NuxtLink>
           </li>
         </template>
       </ul>
@@ -134,24 +139,37 @@ const navLinkItems = computed(() => {
             text: `Project Overview`,
             to: `/_/${currentProjectId.value}`,
             icon: CompassIcon,
+            target: "_self",
           }
         : null,
       {
         text: "Documentation",
         to: "/docs",
         icon: BookIcon,
+        target: "_self",
       },
       {
         text: "Feedback",
         to: "javascript:void(0)",
         icon: HelpingHandIcon,
+        target: "_self",
       },
     ];
   } else {
     return [
-      { text: "Documentation", to: "javascript:void(0)", icon: BookIcon },
-      { text: "Installation", to: "javascript:void(0)", icon: DownloadIcon },
-      { text: "Source Code", to: "javascript:void(0)", icon: CodeXmlIcon },
+      { text: "Documentation", to: "/docs", icon: BookIcon },
+      {
+        text: "Installation",
+        to: "/docs/installation/installation-overview",
+        icon: DownloadIcon,
+        target: "_self",
+      },
+      {
+        text: "Source Code",
+        to: "https://github.com/settingly/settingly",
+        target: "_blank",
+        icon: CodeXmlIcon,
+      },
     ];
   }
 });

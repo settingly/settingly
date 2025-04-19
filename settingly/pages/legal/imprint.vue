@@ -1,13 +1,13 @@
 <template>
   <div class="mx-auto max-w-4xl py-36">
-    <h1 class="text-4xl font-bold mb-8 text-tdark">
+    <h1 class="text-4xl font-bold mb-8 text-dark">
       Imprint & Legal Information
     </h1>
 
-    <div class="space-y-8 text-tdark">
+    <div class="space-y-8 text-dark">
       <!-- Imprint Section -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-semibold mb-4 text-tdark">
+        <h2 class="text-2xl font-semibold mb-4 text-dark">
           Information according to § 5 TMG
         </h2>
         <p>
@@ -31,7 +31,7 @@
 
       <!-- Disclaimer Section -->
       <section>
-        <h2 class="text-2xl font-semibold mb-4 text-tdark">Disclaimer</h2>
+        <h2 class="text-2xl font-semibold mb-4 text-dark">Disclaimer</h2>
         <h3 class="text-xl font-semibold mb-2 mt-5">Liability for Contents</h3>
         <p>
           The contents of our pages were created with the utmost care. However,
@@ -64,7 +64,7 @@
 
       <!-- Copyright Section -->
       <section>
-        <h2 class="text-2xl font-semibold mb-4 text-tdark">Copyright</h2>
+        <h2 class="text-2xl font-semibold mb-4 text-dark">Copyright</h2>
         <p>
           The content and works created by the site operators on these pages are
           subject to German copyright law. The reproduction, editing,

@@ -16,7 +16,7 @@
           <a
             v-if="item.to"
             :href="item.to"
-            class="flex flex-row items-center gap-2 text-base font-medium text-tdark hover:text-primary whitespace-nowrap"
+            class="flex flex-row items-center gap-2 text-base font-medium text-dark hover:text-primary whitespace-nowrap"
           >
             <component :is="item.icon" class="w-5 h-5 !text-inherit" />
             <span>{{ item.text }}</span>

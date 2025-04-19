@@ -12,7 +12,7 @@ const servicesData = ref([
     icon: SettingsIcon,
     title: "Configuration Storage",
     paragraph:
-      "Empower your projects with seamless configuration management that scales with your business.",
+      "Configuration sharing between microservices made easy. Store and manage your configurations effortlessly.",
     to: "/#",
     soon: false,
   },
@@ -83,11 +83,17 @@ const servicesData = ref([
                   <span v-if="service.soon">Coming Soon</span>
                   <span v-else> Try it Now </span>
                 </p>
-                <h3 class="mb-4 text-2xl font-bold">
+                <h3
+                  class="mb-4 text-2xl font-bold"
+                  :class="{ 'blur-sm select-none': service.soon }"
+                >
                   {{ service.title }}
                 </h3>
 
-                <p class="mb-6 text-body-color">
+                <p
+                  class="mb-6 text-body-color"
+                  :class="{ 'blur-sm select-none': service.soon }"
+                >
                   {{ service.paragraph }}
                 </p>
               </div>

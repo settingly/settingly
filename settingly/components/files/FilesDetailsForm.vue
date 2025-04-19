@@ -73,7 +73,7 @@
 
       <!-- API Reference -->
       <div v-if="activeTab === 'api'" class="space-y-4">
-        <p class="text-tdark"></p>
+        <p class="text-dark"></p>
 
         <h4 class="text-lg font-semibold">API Status</h4>
         <ul>

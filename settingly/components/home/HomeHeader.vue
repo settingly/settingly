@@ -6,8 +6,8 @@
       Settingly
     </h1>
     <h2 class="text-2xl max-w-xl text-center">
-      Streamline, control, and elevate your server-side utilities – from system
-      memory to diagnostics and configurations, all in one smart platform.
+      Streamline, control, and elevate your server-side utilities – all in one
+      smart platform.
     </h2>
     <div class="mt-6 grid grid-rows-1 grid-cols-2 gap-5">
       <NuxtLink

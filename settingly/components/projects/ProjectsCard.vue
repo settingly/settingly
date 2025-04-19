@@ -36,11 +36,16 @@
 </template>
 
 <script lang="ts" setup>
-import { FolderIcon, UsersIcon, Settings } from "lucide-vue-next";
+import {
+  FolderIcon,
+  UsersIcon,
+  Settings,
+  PiIcon,
+  CopyIcon,
+} from "lucide-vue-next";
+import { toast } from "vue-sonner";
 
 defineProps<{
   project: Project;
 }>();
-
-// Run immediately and on user changes
 </script>

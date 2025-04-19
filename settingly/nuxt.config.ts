@@ -44,4 +44,14 @@ export default defineNuxtConfig({
       autoIndex: true,
     },
   },
+
+  content: {
+    build: {
+      markdown: {
+        highlight: {
+          theme: "github-dark-dimmed",
+        },
+      },
+    },
+  },
 });

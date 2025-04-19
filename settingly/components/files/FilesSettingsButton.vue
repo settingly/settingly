@@ -34,22 +34,6 @@
         Allowed Characters: a-z, A-Z, 0-9, -, _
       </p>
 
-      <FormsCheckboxList
-        class="mt-4"
-        label="Enabled Endpoints"
-        :options="['Rest', 'GraphQL']"
-        v-model="enabledEndpoints"
-      />
-
-      <p
-        class="text-xs text-error max-w-md mt-2"
-        v-if="enabledEndpoints.length === 0"
-      >
-        It looks like neither the Rest nor GraphQL endpoints are enabled for
-        this file. This means that the file will not be accessible via any
-        endpoint.
-      </p>
-
       <br />
 
       <div class="flex flex-row justify-end mt-6 gap-2">
@@ -71,7 +55,7 @@ import { SettingsIcon, TrashIcon } from "lucide-vue-next";
 
 const { currentFile } = storeToRefs(useFilesStore());
 
-const { isSubmitting, name, enabledEndpoints, submit, isDeleting, deleteFile } =
+const { isSubmitting, name, submit, isDeleting, deleteFile } =
   useFileSettingsForm();
 
 const isUpdatingFile = ref<boolean>(false);
