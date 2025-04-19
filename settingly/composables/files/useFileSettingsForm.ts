@@ -7,6 +7,8 @@ export default function useFileSettingsForm() {
   const isSubmitting = ref(false);
   const isDeleting = ref(false);
 
+  const { confirmDialog } = useConfirm();
+
   const { currentFile } = storeToRefs(filesStore);
 
   const name = ref<string>(currentFile.value?.name || "");
@@ -54,9 +56,9 @@ export default function useFileSettingsForm() {
     isDeleting.value = true;
 
     if (
-      !confirm(
+      !(await confirmDialog(
         `Are you sure you want to delete the file "${name.value}"? This action cannot be undone.`
-      )
+      ))
     ) {
       toast.info("File deletion cancelled");
       isDeleting.value = false;

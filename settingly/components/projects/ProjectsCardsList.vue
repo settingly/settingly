@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 my-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 my-8 lg:my-24">
     <div class="flex flex-row justify-between mb-12">
       <h1 class="text-4xl font-semibold">Projects</h1>
       <ProjectsNewProjectButton />

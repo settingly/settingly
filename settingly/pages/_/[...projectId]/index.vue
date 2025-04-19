@@ -9,4 +9,30 @@
 
 <script setup lang="ts">
 const fileId = useCurrentFileId();
+
+watch(
+  () => useFilesStore().currentFile,
+  (newFile) => {
+    if (newFile) {
+      useHead({
+        title: `Settingly - ${useFilesStore().currentFile?.name} (File)`,
+      });
+    }
+  },
+  { immediate: true }
+);
+
+watch(
+  () => useProjectsStore().currentProject,
+  (newProject) => {
+    if (newProject && !useFilesStore().currentFile) {
+      useHead({
+        title: `Settingly - ${
+          useProjectsStore().currentProject?.name
+        } (Project)`,
+      });
+    }
+  },
+  { immediate: true }
+);
 </script>

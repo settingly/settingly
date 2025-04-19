@@ -63,6 +63,7 @@ import {
 
 const { refetchFiles } = useFilesStore();
 const { currentFile } = storeToRefs(useFilesStore());
+const { confirmDialog } = useConfirm();
 
 const jsonError = ref("");
 const configString = ref(ref(JSON.stringify({}, null, 2)));
@@ -94,9 +95,11 @@ const copyToClipboard = () => {
   });
 };
 
-const resetToUnsaved = () => {
+const resetToUnsaved = async () => {
   if (currentFile.value) {
-    confirm("Are you sure you want to reset the file to its unsaved state?") &&
+    (await confirmDialog(
+      "Are you sure you want to reset the file to its unsaved state?"
+    )) &&
       (configString.value = getNewestFileVersion(currentFile.value).content);
   }
 };

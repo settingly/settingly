@@ -79,4 +79,16 @@ import { Trash, TrashIcon } from "lucide-vue-next";
 
 const { name, description, isSubmitting, submit, deleteProject } =
   useProjectSettingsForm();
+
+watch(
+  () => useProjectsStore().currentProject,
+  (newProject) => {
+    if (newProject) {
+      useHead({
+        title: `Settingly - ${newProject?.name} (Settings)`,
+      });
+    }
+  },
+  { immediate: true }
+);
 </script>

@@ -20,15 +20,17 @@ const servicesData = ref([
     icon: BracesIcon,
     title: "Logging",
     paragraph:
-      "Streamline your development process with our powerful logging service, designed to give you insight into your applications.",
+      "Gain invaluable insights into your application's performance with our detailed and efficient logging.",
+
     to: "/#",
     soon: true,
   },
   {
     icon: DatabaseZapIcon,
-    title: "Cache Storage",
+    title: "Shared Cache",
     paragraph:
-      "Boost your app's performance with our Redis-based cache storage, reducing latency and improving user experience.",
+      "Boost your application's performance with our shared cache service, offering cost-effective caching solutions.",
+
     to: "/#",
     soon: true,
   },
@@ -37,7 +39,7 @@ const servicesData = ref([
 
 <template>
   <section
-    class="pb-12 pt-20 lg:pb-[90px] lg:pt-[120px] flex items-center justify-center"
+    class="px-4 lg:px-0 pb-12 pt-20 lg:pb-[90px] lg:pt-[120px] flex items-center justify-center"
   >
     <div class="container">
       <div class="-mx-4 flex flex-wrap">

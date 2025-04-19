@@ -1,5 +1,5 @@
 <template>
-  <header class="flex w-full items-center bg-white border-b border-gray-200">
+  <nav class="flex w-full items-center bg-white border-b border-gray-200">
     <div class="container mx-auto">
       <div class="relative flex items-center justify-between">
         <NuxtLink to="/">
@@ -17,12 +17,10 @@
               <span class="block w-7 h-0.5 bg-gray-800 my-1"></span>
               <span class="block w-7 h-0.5 bg-gray-800 my-1"></span>
             </button>
-            <nav
-              :class="{ hidden: !open }"
-              id="navbarCollapse"
-              class="absolute right-4 top-full w-full max-w-xs rounded-lg bg-white p-5 shadow-lg lg:static lg:block lg:w-auto lg:shadow-none"
+            <div
+              class="max-w-xs rounded-lg bg-white p-5 w-auto shadow-none lg:block hidden"
             >
-              <ul class="space-y-4 lg:flex lg:space-y-0 lg:space-x-8">
+              <ul class="space-x-8 flex flex-row">
                 <template v-for="(item, index) in navLinkItems" :key="index">
                   <li v-if="item !== null">
                     <a
@@ -35,7 +33,7 @@
                   </li>
                 </template>
               </ul>
-            </nav>
+            </div>
           </div>
           <div class="hidden lg:block">
             <div
@@ -60,7 +58,46 @@
         </div>
       </div>
     </div>
-  </header>
+    <SharedDialog title="Navigation" :open="open" @close="open = false">
+      <p class="text-xs text-gray-500 max-w-md mb-6">
+        Explore the most important sections of our application. Use the links
+        below to navigate.
+      </p>
+      <ul class="space-y-2">
+        <template v-for="(item, index) in navLinkItems" :key="index">
+          <li v-if="item !== null" class="flex flex-row items-center gap-2">
+            <component :is="item.icon" class="w-5 h-5 !text-inherit" />
+            <a
+              v-if="item.to"
+              :href="item.to"
+              class="block text-base text-gray-800 hover:text-gray-600 whitespace-nowrap"
+            >
+              {{ item.text }}
+            </a>
+          </li>
+        </template>
+      </ul>
+      <div class="border-t-2 border-gray-200 pt-6 mt-6">
+        <div class="flex space-x-4 items-center" v-if="!isSignedIn">
+          <SignInButton
+            class="text-base font-medium text-gray-600 hover:text-primary w-full button-ghost"
+            >Sign in</SignInButton
+          >
+          <SignUpButton class="button w-full">Sign Up</SignUpButton>
+        </div>
+        <div
+          class="flex justify-between space-x-4 items-center"
+          v-else-if="isDashboardRoute"
+        >
+          <OrganizationSwitcher />
+          <UserButton />
+        </div>
+        <NuxtLink v-else to="/_" class="button w-full block text-center"
+          >Dashboard</NuxtLink
+        >
+      </div>
+    </SharedDialog>
+  </nav>
 </template>
 
 <script setup lang="ts">
@@ -87,7 +124,7 @@ const toggleNavbar = () => {
 };
 
 const navLinkItems = computed(() => {
-  if (isDashboardRoute) {
+  if (isDashboardRoute.value) {
     const currentProjectId = useCurrentProjectId();
 
     return [
@@ -117,22 +154,5 @@ const navLinkItems = computed(() => {
       { text: "Source Code", to: "javascript:void(0)", icon: CodeXmlIcon },
     ];
   }
-});
-
-const handleClickOutside = (event: MouseEvent) => {
-  if (
-    dropdownButtonRef.value &&
-    !dropdownButtonRef.value.contains(event.target as Node)
-  ) {
-    open.value = false;
-  }
-};
-
-onMounted(() => {
-  document.addEventListener("click", handleClickOutside);
-});
-
-onUnmounted(() => {
-  document.removeEventListener("click", handleClickOutside);
 });
 </script>

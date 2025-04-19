@@ -1,6 +1,6 @@
 <template>
   <div
-    class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden transition-all duration-200 hover:shadow-md my-24"
+    class="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden transition-all duration-200 hover:shadow-md my-8 lg:my-24"
   >
     <!-- Card Header -->
     <div class="flex flex-row justify-between p-6 pb-3">

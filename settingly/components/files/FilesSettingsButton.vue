@@ -5,13 +5,14 @@
   <SharedDialog
     :title="`Update File: ${currentFile?.name}`"
     :open="isUpdatingFile"
-    :title-action="{
-      icon: TrashIcon,
-      style: 'text-error w-4 h-4',
-    }"
-    @titel-action-clicked="deleteFile"
     @close="isUpdatingFile = false"
   >
+    <template #title-action>
+      <button type="button" class="icon-button-wrapper" @click="deleteFile">
+        <TrashIcon class="w-4 h-4 !text-error" />
+      </button>
+    </template>
+
     <form
       @submit.prevent="
         submit().then(() => {

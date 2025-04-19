@@ -8,8 +8,6 @@
     @cancel="handleCancel"
   />
 
-  <button @click="confirmDialog('abc')">Open Confirm Dialog</button>
-
   <div class="font-yaldevi" id="nuxt">
     <NuxtLayout>
       <NuxtPage />
@@ -21,8 +19,7 @@ import { Toaster } from "vue-sonner";
 
 const { organization } = useOrganization();
 
-const { isOpen, title, message, confirmDialog, handleConfirm, handleCancel } =
-  useConfirm();
+const { isOpen, title, message, handleConfirm, handleCancel } = useConfirm();
 
 watch(
   () => organization.value,

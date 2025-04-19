@@ -1,6 +1,6 @@
 <template>
   <SharedDialog :open="open" :title="title" @close="onCancel">
-    <p class="mt-4">
+    <p class="my-4">
       {{ message }}
     </p>
 
