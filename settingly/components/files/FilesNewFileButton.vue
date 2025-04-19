@@ -1,5 +1,7 @@
 <template>
-  <button @click="isCreatingNewFile = true" class="button">New File</button>
+  <SharedProtect permission="org:files:create">
+    <button @click="isCreatingNewFile = true" class="button">New File</button>
+  </SharedProtect>
   <SharedDialog
     title="Create New File"
     :open="isCreatingNewFile"

@@ -8,6 +8,6 @@ export default function useCurrentProjectId() {
       return undefined;
     }
 
-    return projectId.at(0);
+    return typeof projectId === "string" ? projectId : projectId[0];
   });
 }

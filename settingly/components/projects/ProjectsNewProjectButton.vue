@@ -1,7 +1,9 @@
 <template>
-  <button @click="isCreatingNewProject = true" class="button">
-    New Project
-  </button>
+  <SharedProtect permission="org:projects:create">
+    <button @click="isCreatingNewProject = true" class="button">
+      New Project
+    </button>
+  </SharedProtect>
   <SharedDialog
     @close="isCreatingNewProject = false"
     :open="isCreatingNewProject"

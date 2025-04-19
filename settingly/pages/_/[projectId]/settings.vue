@@ -12,13 +12,15 @@
       :hide-spinner="true"
     >
       <template #title-action>
-        <button
-          class="icon-button-wrapper"
-          type="button"
-          @click="deleteProject"
-        >
-          <TrashIcon class="w-4 h-4" style="color: #dc2626 !important" />
-        </button>
+        <SharedProtect permission="org:projects:delete">
+          <button
+            class="icon-button-wrapper"
+            type="button"
+            @click="deleteProject"
+          >
+            <TrashIcon class="w-4 h-4" style="color: #dc2626 !important" />
+          </button>
+        </SharedProtect>
       </template>
 
       <FormsInput
@@ -58,18 +60,22 @@
         <SharedSpinner />
       </div>
 
-      <div class="mt-6">
-        <div>
-          <h3 class="block text-sm font-medium text-gray-700">Tokens</h3>
-          <p class="text-xs text-gray-500 max-w-md">
-            Please ensure the confidentiality of the token, as it is critical
-            for authenticating your requests to the API.
-          </p>
-        </div>
+      <SharedProtect permission="org:tokens:read">
+        <div class="mt-6">
+          <div>
+            <h3 class="block text-sm font-medium text-gray-700">Tokens</h3>
+            <p class="text-xs text-gray-500 max-w-md">
+              Please ensure the confidentiality of the token, as it is critical
+              for authenticating your requests to the API.
+            </p>
+          </div>
 
-        <TokensTable />
-        <TokensCreateButton />
-      </div>
+          <TokensTable />
+          <SharedProtect permission="org:tokens:create">
+            <TokensCreateButton />
+          </SharedProtect>
+        </div>
+      </SharedProtect>
     </FormsBase>
   </div>
 </template>

@@ -8,9 +8,11 @@
     @close="isUpdatingFile = false"
   >
     <template #title-action>
-      <button type="button" class="icon-button-wrapper" @click="deleteFile">
-        <TrashIcon class="w-4 h-4 !text-error" />
-      </button>
+      <SharedProtect permission="org:files:delete">
+        <button type="button" class="icon-button-wrapper" @click="deleteFile">
+          <TrashIcon class="w-4 h-4 !text-error" />
+        </button>
+      </SharedProtect>
     </template>
 
     <form

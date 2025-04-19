@@ -22,12 +22,7 @@
         </div>
         <FilesNewFileButton />
 
-        <NuxtLink
-          :to="`/_/${currentProject?._id}/settings`"
-          class="icon-button-wrapper"
-        >
-          <SettingsIcon class="w-4 h-4" />
-        </NuxtLink>
+        <ProjectsSettingsButton :project="currentProject!" />
       </div>
     </div>
 

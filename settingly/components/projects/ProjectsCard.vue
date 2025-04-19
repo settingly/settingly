@@ -13,13 +13,8 @@
           <p class="text-sm">{{ project.description }}</p>
         </div>
       </div>
-      <div class="flex items-center justify-center w-12 h-12 rounded-lg">
-        <NuxtLink
-          class="mr-4 mt-4 block icon-button-wrapper"
-          :to="`/_/${project._id}/settings`"
-        >
-          <Settings class="w-4 h-4" />
-        </NuxtLink>
+      <div class="mt-1 mr-1">
+        <ProjectsSettingsButton :project="project" />
       </div>
     </div>
 

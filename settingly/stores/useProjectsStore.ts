@@ -31,7 +31,7 @@ export const useProjectsStore = defineStore("projects", () => {
   );
 
   const currentProject = computed(() => {
-    const id = (route.params.projectId as string | undefined)?.at(0);
+    const id = useCurrentProjectId().value;
     return projects.value.find((p) => p._id === id);
   });
 

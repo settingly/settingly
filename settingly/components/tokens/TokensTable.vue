@@ -55,14 +55,17 @@
     @close="toView = null"
   >
     <template #title-action>
-      <button
-        class="icon-button-wrapper"
-        @click="
-          async () => await deleteToken(toView!._id).then(() => (toView = null))
-        "
-      >
-        <TrashIcon class="w-4 h-4 !text-error" />
-      </button>
+      <SharedProtect permission="org:tokens:delete">
+        <button
+          class="icon-button-wrapper"
+          @click="
+            async () =>
+              await deleteToken(toView!._id).then(() => (toView = null))
+          "
+        >
+          <TrashIcon class="w-4 h-4 !text-error" />
+        </button>
+      </SharedProtect>
     </template>
     <div class="flex flex-col gap-4">
       <p class="text-xs text-gray-500 max-w-80">

@@ -9,9 +9,9 @@
           {{ currentFile?.name }}
         </h3>
       </div>
-      <div>
+      <SharedProtect permission="org:files:update">
         <FilesSettingsButton />
-      </div>
+      </SharedProtect>
     </div>
 
     <!-- Tabs -->
@@ -97,6 +97,7 @@ import {
   Brackets,
   BracesIcon,
 } from "lucide-vue-next";
+import SharedProtect from "../shared/SharedProtect.vue";
 
 const { currentFile } = storeToRefs(useFilesStore());
 
