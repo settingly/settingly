@@ -57,7 +57,7 @@ export default defineNuxtConfig({
     },
     preset: "vercel-edge",
     externals: {
-      inline: [/^@clerk\//],
+      inline: [/^@clerk\/(shared|backend)/],
     },
   },
 
