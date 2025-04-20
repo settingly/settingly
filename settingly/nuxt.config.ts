@@ -56,9 +56,9 @@ export default defineNuxtConfig({
       openAPI: true,
     },
     preset: "vercel-edge",
-    externals: {
-      inline: [/^@clerk\/(shared|backend)/],
-    },
+    // externals: {
+    //   inline: [/^@clerk\/(shared|backend)/],
+    // },
   },
 
   mongoose: {
