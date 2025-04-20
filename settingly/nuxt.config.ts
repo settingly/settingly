@@ -55,6 +55,10 @@ export default defineNuxtConfig({
     experimental: {
       openAPI: true,
     },
+    preset: "vercel-edge",
+    externals: {
+      inline: [/^@clerk\//],
+    },
   },
 
   mongoose: {
