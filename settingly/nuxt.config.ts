@@ -55,7 +55,7 @@ export default defineNuxtConfig({
     experimental: {
       openAPI: true,
     },
-    preset: "vercel-edge",
+    preset: "vercel",
     // externals: {
     //   inline: [/^@clerk\/(shared|backend)/],
     // },
