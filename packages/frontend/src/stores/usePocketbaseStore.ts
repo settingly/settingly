@@ -17,7 +17,7 @@ type ExtendedAuthRecord = AuthRecord & {
   };
 };
 
-const pocketbase = new PocketBase('http://127.0.0.1:8090');
+const pocketbase = new PocketBase(import.meta.env.VITE_POCKETBASE_URL);
 pocketbase.autoCancellation(false);
 
 export const usePocketbaseStore = defineStore('pocketbase', () => {
