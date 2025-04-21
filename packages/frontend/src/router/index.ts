@@ -3,7 +3,6 @@ import HomeView from '../views/HomeView.vue';
 import SignUpView from '@/views/SignUpView.vue';
 import LoginView from '@/views/LoginView.vue';
 import ResetPasswordView from '@/views/ResetPasswordView.vue';
-import { inject } from 'vue';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import ProjectsListView from '@/views/projects/ProjectsListView.vue';
 import UpdateFileView from '@/views/projects/files/UpdateFileView.vue';
@@ -91,7 +90,7 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to, from) => {
+router.beforeEach((to) => {
   // as regexes
   const isProtectedRoute = to.path.startsWith('/projects');
   const { isAuthenticated } = usePocketbaseStore();
