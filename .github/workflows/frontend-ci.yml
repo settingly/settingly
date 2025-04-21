@@ -1,4 +1,4 @@
-name: Frontend CI
+name: CI
 
 on:
   push:
@@ -15,26 +15,13 @@ jobs:
         working-directory: ./packages/frontend
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: 'npm'
-          working-directory: ./packages/frontend
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        with:
-          path: ./packages/frontend/node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-modules-
+      - run: npm install
 
   type-check:
     needs: install-deps
@@ -44,6 +31,10 @@ jobs:
         working-directory: ./packages/frontend
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm install
       - run: npm run type-check
 
   lint-eslint:
@@ -54,6 +45,10 @@ jobs:
         working-directory: ./packages/frontend
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm install
       - run: npm run lint:eslint
 
   lint-oxlint:
@@ -64,6 +59,10 @@ jobs:
         working-directory: ./packages/frontend
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm install
       - run: npm run lint:oxlint
 
   test-unit:
@@ -74,6 +73,10 @@ jobs:
         working-directory: ./packages/frontend
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm install
       - run: npm run test:unit
 
   build:
@@ -84,4 +87,8 @@ jobs:
         working-directory: ./packages/frontend
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm install
       - run: npm run build-only
