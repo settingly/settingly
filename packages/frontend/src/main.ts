@@ -3,7 +3,7 @@ import './assets/main.css';
 import { createApp } from 'vue';
 import { createPinia, storeToRefs } from 'pinia';
 import { createHead } from '@unhead/vue/client';
-
+import * as Sentry from '@sentry/vue';
 import App from './App.vue';
 import router from './router';
 import { VueUmamiPlugin } from '@jaseeey/vue-umami-plugin';
@@ -22,6 +22,13 @@ app.use(
     allowLocalhost: true,
   }),
 );
+
+Sentry.init({
+  app,
+  dsn: import.meta.env.VITE_SENTRY_DSN,
+  sendDefaultPii: true,
+  integrations: [],
+});
 
 app.use(router);
 
