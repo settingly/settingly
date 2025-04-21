@@ -28,7 +28,7 @@
           >
             JSON Editor
           </button>
-          <button
+          <!-- <button
             @click="activeTab = 'ui'"
             class="py-2 px-1 text-sm font-medium relative -mb-px"
             :class="
@@ -38,7 +38,7 @@
             "
           >
             UI Editor
-          </button>
+          </button> -->
           <button
             @click="activeTab = 'api'"
             class="py-2 px-1 text-sm font-medium relative -mb-px"
@@ -56,7 +56,7 @@
       <!-- Tab Content -->
       <div class="p-6">
         <!-- UI Tree Editor -->
-        <div v-if="activeTab === 'ui'" class="space-y-4">
+        <!-- <div v-if="activeTab === 'ui'" class="space-y-4">
           <div
             class="flex flex-row items-center gap-3 bg-primary/50 p-4 rounded-md border border-primary text-primary"
           >
@@ -66,22 +66,22 @@
               the meantime, sit back on the sofa and relax!
             </p>
           </div>
-        </div>
+        </div> -->
 
         <!-- JSON Editor -->
         <JsonFileEditor v-if="activeTab === 'json'" />
 
         <!-- API Reference -->
         <div v-if="activeTab === 'api'" class="space-y-4">
-          <p class="text-dark"></p>
-
-          <h4 class="text-lg font-semibold">API Status</h4>
-          <ul>
-            <li class="flex flex-row items-center gap-2">
-              <BracesIcon class="h-4 w-4 text-success" />
-              <span class="text-sm"> Rest API (<i>/api/files/...</i>): Available</span>
-            </li>
-          </ul>
+          <h3 class="font-semibold text-dark text-lg">Fetching Config Files</h3>
+          <p>
+            You can find information about the API endpoints for fetching configuration files on
+            <RouterLink
+              to="/docs/api-reference/fetching-config-files"
+              class="text-primary hover:underline"
+              >this page</RouterLink
+            >.
+          </p>
         </div>
       </div>
     </div>
@@ -89,8 +89,6 @@
 </template>
 
 <script lang="ts" setup>
-import { SofaIcon, BracesIcon } from 'lucide-vue-next';
-
 import { useFilesStore } from '@/stores/useFilesStore';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';

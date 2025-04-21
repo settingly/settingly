@@ -12,6 +12,8 @@ import NotFoundView from '@/views/NotFoundView.vue';
 import ProjectSettingsView from '@/views/projects/ProjectSettingsView.vue';
 import ImprintView from '@/views/legal/ImprintView.vue';
 import PrivacyView from '@/views/legal/PrivacyView.vue';
+import SingleDocumentView from '@/views/docs/SingleDocumentView.vue';
+import DocumentsListView from '@/views/docs/DocumentsListView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -75,6 +77,16 @@ const router = createRouter({
       path: '/projects/:projectId/files/:fileId',
       name: 'update file',
       component: () => UpdateFileView,
+    },
+    {
+      path: '/docs',
+      name: 'docs home',
+      component: () => DocumentsListView,
+    },
+    {
+      path: '/docs/:categorySlug/:pageSlug',
+      name: 'docs page',
+      component: () => SingleDocumentView,
     },
   ],
 });

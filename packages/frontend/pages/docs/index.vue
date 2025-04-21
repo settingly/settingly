@@ -40,7 +40,7 @@
             v-for="(page, index) in category.pages"
             :key="index"
             :to="`/docs/${category.slug}/${page.meta.slug}`"
-            class="block rounded-lg border shadow-sm overflow-hidden transition-all duration-200 hover:shadow-md max-w-md"
+            class="card"
           >
             <div class="flex flex-col space-y-1.5 p-6">
               <h3 class="text-xl font-semibold tracking-tight">
