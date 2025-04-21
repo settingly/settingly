@@ -16,8 +16,6 @@
     </main>
 
     <LayoutFooter />
-
-    <!-- <LayoutFooter /> -->
   </div>
 </template>
 

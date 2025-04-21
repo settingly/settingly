@@ -10,6 +10,8 @@ import UpdateFileView from '@/views/projects/files/UpdateFileView.vue';
 import FilesListView from '@/views/projects/files/FilesListView.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
 import ProjectSettingsView from '@/views/projects/ProjectSettingsView.vue';
+import ImprintView from '@/views/legal/ImprintView.vue';
+import PrivacyView from '@/views/legal/PrivacyView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,9 +22,24 @@ const router = createRouter({
       component: () => NotFoundView,
     },
     {
+      path: '/:catchAll(.*)',
+      name: 'not-found',
+      component: () => NotFoundView,
+    },
+    {
+      path: '/legal/imprint',
+      name: 'imprint',
+      component: () => ImprintView,
+    },
+    {
+      path: '/legal/privacy',
+      name: 'privacy',
+      component: () => PrivacyView,
+    },
+    {
       path: '/',
       name: 'home',
-      component: HomeView,
+      component: () => HomeView,
     },
     {
       path: '/signup',
