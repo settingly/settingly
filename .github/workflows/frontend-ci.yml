@@ -1,0 +1,86 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [ 'main' ]
+  pull_request:
+    branches: [ 'main' ]
+
+jobs:
+  install-deps:
+    name: Install Dependencies
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/frontend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: ./packages/frontend/node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
+  type-check:
+    needs: install-deps
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/frontend
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm run type-check
+
+  lint-eslint:
+    needs: install-deps
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/frontend
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm run lint:eslint
+
+  lint-oxlint:
+    needs: install-deps
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/frontend
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm run lint:oxlint
+
+  test-unit:
+    needs: install-deps
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/frontend
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm run test:unit
+
+  build:
+    needs: install-deps
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/frontend
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm run build-only
