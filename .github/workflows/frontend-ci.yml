@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [ 'main' ]
+  pull_request:
+    branches: [ 'main' ]
+
+jobs:
+  type-check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/frontend
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm run type-check
+
+  lint-eslint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/frontend
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm run lint:eslint
+
+  lint-oxlint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/frontend
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm run lint:oxlint
+
+  test-unit:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/frontend
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm run test:unit
+
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages/frontend
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm run build-only
