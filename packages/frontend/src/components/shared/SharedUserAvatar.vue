@@ -2,6 +2,7 @@
   <Menu as="div" class="relative inline-block text-left">
     <div>
       <MenuButton
+        @click.stop
         class="bg-gradient-to-tr from-primary to-secondary p-3 rounded-full shadow-xl hover:cursor-pointer"
       >
         <UserIcon class="w-7 h-7 text-white" />
@@ -22,14 +23,14 @@
         <div class="px-1 py-1">
           <MenuItem v-slot="{ active }">
             <RouterLink
-              to="/settings"
+              to="/account"
               :class="[
-                active ? 'bg-body/10 ' : '',
+                active ? 'bg-gray-200 ' : '',
                 'group flex w-full items-center rounded-md px-2 py-2 text-sm text-dark',
               ]"
             >
-              <SettingsIcon :active="active" class="mr-2 h-5 w-5 text-primary" aria-hidden="true" />
-              Settings
+              <User2Icon :active="active" class="mr-2 h-5 w-5 text-primary" aria-hidden="true" />
+              Account
             </RouterLink>
           </MenuItem>
         </div>
@@ -39,7 +40,7 @@
               type="button"
               @click="logOut"
               :class="[
-                active ? 'bg-body/10 ' : '',
+                active ? 'bg-gray-200 ' : '',
                 'group flex w-full items-center rounded-md px-2 py-2 text-sm text-dark',
               ]"
             >
@@ -55,18 +56,9 @@
 
 <script lang="ts" setup>
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
-import { LogOutIcon, SettingsIcon, UserIcon } from 'lucide-vue-next';
+import { LogOutIcon, User2Icon, UserIcon } from 'lucide-vue-next';
 
-import { useRouter } from 'vue-router';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 
-const { pocketbase } = usePocketbaseStore();
-const router = useRouter();
-
-async function logOut() {
-  pocketbase.authStore.clear();
-  pocketbase.collection('users').authRefresh();
-
-  await router.push('/login');
-}
+const { logOut } = usePocketbaseStore();
 </script>

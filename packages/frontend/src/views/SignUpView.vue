@@ -49,11 +49,15 @@ const { password, passwordConfirm, email, submit, isSubmitting } = useSignUpForm
         />
         <label for="tos" class="ml-2 block text-sm text-body">
           I agree to the
-          <RouterLink to="/terms" class="text-primary hover:underline">
-            Terms of Service
-          </RouterLink>
+          <a
+            href="https://github.com/settingly/settingly/blob/main/LICENSE"
+            target="_blank"
+            class="text-primary hover:underline"
+          >
+            License Agreement
+          </a>
           and
-          <RouterLink to="/privacy" class="text-primary hover:underline">
+          <RouterLink to="/legal/privacy" class="text-primary hover:underline">
             Privacy Policy
           </RouterLink>
         </label>

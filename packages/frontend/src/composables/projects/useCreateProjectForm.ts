@@ -16,12 +16,6 @@ export default function useCreateProjectForm(dialogCloser?: Ref<boolean, boolean
   const submit = async () => {
     isSubmitting.value = true;
 
-    if (user.value?.verified === false) {
-      toast.error('Please verify your email before creating a project');
-      isSubmitting.value = false;
-      return;
-    }
-
     if (!projectName.value.match(/^[a-zA-Z0-9_-]+$/)) {
       toast.error('Project name can only contain letters, numbers, underscores, and dashes.');
       isSubmitting.value = false;

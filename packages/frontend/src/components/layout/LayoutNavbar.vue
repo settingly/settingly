@@ -52,10 +52,14 @@
               </RouterLink>
               <RouterLink to="/signup" class="button">Sign Up</RouterLink>
             </div>
-            <div class="hidden sm:flex space-x-4 items-center" v-else-if="isProjectsRoute">
+            <RouterLink
+              v-else
+              to="/projects"
+              class="hidden sm:flex flex-row space-x-4 items-center border-gray-300 bg-primary border rounded-full pl-10 text-white"
+            >
+              <span>Projects</span>
               <SharedUserAvatar />
-            </div>
-            <RouterLink v-else to="/projects" class="button">Projects</RouterLink>
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -122,14 +126,14 @@
                 >Sign up</RouterLink
               >
             </div>
-            <div class="flex flex-col space-y-2 items-center" v-else-if="isProjectsRoute">
-              <RouterLink to="/account" class="button text-secondary text-center w-full"
+            <div v-else class="flex flex-col space-y-2 items-center">
+              <RouterLink to="/projects" class="button text-center w-full block text-lg"
+                >Projects</RouterLink
+              >
+              <RouterLink to="/account" class="button text-center w-full text-lg"
                 >Account</RouterLink
-              ><button class="button text-center w-full">Log Out</button>
+              ><button class="button text-center w-full text-lg" @click="logOut">Log Out</button>
             </div>
-            <RouterLink v-else to="/projects" class="button text-center w-full block"
-              >Projects</RouterLink
-            >
           </div>
         </div>
       </div>
@@ -139,33 +143,18 @@
 
 <script setup lang="ts">
 import logo from '@/assets/logo.png';
-import useCurrentProjectId from '@/composables/projects/useCurrentProjectId';
-import {
-  BookIcon,
-  CodeXmlIcon,
-  CompassIcon,
-  CpuIcon,
-  DownloadIcon,
-  FlowerIcon,
-  HelpingHandIcon,
-  MenuIcon,
-  RocketIcon,
-  XIcon,
-} from 'lucide-vue-next';
+import { BookIcon, CodeXmlIcon, CpuIcon, HelpingHandIcon } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
-import { useRoute } from 'vue-router';
 import SharedUserAvatar from '../shared/SharedUserAvatar.vue';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import { storeToRefs } from 'pinia';
-import { toast } from 'vue-sonner';
 
 const { isAuthenticated } = storeToRefs(usePocketbaseStore());
 
 const open = ref(false);
 const dropdownButtonRef = ref<HTMLButtonElement | null>(null);
 
-const route = useRoute();
-const isProjectsRoute = computed(() => route.path.startsWith('/projects'));
+const { logOut } = usePocketbaseStore();
 
 const toggleNavbar = () => {
   open.value = !open.value;

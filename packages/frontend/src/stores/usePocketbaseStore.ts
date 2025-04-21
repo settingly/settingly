@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import PocketBase, { type AuthRecord } from 'pocketbase';
 import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 type ExtendedAuthRecord = AuthRecord & {
   name?: string;
@@ -20,6 +21,8 @@ pocketbase.autoCancellation(false);
 
 export const usePocketbaseStore = defineStore('pocketbase', () => {
   const user = ref<ExtendedAuthRecord | null>(null);
+  const requestsSent = ref(0);
+  const router = useRouter();
 
   if (pocketbase.authStore.isValid) {
     pocketbase
@@ -37,7 +40,23 @@ export const usePocketbaseStore = defineStore('pocketbase', () => {
     user.value = record as ExtendedAuthRecord;
   }, true);
 
+  pocketbase.afterSend = async () => {
+    requestsSent.value++;
+
+    if (requestsSent.value > 10) {
+      await pocketbase.collection('users').authRefresh();
+    }
+  };
+
   const isAuthenticated = computed(() => user.value !== null);
 
-  return { user, isAuthenticated, pocketbase };
+  const logOut = async () => {
+    pocketbase.authStore.clear();
+    await pocketbase.collection('users').authRefresh();
+
+    user.value = null;
+    await router.push('/login');
+  };
+
+  return { user, isAuthenticated, pocketbase, logOut };
 });
