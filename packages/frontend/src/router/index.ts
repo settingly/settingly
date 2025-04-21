@@ -99,7 +99,6 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
-  // as regexes
   const isProtectedRoute = to.path.startsWith('/projects') || to.path.startsWith('/account');
   const { isAuthenticated } = usePocketbaseStore();
 

@@ -1,6 +1,7 @@
+import { identifyUmamiSession } from '@jaseeey/vue-umami-plugin';
 import { defineStore } from 'pinia';
 import PocketBase, { type AuthRecord } from 'pocketbase';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 type ExtendedAuthRecord = AuthRecord & {
@@ -21,7 +22,6 @@ pocketbase.autoCancellation(false);
 
 export const usePocketbaseStore = defineStore('pocketbase', () => {
   const user = ref<ExtendedAuthRecord | null>(null);
-  const requestsSent = ref(0);
   const router = useRouter();
 
   if (pocketbase.authStore.isValid) {
@@ -37,16 +37,14 @@ export const usePocketbaseStore = defineStore('pocketbase', () => {
       });
   }
   pocketbase.authStore.onChange((token, record) => {
-    user.value = record as ExtendedAuthRecord;
-  }, true);
-
-  pocketbase.afterSend = async () => {
-    requestsSent.value++;
-
-    if (requestsSent.value > 10) {
-      await pocketbase.collection('users').authRefresh();
+    if (record) {
+      user.value = record as ExtendedAuthRecord;
+      identifyUmamiSession({
+        userId: record.id,
+        email: record.email,
+      });
     }
-  };
+  }, true);
 
   const isAuthenticated = computed(() => user.value !== null);
 

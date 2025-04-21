@@ -1,5 +1,6 @@
 import { useConfirm } from '@/composables/utils/useConfirm';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
+import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -52,6 +53,7 @@ export default function useAccountSettingsForm() {
     }
 
     try {
+      trackUmamiEvent('delete_account', {});
       await pocketbase.collection('users').delete(user.value!.id);
       pocketbase.authStore.clear();
 

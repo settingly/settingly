@@ -1,4 +1,5 @@
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
+import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
 import { inject, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { toast } from 'vue-sonner';
@@ -19,8 +20,10 @@ export default function useLogInForm() {
       await pocketbase.collection('users').authRefresh();
 
       await router.push('/projects');
-    } catch {
+      trackUmamiEvent('login', {});
+    } catch (error) {
       toast.error('Failed to log in. Please check your credentials.');
+      trackUmamiEvent('login_failed', error as Error);
     } finally {
       isSubmitting.value = false;
     }

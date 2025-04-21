@@ -52,7 +52,7 @@ export default function useSignUpForm() {
       await router.push('/login');
 
       toast.success('Registration successful! Please check your email to verify your account.');
-    } catch (error) {
+    } catch {
       toast.error('Registration failed. Please try again.');
     } finally {
       isSubmitting.value = false;
