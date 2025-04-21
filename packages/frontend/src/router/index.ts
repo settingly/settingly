@@ -32,6 +32,7 @@ const router = createRouter({
       name: 'imprint',
       component: () => ImprintView,
     },
+
     {
       path: '/legal/privacy',
       name: 'privacy',

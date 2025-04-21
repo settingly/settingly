@@ -1,35 +1,37 @@
 <template>
-  <div class="mx-auto max-w-4xl py-36">
+  <div class="mx-auto max-w-4xl lg:py-36 lg:px-0 py-12 px-4">
     <div class="mb-6">
       <h1 class="text-4xl font-bold text-dark">Privacy Policy</h1>
 
-      <span class="text-sm text-dark">Last updated: April 18, 2025</span>
+      <span class="text-sm text-dark">Last updated: April 21, 2025</span>
     </div>
 
     <div class="space-y-8 text-dark">
       <!-- Introduction Section -->
       <section class="space-y-4">
+        <p>This privacy policy applies to the following online presences:</p>
+        <ul class="list-disc list-inside">
+          <li>
+            <a href="https://settingly.xyz" class="text-primary hover:text-primary"
+              >settingly.xyz</a
+            >
+          </li>
+        </ul>
         <p>
-          This privacy policy applies to the Daytistics app (hereby referred to
-          as "Application") developed by Leo Gall (hereby referred to as
-          "Service Provider") as well as the website daytistics.com. The
-          Application is provided as a Freemium service and is intended for use
-          "AS IS."
+          The upper mentioned online presences are operated by Leo Gall (hereby referred to as "we",
+          "us", or "our"). This privacy policy describes how we collect, use, and share information
+          in those presences.
         </p>
         <p>
-          The responsible person for data processing on this website is Leo
-          Gall, who can be contacted via the contact details provided in the
-          <NuxtLink class="text-primary hover:underline" to="/imprint"
-            >imprint</NuxtLink
-          >.
+          The responsible person for data processing on this website is Leo Gall, who can be
+          contacted via the contact details provided in the
+          <a class="text-primary hover:underline" href="/imprint">imprint</a>.
         </p>
       </section>
 
       <!-- Information Collection Section -->
       <section>
-        <h2 class="text-2xl font-semibold mb-4 text-dark">
-          Information Collection and Use
-        </h2>
+        <h2 class="text-2xl font-semibold mb-4 text-dark">Information Collection and Use</h2>
         <h3 class="text-xl font-semibold mb-2 mt-5">Data We Collect</h3>
 
         <p class="mb-1">When you use the Application, we collect:</p>
@@ -38,17 +40,9 @@
           <li><b>Usage Data:</b> App interactions for product improvement</li>
           <li><b>Device Information:</b> Browser type, operating system</li>
           <li><b>Geolocation Services:</b> Location data when enabled</li>
-          <li>
-            <b>Account Information:</b> Email, contact details, and OAuth data
-          </li>
-          <li>
-            <b>User-Provided Content:</b> Activities, well-being data, diary
-            entries, notes, and conversations with AI models
-          </li>
+          <li><b>Account Information:</b> Email, contact details, and OAuth data</li>
         </ul>
-        <h3 class="text-xl font-semibold mb-2 mt-5">
-          Why We Collect This Data
-        </h3>
+        <h3 class="text-xl font-semibold mb-2 mt-5">Why We Collect This Data</h3>
 
         <p class="mb-1">We use this data to:</p>
         <ul class="list-disc list-inside">
@@ -66,8 +60,7 @@
           Third Party Access, Services & International Data Transfer
         </h2>
         <p class="mb-1">
-          We may employ third-party companies and individuals due to the
-          following reasons:
+          We may employ third-party companies and individuals due to the following reasons:
         </p>
         <ul class="list-disc list-inside">
           <li>To facilitate our Service;</li>
@@ -77,61 +70,56 @@
         </ul>
         <br />
         <p>
-          These third parties have access to your Personal Data only to perform
-          these tasks on our behalf and are obligated not to disclose or use it
-          for any other purpose.
+          These third parties have access to your Personal Data only to perform these tasks on our
+          behalf and are obligated not to disclose or use it for any other purpose.
         </p>
         <p>
-          We may transfer your data to servers located outside of the country in
-          which you live. For example, this may include transferring your data
-          to the United States if you are located in the European Union.
+          We may transfer your data to servers located outside of the country in which you live. For
+          example, this may include transferring your data to the United States if you are located
+          in the European Union.
         </p>
 
         <br />
 
         <p class="mb-1">
-          The following third-party services are used in the Application, each
-          governed by their respective privacy policies:
+          The following third-party services are used in the Application, each governed by their
+          respective privacy policies:
         </p>
-        <ul class="list-disc list-inside">
+        <ul class="list-disc list-inside text-body">
           <li>
-            <StyledLink to="https://policies.google.com/privacy" target="_blank"
-              >Google:
-            </StyledLink>
-            Google Play Services, Google OAuth
-          </li>
-          <li>
-            <StyledLink
-              to="https://www.apple.com/legal/privacy/en-ww/"
+            <a
+              href="https://pockethost.io/privacy"
               target="_blank"
-              >Apple:
-            </StyledLink>
-            Apple Developers, Apple OAuth
+              class="text-primary hover:underline"
+            >
+              PocketHost:
+            </a>
+            Hosting Provider, CDN
           </li>
           <li>
-            <StyledLink to="https://supabase.com/privacy" target="_blank"
-              >Supabase:
-            </StyledLink>
-            Database, Authentication, Edge Functions
-          </li>
-          <li>
-            <StyledLink to="https://www.revenuecat.com/privacy" target="_blank"
-              >RevenueCat:
-            </StyledLink>
-            In-App Purchases, Subscriptions
-          </li>
-          <li>
-            <StyledLink
-              to="https://www.bugsink.com/privacy-policy/"
+            <a
+              href="https://vercel.com/legal/privacy-policy"
               target="_blank"
-              >Bugsink:
-            </StyledLink>
+              class="text-primary hover:underline"
+            >
+              Vercel:
+            </a>
+            Hosting Provider, CDN
+          </li>
+          <li>
+            <a
+              href="https://www.bugsink.com/privacy-policy/"
+              target="_blank"
+              class="text-primary hover:underline"
+            >
+              Bugsink:
+            </a>
             Error Tracking, Monitoring
           </li>
           <li>
-            <StyledLink to="https://openpanel.dev/privacy" target="_blank"
-              >OpenPanel:
-            </StyledLink>
+            <a href="https://umami.is/privacy" target="_blank" class="text-primary hover:underline">
+              Umami:
+            </a>
             Analytics, User Tracking
           </li>
         </ul>
@@ -142,10 +130,21 @@
       <section>
         <h2 class="text-2xl font-semibold mb-4 text-dark">User Rights</h2>
         <p>
-          You have the right to access, rectify, erase, or object to the
-          processing of your data. Please contact
-          <SharedContactEmail />
+          You have the right to access, rectify, erase, or object to the processing of your data.
+          Please contact
+          <a href="mailto:privacy@settingly.xyz" class="hover:underline text-primary">
+            privacy@settingly.xyz
+          </a>
           to exercise these rights.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-semibold mb-4 text-dark">Self-Hosting</h2>
+        <p>
+          If you self-host the Application, you are responsible for your own data and its
+          processing. We do not have access to your data in this case. We do not collect any data
+          from self-hosted instances of the Application.
         </p>
       </section>
 
@@ -153,24 +152,23 @@
       <section>
         <h2 class="text-2xl font-semibold mb-4 text-dark">Data Retention</h2>
         <p>
-          We retain your data as long as you use the Application and for a
-          specified period thereafter to comply with legal obligations. If you
-          wish to have your data erased, please contact us at
-          <SharedContactEmail />.
+          We retain your data as long as you use the Application and for a specified period
+          thereafter to comply with legal obligations. If you wish to have your data erased, please
+          contact us at
+          <a href="mailto:privacy@settingly.xyz" class="hover:underline text-primary">
+            privacy@settingly.xyz
+          </a>
         </p>
       </section>
 
       <!-- Children's Privacy -->
 
       <section>
-        <h2 class="text-2xl font-semibold mb-4 text-dark">
-          Children's Privacy
-        </h2>
+        <h2 class="text-2xl font-semibold mb-4 text-dark">Children's Privacy</h2>
         <p>
-          We do not knowingly collect personal data from children under the age
-          of 13. If we learn that we have collected personal information from a
-          child under 13, we will take steps to delete such information from our
-          servers immediately.
+          We do not knowingly collect personal data from children under the age of 13. If we learn
+          that we have collected personal information from a child under 13, we will take steps to
+          delete such information from our servers immediately.
         </p>
       </section>
 
@@ -179,9 +177,9 @@
       <section>
         <h2 class="text-2xl font-semibold mb-4 text-dark">Security</h2>
         <p>
-          We implement a variety of security measures to maintain the safety of
-          your personal information, including encryption, access controls, and
-          secure software development practices.
+          We implement a variety of security measures to maintain the safety of your personal
+          information, including encryption, access controls, and secure software development
+          practices.
         </p>
       </section>
 
@@ -189,24 +187,20 @@
       <section>
         <h2 class="text-2xl font-semibold mb-4 text-dark">Your Consent</h2>
         <p>
-          By using the Application, you consent to the processing of your
-          information as outlined in this Privacy Policy, including any
-          amendments.
+          By using the Application, you consent to the processing of your information as outlined in
+          this Privacy Policy, including any amendments.
         </p>
       </section>
 
       <!-- Changes to Privacy Policy -->
       <section>
-        <h2 class="text-2xl font-semibold mb-4 text-dark">
-          Changes to Privacy Policy
-        </h2>
+        <h2 class="text-2xl font-semibold mb-4 text-dark">Changes to Privacy Policy</h2>
         <p>
-          We reserve the right to modify this Privacy Policy at any time.
-          Changes and clarifications will take effect immediately upon their
-          posting on the website. If we make material changes to this policy, we
-          will notify you here that it has been updated, so that you are aware
-          of what information we collect, how we use it, and under what
-          circumstances, if any, we use and/or disclose it.
+          We reserve the right to modify this Privacy Policy at any time. Changes and clarifications
+          will take effect immediately upon their posting on the website. If we make material
+          changes to this policy, we will notify you here that it has been updated, so that you are
+          aware of what information we collect, how we use it, and under what circumstances, if any,
+          we use and/or disclose it.
         </p>
       </section>
     </div>
