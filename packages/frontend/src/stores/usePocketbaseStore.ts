@@ -50,7 +50,6 @@ export const usePocketbaseStore = defineStore('pocketbase', () => {
 
   const logOut = async () => {
     pocketbase.authStore.clear();
-    await pocketbase.collection('users').authRefresh();
 
     user.value = null;
     await router.push('/login');
