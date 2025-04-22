@@ -23,12 +23,16 @@ app.use(createHead());
 //   }),
 // );
 
-Sentry.init({
-  app,
-  dsn: import.meta.env.VITE_SENTRY_DSN,
-  sendDefaultPii: true,
-  integrations: [],
-});
+// Sentry.init({
+//   app,
+//   dsn: import.meta.env.VITE_SENTRY_DSN,
+//   sendDefaultPii: true,
+//   integrations: [],
+// });
+
+console.log('Sentry DSN:', import.meta.env.VITE_SENTRY_DSN);
+console.log('Umami Website ID:', import.meta.env.VITE_UMAMI_WEBSITE_ID);
+console.log('Pocketbase URL:', import.meta.env.VITE_POCKETBASE_URL);
 
 app.use(router);
 
