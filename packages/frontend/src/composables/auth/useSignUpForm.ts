@@ -1,21 +1,7 @@
-import { ref, inject } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { toast } from 'vue-sonner';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
-
-const COMMON_SPECIAL_CHARACTERS = '!@#$%^&*()_§+{}[]:;<>,.?~\\/-';
-const PASSWORD_REGEX = new RegExp(
-  `^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[${COMMON_SPECIAL_CHARACTERS}]).{8,}$`,
-);
-
-// password regex explanation:
-// ^ - start of string
-// (?=.*[a-z]) - at least one lowercase letter
-// (?=.*[A-Z]) - at least one uppercase letter
-// (?=.*\\d) - at least one digit
-// (?=.*[${COMMON_SPECIAL_CHARACTERS}]) - at least one special character
-// .{8,} - at least 8 characters long
-// $ - end of string
 
 export default function useSignUpForm() {
   const email = ref<string>('');

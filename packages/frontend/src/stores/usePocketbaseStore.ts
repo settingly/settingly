@@ -1,7 +1,7 @@
 import { identifyUmamiSession } from '@jaseeey/vue-umami-plugin';
 import { defineStore } from 'pinia';
 import PocketBase, { type AuthRecord } from 'pocketbase';
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 type ExtendedAuthRecord = AuthRecord & {

@@ -1,5 +1,4 @@
 import { toast } from 'vue-sonner';
-import useCurrentProjectId from '../projects/useCurrentProjectId';
 import { useTokensStore } from '@/stores/useTokensStore';
 import { ref } from 'vue';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';

@@ -1,4 +1,3 @@
-import useCurrentProjectId from '@/composables/projects/useCurrentProjectId';
 import type { Token } from '@/types/tokens';
 import { defineStore } from 'pinia';
 import { ref, watch } from 'vue';

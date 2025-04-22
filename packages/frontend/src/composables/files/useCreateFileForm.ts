@@ -3,8 +3,6 @@ import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 
 import { ref, type Ref } from 'vue';
 import { toast } from 'vue-sonner';
-import useCurrentProjectId from '../projects/useCurrentProjectId';
-import { useRoute } from 'vue-router';
 import { ClientResponseError } from 'pocketbase';
 import { useProjectsStore } from '@/stores/useProjectsStore';
 import { storeToRefs } from 'pinia';
