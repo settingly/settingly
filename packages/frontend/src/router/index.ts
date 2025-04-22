@@ -1,19 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import SignUpView from '@/views/SignUpView.vue';
-import LoginView from '@/views/LoginView.vue';
-import ResetPasswordView from '@/views/ResetPasswordView.vue';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
-import ProjectsListView from '@/views/projects/ProjectsListView.vue';
-import UpdateFileView from '@/views/projects/files/UpdateFileView.vue';
-import FilesListView from '@/views/projects/files/FilesListView.vue';
-import NotFoundView from '@/views/NotFoundView.vue';
-import ProjectSettingsView from '@/views/projects/ProjectSettingsView.vue';
-import ImprintView from '@/views/legal/ImprintView.vue';
-import PrivacyView from '@/views/legal/PrivacyView.vue';
-import SingleDocumentView from '@/views/docs/SingleDocumentView.vue';
-import DocumentsListView from '@/views/docs/DocumentsListView.vue';
-import AccountView from '@/views/AccountView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
