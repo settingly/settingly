@@ -3,7 +3,7 @@
     "markdown": true
   },
   "eslint.workingDirectories": ["./packages/frontend"],
-  "eslint.options" {
-    "configFile": "./packages/frontend/eslint.config.ts",
+  "eslint.options": {
+    "configFile": "./packages/frontend/eslint.config.ts"
   }
 }
