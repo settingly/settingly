@@ -1,19 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import SignUpView from '@/views/SignUpView.vue';
-import LoginView from '@/views/LoginView.vue';
-import ResetPasswordView from '@/views/ResetPasswordView.vue';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
-import ProjectsListView from '@/views/projects/ProjectsListView.vue';
-import UpdateFileView from '@/views/projects/files/UpdateFileView.vue';
-import FilesListView from '@/views/projects/files/FilesListView.vue';
-import NotFoundView from '@/views/NotFoundView.vue';
-import ProjectSettingsView from '@/views/projects/ProjectSettingsView.vue';
-import ImprintView from '@/views/legal/ImprintView.vue';
-import PrivacyView from '@/views/legal/PrivacyView.vue';
-import SingleDocumentView from '@/views/docs/SingleDocumentView.vue';
-import DocumentsListView from '@/views/docs/DocumentsListView.vue';
-import AccountView from '@/views/AccountView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,78 +7,73 @@ const router = createRouter({
     {
       path: '/:catchAll(.*)',
       name: 'not-found',
-      component: () => NotFoundView,
-    },
-    {
-      path: '/:catchAll(.*)',
-      name: 'not-found',
-      component: () => NotFoundView,
+      component: () => import('../views/NotFoundView.vue'),
     },
     {
       path: '/legal/imprint',
       name: 'imprint',
-      component: () => ImprintView,
+      component: () => import('../views/legal/ImprintView.vue'),
     },
 
     {
       path: '/legal/privacy',
       name: 'privacy',
-      component: () => PrivacyView,
+      component: () => import('../views/legal/PrivacyView.vue'),
     },
     {
       path: '/',
       name: 'home',
-      component: () => HomeView,
+      component: () => import('../views/HomeView.vue'),
     },
     {
       path: '/signup',
       name: 'signup',
-      component: () => SignUpView,
+      component: () => import('@/views/SignUpView.vue'),
     },
     {
       path: '/reset-password',
       name: 'reset-password',
-      component: () => ResetPasswordView,
+      component: () => import('@/views/ResetPasswordView.vue'),
     },
     {
       path: '/login',
       name: 'login',
-      component: () => LoginView,
+      component: () => import('@/views/LoginView.vue'),
     },
     {
       path: '/account',
       name: 'account',
-      component: () => AccountView,
+      component: () => import('@/views/AccountView.vue'),
     },
     {
       path: '/projects',
       name: 'projects',
-      component: () => ProjectsListView,
+      component: () => import('@/views/projects/ProjectsListView.vue'),
     },
     {
       path: '/projects/:projectId/settings',
       name: 'project settings',
-      component: () => ProjectSettingsView,
+      component: () => import('@/views/projects/ProjectSettingsView.vue'),
     },
     {
       path: '/projects/:projectId/files',
       name: 'files',
-      component: () => FilesListView,
+      component: () => import('@/views/projects/files/FilesListView.vue'),
     },
     {
       path: '/projects/:projectId/files/:fileId',
       name: 'update file',
-      component: () => UpdateFileView,
+      component: () => import('@/views/projects/files/UpdateFileView.vue'),
     },
     {
       path: '/docs',
       name: 'docs home',
-      component: () => DocumentsListView,
+      component: () => import('@/views/docs/DocumentsListView.vue'),
     },
     {
       path: '/docs/:categorySlug/:pageSlug',
       name: 'docs page',
-      component: () => SingleDocumentView,
+      component: () => import('@/views/docs/SingleDocumentView.vue'),
     },
   ],
 });

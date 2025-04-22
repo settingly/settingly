@@ -1,13 +1,12 @@
 import './assets/main.css';
 
 import { createApp } from 'vue';
-import { createPinia, storeToRefs } from 'pinia';
+import { createPinia } from 'pinia';
 import { createHead } from '@unhead/vue/client';
 import * as Sentry from '@sentry/vue';
 import App from './App.vue';
 import router from './router';
 import { VueUmamiPlugin } from '@jaseeey/vue-umami-plugin';
-import { usePocketbaseStore } from './stores/usePocketbaseStore';
 
 const app = createApp(App);
 
