@@ -5,12 +5,14 @@ import { useConfirm } from '../utils/useConfirm';
 import { onMounted, ref, watch } from 'vue';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import { useRouter } from 'vue-router';
+import { useTokensStore } from '@/stores/useTokensStore';
 
 export default function useProjectSettingsForm() {
   const projectsStore = useProjectsStore();
   const { currentProject } = storeToRefs(projectsStore);
   const { confirmDialog } = useConfirm();
   const { pocketbase } = usePocketbaseStore();
+  const tokensStore = useTokensStore();
   const router = useRouter();
 
   const name = ref<string | undefined>(undefined);
@@ -68,12 +70,15 @@ export default function useProjectSettingsForm() {
 
   watch(
     () => currentProject.value,
-    (newProject) => {
+    async (newProject) => {
       if (!newProject) return;
 
       if (name.value === undefined) name.value = newProject.name;
       if (description.value === undefined) description.value = newProject.description;
+
+      await tokensStore.fetchTokens();
     },
+    { immediate: true },
   );
 
   onMounted(async () => {

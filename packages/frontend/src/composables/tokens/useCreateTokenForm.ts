@@ -48,7 +48,7 @@ export default function useCreateTokenForm() {
       isSubmitting.value = false;
       toast.success('Token created successfully!');
 
-      await useTokensStore().refetchTokens();
+      await useTokensStore().fetchTokens();
     } catch (error) {
       toast.error((error as Error).message || 'Failed to create token');
     } finally {
