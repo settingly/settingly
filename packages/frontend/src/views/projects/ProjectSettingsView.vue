@@ -32,14 +32,6 @@
         label="Description (Optional)"
       />
 
-      <p class="text-xs text-gray-500 max-w-md leading-tight">
-        Due to security reasons, the project organization cannot be changed after the project has
-        been created. If you need to change the organization, please contact us at
-        <a href="mailto:support@settingly.xyz" class="text-primary hover:underline">
-          support@settingly.xyz</a
-        >.
-      </p>
-
       <div v-if="!isSubmitting" class="pt-0 flex justify-end gap-2">
         <RouterLink :to="'/_'" class="button-ghost"> Cancel </RouterLink>
         <button :disabled="isSubmitting" type="submit" class="button">Save</button>

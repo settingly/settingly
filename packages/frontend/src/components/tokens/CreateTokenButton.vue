@@ -27,7 +27,8 @@
 
       <FormsCheckboxList label="Responsible for" :options="['files']" v-model="responsibilities" />
       <div class="flex flex-row gap-3">
-        <button type="submit" class="button">Create</button>
+        <button v-if="!isSubmitting" type="submit" class="button">Create</button>
+        <SharedSpinner v-else />
         <button type="button" class="button-ghost" @click="isCreatingNewToken = false">
           Cancel
         </button>
@@ -76,6 +77,7 @@ import { ref } from 'vue';
 import FormsCheckboxList from '../forms/FormsCheckboxList.vue';
 import FormsInput from '../forms/FormsInput.vue';
 import useCreateTokenForm from '@/composables/tokens/useCreateTokenForm';
+import SharedSpinner from '../shared/SharedSpinner.vue';
 
 const isCreatingNewToken = ref(false);
 
@@ -95,5 +97,6 @@ const {
   responsibilities,
   submit,
   name,
+  isSubmitting,
 } = useCreateTokenForm();
 </script>

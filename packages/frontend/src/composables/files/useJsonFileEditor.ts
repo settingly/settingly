@@ -10,6 +10,7 @@ import { toast } from 'vue-sonner';
 export default function useJsonFileEditor() {
   const jsonError = ref('');
   const configString = ref(ref(JSON.stringify({}, null, 2)));
+  const isSaving = ref(false);
 
   const { fetchFiles } = useFilesStore();
   const { currentFile } = storeToRefs(useFilesStore());
@@ -58,6 +59,7 @@ export default function useJsonFileEditor() {
 
   const save = async () => {
     if (currentFile.value) {
+      isSaving.value = true;
       let formattedJson = '';
 
       try {
@@ -91,6 +93,8 @@ export default function useJsonFileEditor() {
         await fetchFiles();
       } catch (e) {
         toast.error((e as ClientResponseError).message);
+      } finally {
+        isSaving.value = false;
       }
     }
   };
@@ -121,5 +125,6 @@ export default function useJsonFileEditor() {
     updateFromJson,
     save,
     jsonError,
+    isSaving,
   };
 }

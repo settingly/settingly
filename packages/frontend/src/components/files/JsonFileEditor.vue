@@ -27,9 +27,15 @@
         <button @click="resetToUnsaved" type="button" class="button bg-error hover:bg-error/90">
           Reset
         </button>
-        <button @click="save" type="button" class="button bg-success hover:bg-success/90">
+        <button
+          v-if="!isSaving"
+          @click="save"
+          type="button"
+          class="button bg-success hover:bg-success/90"
+        >
           Save
         </button>
+        <SharedSpinner v-if="isSaving" />
       </div>
     </div>
 
@@ -42,7 +48,16 @@
 <script lang="ts" setup>
 import useJsonFileEditor from '@/composables/files/useJsonFileEditor';
 import { CopyIcon, SignatureIcon } from 'lucide-vue-next';
+import SharedSpinner from '../shared/SharedSpinner.vue';
 
-const { jsonError, resetToUnsaved, save, format, copyToClipboard, configString, updateFromJson } =
-  useJsonFileEditor();
+const {
+  jsonError,
+  resetToUnsaved,
+  save,
+  format,
+  copyToClipboard,
+  configString,
+  updateFromJson,
+  isSaving,
+} = useJsonFileEditor();
 </script>
