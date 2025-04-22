@@ -21,7 +21,6 @@
         type="text"
         placeholder="Enter file description"
         label="Description (Optional)"
-        required
         v-model="description"
       />
 

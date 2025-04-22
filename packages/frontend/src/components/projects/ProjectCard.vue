@@ -7,7 +7,7 @@
           <h3 class="text-xl font-semibold tracking-tight">
             {{ project.name }}
           </h3>
-          <p class="text-sm text-body">{{ project.description }}</p>
+          <p class="text-sm text-body min-h-6">{{ project.description }}</p>
         </div>
       </div>
       <div class="mt-1 mr-1">

@@ -10,6 +10,7 @@ import { toast } from 'vue-sonner';
 export default function useJsonFileEditor() {
   const jsonError = ref('');
   const configString = ref(ref(JSON.stringify({}, null, 2)));
+  const isSaving = ref(false);
 
   const { fetchFiles } = useFilesStore();
   const { currentFile } = storeToRefs(useFilesStore());
@@ -58,6 +59,7 @@ export default function useJsonFileEditor() {
 
   const save = async () => {
     if (currentFile.value) {
+      isSaving.value = true;
       let formattedJson = '';
 
       try {
@@ -65,6 +67,7 @@ export default function useJsonFileEditor() {
         formattedJson = JSON.stringify(parsed, null, 2);
       } catch (e) {
         toast.error('Invalid JSON: ' + (e as Error).message);
+        isSaving.value = false;
         return;
       }
 
@@ -72,11 +75,13 @@ export default function useJsonFileEditor() {
 
       if (!newestVersion) {
         toast.error('No file version found.');
+        isSaving.value = false;
         return;
       }
 
       if (JSON.stringify(newestVersion.content, null, 2) === formattedJson) {
         toast.info('No changes detected');
+        isSaving.value = false;
         return;
       }
 
@@ -91,6 +96,8 @@ export default function useJsonFileEditor() {
         await fetchFiles();
       } catch (e) {
         toast.error((e as ClientResponseError).message);
+      } finally {
+        isSaving.value = false;
       }
     }
   };
@@ -121,5 +128,6 @@ export default function useJsonFileEditor() {
     updateFromJson,
     save,
     jsonError,
+    isSaving,
   };
 }
