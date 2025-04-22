@@ -35,6 +35,7 @@ export const useTokensStore = defineStore('tokens', () => {
   }
 
   async function deleteToken(tokenId: string) {
+    const currentProjectId = route.params.projectId as string;
     if (!currentProjectId) return;
     isLoading.value = true;
 
