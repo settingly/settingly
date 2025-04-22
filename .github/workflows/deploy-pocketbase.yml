@@ -26,7 +26,7 @@ jobs:
           password: ${{ secrets.PB_FTP_PASSWORD }}
           port: ${{ secrets.PB_FTP_PORT }}
           local-dir: packages/backend/pb_hooks/
-          server-dir: settingly-${{ github.ref_name == 'main' && 'prod' || 'staging' }}/pb_hooks
+          server-dir: settingly-${{ github.ref_name == 'main' && 'prod' || 'staging' }}/pb_hooks/
           state-name: pb-hooks-deploy 
           dry-run: true
 
@@ -38,6 +38,6 @@ jobs:
           password: ${{ secrets.PB_FTP_PASSWORD }}
           port: ${{ secrets.PB_FTP_PORT }}
           local-dir: packages/backend/pb_migrations/
-          server-dir: settingly-${{ github.ref_name == 'main' && 'prod' || 'staging' }}/pb_migrations
+          server-dir: settingly-${{ github.ref_name == 'main' && 'prod' || 'staging' }}/pb_migrations/
           state-name: pb-migrations-deploy
           dry-run: true
