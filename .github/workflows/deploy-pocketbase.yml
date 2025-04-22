@@ -28,7 +28,6 @@ jobs:
           local-dir: packages/backend/pb_hooks/
           server-dir: settingly-${{ github.ref_name == 'main' && 'prod' || 'staging' }}/pb_hooks/
           state-name: pb-hooks-deploy 
-          dry-run: true
 
       - name: Deploy pb_migrations
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -40,4 +39,3 @@ jobs:
           local-dir: packages/backend/pb_migrations/
           server-dir: settingly-${{ github.ref_name == 'main' && 'prod' || 'staging' }}/pb_migrations/
           state-name: pb-migrations-deploy
-          dry-run: true
