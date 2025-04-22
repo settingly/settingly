@@ -25,9 +25,9 @@ jobs:
           username: ${{ secrets.PB_FTP_USERNAME }}
           password: ${{ secrets.PB_FTP_PASSWORD }}
           port: ${{ secrets.PB_FTP_PORT }}
-          local-dir: packages/backend/pb_hooks
+          local-dir: packages/backend/pb_hooks/
           server-dir: settingly-${{ github.ref_name == 'main' && 'prod' || 'staging' }}/pb_hooks
-          delete-removed: false   # keine Löschung von Dateien, die nur remote existieren
+          state-name: pb-hooks-deploy 
           dry-run: true
 
       - name: Deploy pb_migrations
@@ -37,7 +37,7 @@ jobs:
           username: ${{ secrets.PB_FTP_USERNAME }}
           password: ${{ secrets.PB_FTP_PASSWORD }}
           port: ${{ secrets.PB_FTP_PORT }}
-          local-dir: packages/backend/pb_migrations
+          local-dir: packages/backend/pb_migrations/
           server-dir: settingly-${{ github.ref_name == 'main' && 'prod' || 'staging' }}/pb_migrations
-          delete-removed: false
+          state-name: pb-migrations-deploy
           dry-run: true
