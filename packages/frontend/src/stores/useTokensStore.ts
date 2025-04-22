@@ -1,6 +1,6 @@
 import type { Token } from '@/types/tokens';
 import { defineStore } from 'pinia';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { toast } from 'vue-sonner';
 import { usePocketbaseStore } from './usePocketbaseStore';
@@ -11,11 +11,12 @@ export const useTokensStore = defineStore('tokens', () => {
   const isLoading = ref(false);
   const error = ref<string | null>(null);
 
-  const currentProjectId = useRoute().params.projectId as string;
+  const route = useRoute();
   const { pocketbase } = usePocketbaseStore();
   const { confirmDialog } = useConfirm();
 
   async function fetchTokens() {
+    const currentProjectId = route.params.projectId as string;
     if (!currentProjectId) return;
     isLoading.value = true;
     try {
@@ -57,23 +58,9 @@ export const useTokensStore = defineStore('tokens', () => {
     }
   }
 
-  watch(
-    () => currentProjectId,
-    async (newId) => {
-      if (newId) {
-        await fetchTokens();
-      } else {
-        tokens.value = [];
-        error.value = null;
-        isLoading.value = false;
-      }
-    },
-    { immediate: true },
-  );
-
   return {
     tokens,
-    refetchTokens: fetchTokens,
+    fetchTokens,
     isLoading,
     error,
     deleteToken,
