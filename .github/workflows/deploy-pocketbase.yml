@@ -4,7 +4,13 @@ on:
   push:
     branches:
       - 'main'
-      - 'staging'
+    paths:
+      - 'packages/backend/**'
+  pull_request:
+    branches:
+      - 'dev'
+    paths:
+      - 'packages/backend/**'
 
 jobs:
   ftp-deploy:
