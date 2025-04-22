@@ -1,4 +1,4 @@
-import { inject, ref } from 'vue';
+import { ref } from 'vue';
 import { toast } from 'vue-sonner';
 import { useRouter } from 'vue-router';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';

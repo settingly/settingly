@@ -1,8 +1,8 @@
 import type { File_, FileVersion } from '@/types/files';
 import { defineStore } from 'pinia';
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import { usePocketbaseStore } from './usePocketbaseStore';
-import { onBeforeRouteUpdate, useRoute } from 'vue-router';
+import { useRoute } from 'vue-router';
 
 export const useFilesStore = defineStore('files', () => {
   const files = ref<File_[]>([]);

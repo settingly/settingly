@@ -1,7 +1,7 @@
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
-import { inject, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { toast } from 'vue-sonner';
 
 export default function useLogInForm() {

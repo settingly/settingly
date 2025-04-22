@@ -28,7 +28,7 @@ export default function useProjectSettingsForm() {
     }
 
     try {
-      await pocketbase.collection('projects').update(currentProject.value?.id!, {
+      await pocketbase.collection('projects').update(currentProject.value!.id, {
         name: name.value,
         description: description.value,
       });
@@ -55,7 +55,7 @@ export default function useProjectSettingsForm() {
     }
 
     try {
-      await pocketbase.collection('projects').delete(currentProject.value?.id!);
+      await pocketbase.collection('projects').delete(currentProject.value!.id);
       isDeleting.value = false;
       toast.success('Project deleted successfully!');
       await projectsStore.fetchProjects();
