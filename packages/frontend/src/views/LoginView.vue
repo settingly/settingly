@@ -9,7 +9,7 @@ const { password, email, submit, isSubmitting } = useLogInForm();
 
 <template>
   <div class="mx-auto max-w-xl px-4 sm:px-6 lg:px-8 my-24">
-    <FormsBase title="Sign In" subtitle="Welcome back!" @submit="submit">
+    <FormsBase title="Log In" subtitle="Welcome back!" @submit="submit">
       <FormsInput :required="true" label="Email" placeholder="Email address" v-model="email" />
       <FormsInput
         :required="true"
@@ -29,7 +29,7 @@ const { password, email, submit, isSubmitting } = useLogInForm();
         </RouterLink>
       </div>
 
-      <button v-if="!isSubmitting" type="submit" class="button w-full">Sign In</button>
+      <button v-if="!isSubmitting" type="submit" class="button w-full">Log In</button>
       <div v-else class="flex flex-row items-center justify-center">
         <SharedSpinner />
       </div>

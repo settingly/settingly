@@ -12,7 +12,7 @@ const { password, passwordConfirm, email, submit, isSubmitting } = useSignUpForm
     <FormsBase title="Sign Up" subtitle="Create an account to get started." @submit="submit">
       <FormsInput :required="true" label="Email" placeholder="Email address" v-model="email" />
 
-      <p class="text-body text-xs -mt-3">
+      <p class="text-body text-xs -mt-2 leading-tight">
         We recommend using an email address that can be shared with your team.
       </p>
 
