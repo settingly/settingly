@@ -1,0 +1,43 @@
+# .github/workflows/deploy-pb.yml
+name: Deploy PB Hooks & Migrations
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'staging'
+  pull_request:
+    branches:
+      - 'main'
+      - 'staging'
+
+jobs:
+  ftp-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy pb_hooks
+        uses: SamKirkland/FTP-Deploy-Action@4.5.0
+        with:
+          server: ${{ secrets.PB_FTP_HOST }}
+          username: ${{ secrets.PB_FTP_USERNAME }}
+          password: ${{ secrets.PB_FTP_PASSWORD }}
+          port: ${{ secrets.PB_FTP_PORT }}
+          local-dir: packages/backend/pb_hooks
+          server-dir: settingly-${{ github.ref_name == 'main' && 'prod' || 'staging' }}/pb_hooks
+          delete-removed: false   # keine Löschung von Dateien, die nur remote existieren
+          dry-run: true
+
+      - name: Deploy pb_migrations
+        uses: SamKirkland/FTP-Deploy-Action@4.5.0
+        with:
+          server: ${{ secrets.PB_FTP_HOST }}
+          username: ${{ secrets.PB_FTP_USERNAME }}
+          password: ${{ secrets.PB_FTP_PASSWORD }}
+          port: ${{ secrets.PB_FTP_PORT }}
+          local-dir: packages/backend/pb_migrations
+          server-dir: settingly-${{ github.ref_name == 'main' && 'prod' || 'staging' }}/pb_migrations
+          delete-removed: false
+          dry-run: true
