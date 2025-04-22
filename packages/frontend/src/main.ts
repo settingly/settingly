@@ -14,14 +14,14 @@ const app = createApp(App);
 app.use(createPinia());
 app.use(createHead());
 
-app.use(
-  VueUmamiPlugin({
-    websiteID: import.meta.env.VITE_UMAMI_WEBSITE_ID,
-    scriptSrc: 'https://eu.umami.is/script.js',
-    router,
-    allowLocalhost: true,
-  }),
-);
+// app.use(
+//   VueUmamiPlugin({
+//     websiteID: import.meta.env.VITE_UMAMI_WEBSITE_ID,
+//     scriptSrc: 'https://eu.umami.is/script.js',
+//     router,
+//     allowLocalhost: true,
+//   }),
+// );
 
 Sentry.init({
   app,
