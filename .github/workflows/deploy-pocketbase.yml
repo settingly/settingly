@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy pb_hooks
-        uses: SamKirkland/FTP-Deploy-Action@4.5.0
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.PB_FTP_HOST }}
           username: ${{ secrets.PB_FTP_USERNAME }}
@@ -31,7 +31,7 @@ jobs:
           dry-run: true
 
       - name: Deploy pb_migrations
-        uses: SamKirkland/FTP-Deploy-Action@4.5.0
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.PB_FTP_HOST }}
           username: ${{ secrets.PB_FTP_USERNAME }}
