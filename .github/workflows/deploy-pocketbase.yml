@@ -28,7 +28,7 @@ jobs:
   ftp-deploy:
     runs-on: ubuntu-latest
     env:
-      DEPLOY_ENV: ${{ github.event.inputs.environment || (github.event_name == 'push' && 'production' || 'staging') }}
+      DEPLOY_ENV: ${{ github.event.inputs.environment || ((github.event_name == 'push') && 'production') || 'staging' }}
 
     steps:
       - name: Checkout
