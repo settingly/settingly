@@ -8,6 +8,10 @@
     >
     </textarea>
 
+    <p class="text-xs text-body -mt-5">
+      Do not store sensitive information in configuration files.
+    </p>
+
     <div class="flex flex-row justify-between">
       <div class="flex flex-row gap-3 items-center">
         <button

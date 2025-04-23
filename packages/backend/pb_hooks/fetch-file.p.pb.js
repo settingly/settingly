@@ -1,6 +1,6 @@
 /// <reference path="../pb_data/types.d.ts" />
 
-routerAdd("GET", "/api/public/projects/{projectId}/files/{fileName}", (e) => {
+routerAdd("GET", "/public/files/{fileName}", (e) => {
   try {
     const tokenHeader = e.request.header.get("X-Settingly-Token");
     if (!tokenHeader) {
@@ -9,7 +9,7 @@ routerAdd("GET", "/api/public/projects/{projectId}/files/{fileName}", (e) => {
     let payload;
     try {
       payload = $security.parseJWT(tokenHeader, $os.getenv("JWT_SECRET_KEY"));
-    } catch (err) {
+    } catch {
       return e.error(401, "Invalid token");
     }
 
@@ -24,14 +24,13 @@ routerAdd("GET", "/api/public/projects/{projectId}/files/{fileName}", (e) => {
         "tokens",
         `token="${tokenHeader}"`
       );
-    } catch (err) {
+    } catch {
       return e.error(401, "Token was revoked");
     }
 
     try {
-      console.log("Project ID: ", payload.projectId);
-      const project = e.app.findRecordById("projects", payload.projectId);
-    } catch (err) {
+      e.app.findRecordById("projects", payload.projectId);
+    } catch {
       return e.error(404, "Project not found");
     }
 
@@ -51,7 +50,7 @@ routerAdd("GET", "/api/public/projects/{projectId}/files/{fileName}", (e) => {
         "files",
         `name="${fileName}" && project="${payload.projectId}"`
       );
-    } catch (err) {
+    } catch {
       return e.error(404, "File not found");
     }
 
