@@ -6,11 +6,13 @@ on:
       - 'main'
     paths:
       - 'packages/backend/**'
+      - '.github/workflows/deploy-pocketbase.yml'
   pull_request:
     branches:
       - 'main'
     paths:
       - 'packages/backend/**'
+      - '.github/workflows/deploy-pocketbase.yml'
   workflow_dispatch:
     inputs:
       environment:
