@@ -8,7 +8,7 @@ on:
       - 'packages/backend/**'
   pull_request:
     branches:
-      - 'dev'
+      - 'main'
     paths:
       - 'packages/backend/**'
 
@@ -27,7 +27,7 @@ jobs:
           password: ${{ secrets.PB_FTP_PASSWORD }}
           port: ${{ secrets.PB_FTP_PORT }}
           local-dir: packages/backend/pb_hooks/
-          server-dir: settingly-${{ github.ref_name == 'main' && 'prod' || 'staging' }}/pb_hooks/
+          server-dir: settingly-${{ github.event_name == 'push' && 'production' || 'staging' }}/pb_hooks/
           state-name: pb-hooks-deploy 
 
       - name: Deploy pb_migrations
@@ -38,5 +38,5 @@ jobs:
           password: ${{ secrets.PB_FTP_PASSWORD }}
           port: ${{ secrets.PB_FTP_PORT }}
           local-dir: packages/backend/pb_migrations/
-          server-dir: settingly-${{ github.ref_name == 'main' && 'prod' || 'staging' }}/pb_migrations/
+          server-dir: settingly-${{ github.event_name == 'push' && 'production' || 'staging' }}/pb_migrations/
           state-name: pb-migrations-deploy
