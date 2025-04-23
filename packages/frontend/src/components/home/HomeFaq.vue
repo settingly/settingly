@@ -40,7 +40,7 @@ const faqs = ref<FAQ[]>([
           <div class="mx-auto mb-[60px] max-w-[510px] text-center lg:mb-20">
             <span class="block mb-2 text-lg font-semibold text-primary"> FAQ </span>
             <h2 class="text-dark text-3xl font-bold sm:text-[40px]/[48px]">
-              Frequently ask questions
+              Frequently Asked Questions
             </h2>
           </div>
         </div>
