@@ -6,15 +6,30 @@ on:
       - 'main'
     paths:
       - 'packages/backend/**'
+      - '.github/workflows/deploy-pocketbase.yml'
   pull_request:
     branches:
       - 'main'
     paths:
       - 'packages/backend/**'
+      - '.github/workflows/deploy-pocketbase.yml'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deploy environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
 
 jobs:
   ftp-deploy:
     runs-on: ubuntu-latest
+    env:
+      DEPLOY_ENV: ${{ github.event.inputs.environment || ((github.event_name == 'push') && 'production') || 'staging' }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,7 +42,7 @@ jobs:
           password: ${{ secrets.PB_FTP_PASSWORD }}
           port: ${{ secrets.PB_FTP_PORT }}
           local-dir: packages/backend/pb_hooks/
-          server-dir: settingly-${{ github.event_name == 'push' && 'production' || 'staging' }}/pb_hooks/
+          server-dir: settingly-${{ env.DEPLOY_ENV }}/pb_hooks/
           state-name: pb-hooks-deploy 
 
       - name: Deploy pb_migrations
@@ -38,5 +53,5 @@ jobs:
           password: ${{ secrets.PB_FTP_PASSWORD }}
           port: ${{ secrets.PB_FTP_PORT }}
           local-dir: packages/backend/pb_migrations/
-          server-dir: settingly-${{ github.event_name == 'push' && 'production' || 'staging' }}/pb_migrations/
+          server-dir: settingly-${{ env.DEPLOY_ENV }}/pb_migrations/
           state-name: pb-migrations-deploy
