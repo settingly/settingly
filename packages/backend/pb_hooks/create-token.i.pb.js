@@ -2,7 +2,7 @@
 
 routerAdd(
   "POST",
-  "/api/internal/projects/{projectId}/tokens",
+  "/internal/projects/{projectId}/tokens",
   (e) => {
     try {
       const projectId = e.request.pathValue("projectId");

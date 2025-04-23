@@ -21,7 +21,7 @@ export const useTokensStore = defineStore('tokens', () => {
     isLoading.value = true;
     try {
       tokens.value = await pocketbase.send<Token[]>(
-        `/api/internal/projects/${currentProjectId}/tokens`,
+        `/internal/projects/${currentProjectId}/tokens`,
         {
           method: 'GET',
         },

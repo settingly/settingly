@@ -34,7 +34,7 @@ export default function useCreateTokenForm() {
         projectId: string;
         name: string;
         responsibilities: string[];
-      }>(`/api/internal/projects/${route.params.projectId}/tokens`, {
+      }>(`/internal/projects/${route.params.projectId}/tokens`, {
         method: 'POST',
         body: {
           name: name.value,

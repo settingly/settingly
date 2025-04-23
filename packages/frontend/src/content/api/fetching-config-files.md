@@ -19,7 +19,7 @@ Please make sure the token has the responsibility `Files`.
 All API requests should be made to the following base URL:
 
 ```
-https://settingly.xyz
+https://api.settingly.xyz
 ```
 
 ### Fetch Configuration Files
@@ -27,19 +27,17 @@ https://settingly.xyz
 To fetch your configuration files, make a GET request to the following endpoint:
 
 ```
-/api/public/projects/{projectId}/files/{fileName}
+/public/files/{fileName}
 ```
 
 <br />
-The following code shows an example using the JavaScript library ofetch:
+The following code shows an example using the JavaScript library <a href="https://github.com/unjs/ofetch" target="_blank">ofetch</a>:
 
 ```js
 import { ofetch } from 'ofetch';
 
-ofetch('https://settingly.xyz/api/v1/public/projects/{projectId}/files/{fileName}');
+ofetch('https://api.settingly.xyz/public/files/{fileName}');
 ```
-
-You can find the `projectId` and `fileName` in the Settingly dashboard. The `projectId` is the unique identifier for your project, and the `fileName` is the name of the configuration file you want to fetch.
 
 ### Example Response
 
