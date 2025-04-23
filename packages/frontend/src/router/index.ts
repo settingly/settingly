@@ -10,6 +10,11 @@ const router = createRouter({
       component: () => import('../views/NotFoundView.vue'),
     },
     {
+      path: '/offline',
+      name: 'offline',
+      component: () => import('../views/BackendOfflineView.vue'),
+    },
+    {
       path: '/legal/imprint',
       name: 'imprint',
       component: () => import('../views/legal/ImprintView.vue'),

@@ -7,6 +7,7 @@ import { useRouter } from 'vue-router';
 import useCurrentProjectId from '../projects/useCurrentProjectId';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import { useProjectsStore } from '@/stores/useProjectsStore';
+import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
 
 export default function useFileSettingsForm() {
   const filesStore = useFilesStore();
@@ -32,6 +33,13 @@ export default function useFileSettingsForm() {
 
       toast.success('File updated successfully');
 
+      trackUmamiEvent('update_file', {
+        fileId: currentFile.value?.id,
+        fileName: name.value,
+        fileDescription: description.value,
+        projectId: currentFile.value?.project,
+      });
+
       await filesStore.fetchFiles();
     } catch (error) {
       toast.error(`Failed to update file: ${(error as Error).message}`);
@@ -56,6 +64,13 @@ export default function useFileSettingsForm() {
       await pocketbase.collection('files').delete(currentFile.value?.id || '');
 
       toast.success('File deleted successfully');
+
+      trackUmamiEvent('delete_file', {
+        fileId: currentFile.value?.id,
+        fileName: currentFile.value?.name,
+        fileDescription: currentFile.value?.description,
+        projectId: currentFile.value?.project,
+      });
 
       await router.push(`/projects/${currentFile.value?.project}/files`);
       await filesStore.fetchFiles();

@@ -6,6 +6,7 @@ import { toast } from 'vue-sonner';
 import { ClientResponseError } from 'pocketbase';
 import { useProjectsStore } from '@/stores/useProjectsStore';
 import { storeToRefs } from 'pinia';
+import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
 
 export default function useCreateFileForm(dialogCloser: Ref<boolean, boolean>) {
   const name = ref('');
@@ -31,6 +32,14 @@ export default function useCreateFileForm(dialogCloser: Ref<boolean, boolean>) {
         content: {
           hello: 'world',
         },
+      });
+
+      trackUmamiEvent('create_file', {
+        fileId: createdFile.id,
+        fileName: createdFile.name,
+        fileDescription: createdFile.description,
+        projectId: currentProject.value?.id,
+        projectName: currentProject.value?.name,
       });
 
       toast.success('File created successfully!');

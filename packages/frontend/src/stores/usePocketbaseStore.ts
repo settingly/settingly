@@ -1,4 +1,4 @@
-import { identifyUmamiSession } from '@jaseeey/vue-umami-plugin';
+import { identifyUmamiSession, trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
 import { defineStore } from 'pinia';
 import PocketBase, { type AuthRecord } from 'pocketbase';
 import { computed, ref } from 'vue';
@@ -50,6 +50,11 @@ export const usePocketbaseStore = defineStore('pocketbase', () => {
 
   const logOut = async () => {
     pocketbase.authStore.clear();
+
+    trackUmamiEvent('logout', {
+      userId: user.value?.id,
+      userEmail: user.value?.email,
+    });
 
     user.value = null;
     await router.push('/login');

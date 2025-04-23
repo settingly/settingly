@@ -2,6 +2,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { toast } from 'vue-sonner';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
+import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
 
 export default function useSignUpForm() {
   const email = ref<string>('');
@@ -36,6 +37,8 @@ export default function useSignUpForm() {
 
       await pocketbase.collection('users').requestVerification(email.value);
       await router.push('/login');
+
+      trackUmamiEvent('sign_up', {});
 
       toast.success('Registration successful! Please check your email to verify your account.');
     } catch {
