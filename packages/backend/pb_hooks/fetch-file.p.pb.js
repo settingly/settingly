@@ -29,7 +29,6 @@ routerAdd("GET", "/public/files/{fileName}", (e) => {
     }
 
     try {
-      console.log("Project ID: ", payload.projectId);
       e.app.findRecordById("projects", payload.projectId);
     } catch {
       return e.error(404, "Project not found");
