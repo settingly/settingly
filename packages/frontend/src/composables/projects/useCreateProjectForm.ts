@@ -1,5 +1,6 @@
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import { useProjectsStore } from '@/stores/useProjectsStore';
+import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
 import { storeToRefs } from 'pinia';
 import { ClientResponseError } from 'pocketbase';
 import { ref, type Ref } from 'vue';
@@ -27,6 +28,13 @@ export default function useCreateProjectForm(dialogCloser?: Ref<boolean, boolean
         name: projectName.value,
         description: description.value,
         user: user.value?.id,
+      });
+
+      trackUmamiEvent('create_project', {
+        projectName: projectName.value,
+        projectDescription: description.value,
+        userId: user.value?.id,
+        userEmail: user.value?.email,
       });
 
       toast.success('Project created successfully!');

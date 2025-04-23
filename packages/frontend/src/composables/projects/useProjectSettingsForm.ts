@@ -6,6 +6,7 @@ import { onMounted, ref, watch } from 'vue';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import { useRouter } from 'vue-router';
 import { useTokensStore } from '@/stores/useTokensStore';
+import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
 
 export default function useProjectSettingsForm() {
   const projectsStore = useProjectsStore();
@@ -60,6 +61,13 @@ export default function useProjectSettingsForm() {
       await pocketbase.collection('projects').delete(currentProject.value!.id);
       isDeleting.value = false;
       toast.success('Project deleted successfully!');
+
+      trackUmamiEvent('delete_project', {
+        projectId: currentProject.value?.id,
+        projectName: currentProject.value?.name,
+        projectDescription: currentProject.value?.description,
+      });
+
       await projectsStore.fetchProjects();
       router.push('/projects');
     } catch (error) {

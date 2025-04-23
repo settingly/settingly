@@ -2,6 +2,7 @@ import { useConfirm } from '@/composables/utils/useConfirm';
 import { useFilesStore } from '@/stores/useFilesStore';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import getNewestFileVersion from '@/utils/get-newest-file-version';
+import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
 import { storeToRefs } from 'pinia';
 import type { ClientResponseError } from 'pocketbase';
 import { onMounted, ref, watch } from 'vue';
@@ -89,6 +90,13 @@ export default function useJsonFileEditor() {
         await pocketbase.collection('file_versions').create({
           file: currentFile.value.id,
           content: formattedJson,
+        });
+
+        trackUmamiEvent('update_file', {
+          fileId: currentFile.value.id,
+          fileName: currentFile.value.name,
+          fileDescription: currentFile.value.description,
+          projectId: currentFile.value.project,
         });
 
         toast.success('File updated successfully');

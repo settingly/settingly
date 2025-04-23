@@ -3,6 +3,7 @@ import { useTokensStore } from '@/stores/useTokensStore';
 import { ref } from 'vue';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import { useRoute } from 'vue-router';
+import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
 
 export default function useCreateTokenForm() {
   const { pocketbase } = usePocketbaseStore();
@@ -40,6 +41,12 @@ export default function useCreateTokenForm() {
           name: name.value,
           responsibilities: responsibilities.value,
         },
+      });
+
+      trackUmamiEvent('create_token', {
+        tokenName: name.value,
+        tokenResponsibilities: responsibilities.value,
+        projectId: route.params.projectId,
       });
 
       generatedToken.value = response.token;

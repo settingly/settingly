@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router';
 import { toast } from 'vue-sonner';
 import { usePocketbaseStore } from './usePocketbaseStore';
 import { useConfirm } from '@/composables/utils/useConfirm';
+import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
 
 export const useTokensStore = defineStore('tokens', () => {
   const tokens = ref<Token[]>([]);
@@ -50,6 +51,12 @@ export const useTokensStore = defineStore('tokens', () => {
 
     try {
       await pocketbase.collection('tokens').delete(tokenId);
+
+      trackUmamiEvent('delete_token', {
+        tokenId,
+        projectId: currentProjectId,
+      });
+
       tokens.value = tokens.value.filter((t) => t.id !== tokenId);
       toast.success('Token deleted successfully');
     } catch (err) {
