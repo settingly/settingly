@@ -13,14 +13,19 @@ import { RouterLink } from 'vue-router';
       Streamline, control, and elevate your server-side utilities – all in one smart platform.
     </h2>
     <div class="mt-6 grid grid-rows-1 grid-cols-2 gap-5">
-      <RouterLink class="button-fancy text-xl text-center flex flex-row items-center" to="#">
-        Upvote
-      </RouterLink>
-      <RouterLink
+      <a
         target="_blank"
-        to="https://www.paypal.com/donate/?hosted_button_id=K95L2SCMBJQDE"
+        href="https://www.producthunt.com/products/settingly"
+        class="button-fancy text-xl text-center flex flex-row items-center"
+        to="#"
+      >
+        Upvote
+      </a>
+      <a
+        target="_blank"
+        href="https://www.paypal.com/donate/?hosted_button_id=K95L2SCMBJQDE"
         class="button-fancy text-xl text-center"
-        >Donate</RouterLink
+        >Donate</a
       >
     </div>
   </div>
