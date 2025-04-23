@@ -72,7 +72,13 @@ const { files, isLoading, error } = storeToRefs(filesStore);
 const router = useRouter();
 
 const filteredFiles = computed(() => {
-  return files.value.filter((file) => file.project === currentProject.value!.id);
+  const currentProjectId = currentProject.value?.id;
+
+  if (!currentProjectId) {
+    return [];
+  }
+
+  return files.value.filter((file) => file.project === currentProjectId);
 });
 
 onMounted(async () => {
