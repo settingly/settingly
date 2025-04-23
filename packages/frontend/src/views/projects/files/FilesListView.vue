@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 my-8 lg:my-24">
-    <div class="flex flex-row justify-between mb-12">
+    <div class="flex flex-col gap-3 lg:gap-0 md:flex-row justify-between mb-12">
       <div>
         <h1 class="text-4xl font-semibold">{{ currentProject?.name }}</h1>
         <p class="max-w-2xl text-sm mt-4">
