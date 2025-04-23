@@ -143,7 +143,7 @@
 
 <script setup lang="ts">
 import logo from '@/assets/logo.png';
-import { BookIcon, CodeXmlIcon, CpuIcon, HelpingHandIcon } from 'lucide-vue-next';
+import { BookIcon, CodeXmlIcon, HelpingHandIcon } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
 import SharedUserAvatar from '../shared/SharedUserAvatar.vue';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
@@ -162,7 +162,6 @@ const toggleNavbar = () => {
 
 const navLinkItems = computed(() => {
   return [
-    { text: 'Services', to: '/#services', icon: CpuIcon, target: '_self', routed: true },
     { text: 'Documentation', to: '/docs', icon: BookIcon, target: '_self', routed: true },
     {
       text: 'Source Code',

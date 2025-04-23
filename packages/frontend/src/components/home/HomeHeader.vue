@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { RouterLink } from 'vue-router';
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import { RouterLink } from 'vue-router'
     >
       Settingly
     </h1>
-    <h2 class="text-2xl max-w-xl text-center">
+    <h2 class="lg:text-2xl text-lg max-w-xl text-center">
       Streamline, control, and elevate your server-side utilities – all in one smart platform.
     </h2>
     <div class="mt-6 grid grid-rows-1 grid-cols-2 gap-5">

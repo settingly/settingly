@@ -1,5 +1,5 @@
 <template>
-  <div v-if="page" class="max-w-4xl mx-auto text-lg py-12">
+  <div v-if="page" class="max-w-4xl mx-auto text-lg py-12 px-3">
     <component :is="page.content" class="prose max-w-none" />
   </div>
   <NotFoundView v-else />
