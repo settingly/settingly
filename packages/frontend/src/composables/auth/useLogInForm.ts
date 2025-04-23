@@ -1,5 +1,6 @@
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
+import { ClientResponseError } from 'pocketbase';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { toast } from 'vue-sonner';
@@ -22,8 +23,11 @@ export default function useLogInForm() {
       await router.push('/projects');
       trackUmamiEvent('login', {});
     } catch (error) {
-      toast.error('Failed to log in. Please check your credentials.');
-      trackUmamiEvent('login_failed', error as Error);
+      if (error instanceof ClientResponseError && error.status === 403) {
+        toast.error('Please verify your email address');
+      } else {
+        toast.error('Invalid email or password');
+      }
     } finally {
       isSubmitting.value = false;
     }
