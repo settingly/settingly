@@ -1,4 +1,3 @@
-import { useFilesStore } from '@/stores/useFilesStore';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 
 import { ref, type Ref } from 'vue';
@@ -7,48 +6,64 @@ import { ClientResponseError } from 'pocketbase';
 import { useProjectsStore } from '@/stores/useProjectsStore';
 import { storeToRefs } from 'pinia';
 import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
+import type { File_, FileVersion } from '@/types/files';
+import useCurrentProjectStore from '@/stores/useCurrentProjectStore';
 
 export default function useCreateFileForm(dialogCloser: Ref<boolean, boolean>) {
   const name = ref('');
   const description = ref('');
   const isSubmitting = ref(false);
 
-  const { fetchFiles } = useFilesStore();
+  const { files, project } = storeToRefs(useCurrentProjectStore());
+  const { projects } = storeToRefs(useProjectsStore());
   const { pocketbase } = usePocketbaseStore();
-  const { currentProject } = storeToRefs(useProjectsStore());
 
   const submit = async () => {
     isSubmitting.value = true;
 
     try {
-      const createdFile = await pocketbase.collection('files').create({
+      const createdFile = await pocketbase.collection('files').create<File_>({
         name: name.value,
         description: description.value,
-        project: currentProject.value?.id,
+        project: project.value?.id,
       });
 
-      await pocketbase.collection('file_versions').create({
+      const createdVersion = await pocketbase.collection('file_versions').create<FileVersion>({
         file: createdFile.id,
         content: {
           hello: 'world',
         },
       });
 
+      files.value.push({
+        ...createdFile,
+        versions: [createdVersion],
+      });
+
+      projects.value = projects.value.map((p) => {
+        if (project.value!.id === p?.id) {
+          return {
+            ...p,
+            fileCount: p.fileCount + 1,
+          };
+        }
+        return p;
+      });
+
       trackUmamiEvent('create_file', {
         fileId: createdFile.id,
         fileName: createdFile.name,
         fileDescription: createdFile.description,
-        projectId: currentProject.value?.id,
-        projectName: currentProject.value?.name,
+        projectId: project.value?.id,
+        projectName: project.value?.name,
       });
 
       toast.success('File created successfully!');
+
       if (dialogCloser) {
         dialogCloser.value = false;
       }
       reset();
-
-      await fetchFiles();
     } catch (error) {
       if (
         error instanceof ClientResponseError &&

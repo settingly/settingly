@@ -75,16 +75,15 @@ import { EyeIcon, TrashIcon } from 'lucide-vue-next';
 import SharedDialog from '../shared/SharedDialog.vue';
 import { ref } from 'vue';
 import type { Token } from '@/types/tokens';
-import { useTokensStore } from '@/stores/useTokensStore';
 import { storeToRefs } from 'pinia';
 import prettifyMachineString from '@/utils/prettify-machine-string';
+import useCurrentProjectStore from '@/stores/useCurrentProjectStore';
 
 const toView = ref<Token | null>(null);
 
-const tokensStore = useTokensStore();
-const { tokens } = storeToRefs(tokensStore);
+const { tokens } = storeToRefs(useCurrentProjectStore());
 
 async function deleteToken(id: string) {
-  await tokensStore.deleteToken(id);
+  // await tokensStore.deleteToken(id);
 }
 </script>

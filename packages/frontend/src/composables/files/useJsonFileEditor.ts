@@ -1,6 +1,7 @@
 import { useConfirm } from '@/composables/utils/useConfirm';
-import { useFilesStore } from '@/stores/useFilesStore';
+import useCurrentProjectStore from '@/stores/useCurrentProjectStore';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
+import type { FileVersion } from '@/types/files';
 import getNewestFileVersion from '@/utils/get-newest-file-version';
 import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
 import { storeToRefs } from 'pinia';
@@ -13,8 +14,7 @@ export default function useJsonFileEditor() {
   const configString = ref(ref(JSON.stringify({}, null, 2)));
   const isSaving = ref(false);
 
-  const { fetchFiles } = useFilesStore();
-  const { currentFile } = storeToRefs(useFilesStore());
+  const { currentFile, fileVersions } = storeToRefs(useCurrentProjectStore());
   const { confirmDialog } = useConfirm();
   const { pocketbase } = usePocketbaseStore();
 
@@ -49,7 +49,7 @@ export default function useJsonFileEditor() {
     if (typeof currentFile.value !== 'undefined') {
       if (await confirmDialog('Are you sure you want to reset the file to its unsaved state?')) {
         configString.value = JSON.stringify(
-          getNewestFileVersion(currentFile.value)!.content,
+          getNewestFileVersion(currentFile.value!)!.content,
           null,
           2,
         );
@@ -87,10 +87,12 @@ export default function useJsonFileEditor() {
       }
 
       try {
-        await pocketbase.collection('file_versions').create({
+        const createdVersion = await pocketbase.collection('file_versions').create<FileVersion>({
           file: currentFile.value.id,
           content: formattedJson,
         });
+
+        fileVersions.value.push(createdVersion);
 
         trackUmamiEvent('update_file', {
           fileId: currentFile.value.id,
@@ -100,8 +102,6 @@ export default function useJsonFileEditor() {
         });
 
         toast.success('File updated successfully');
-
-        await fetchFiles();
       } catch (e) {
         toast.error((e as ClientResponseError).message);
       } finally {
@@ -123,10 +123,6 @@ export default function useJsonFileEditor() {
     },
     { immediate: true, deep: true },
   );
-
-  onMounted(async () => {
-    await fetchFiles();
-  });
 
   return {
     configString,

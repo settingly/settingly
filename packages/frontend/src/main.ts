@@ -7,6 +7,7 @@ import * as Sentry from '@sentry/vue';
 import App from './App.vue';
 import router from './router';
 import { VueUmamiPlugin } from '@jaseeey/vue-umami-plugin';
+import useCurrentProjectStore from './stores/useCurrentProjectStore';
 
 const app = createApp(App);
 

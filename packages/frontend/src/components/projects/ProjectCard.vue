@@ -19,7 +19,7 @@
     <div class="flex flex-col gap-2 sm:justify-between p-6 pt-4 border-t border-gray-300">
       <div class="flex items-center gap-2 text-sm">
         <FolderIcon class="h-4 w-4" />
-        <span class="text-body">Files Count: {{ filesCount || 0 }}</span>
+        <span class="text-body">File Count: {{ project.fileCount || 0 }}</span>
       </div>
       <div class="flex items-center gap-2 text-sm">
         <UsersIcon class="h-4 w-4" />
@@ -38,6 +38,5 @@ import type { Project } from '@/types/projects';
 
 defineProps<{
   project: Project;
-  filesCount: number;
 }>();
 </script>

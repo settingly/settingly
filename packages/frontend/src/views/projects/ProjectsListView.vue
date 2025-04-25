@@ -10,12 +10,7 @@
         v-if="!error && !isLoading && projects.length > 0"
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full"
       >
-        <ProjectCard
-          :files-count="project.filesCount"
-          v-for="(project, index) in projects"
-          :key="index"
-          :project="project"
-        />
+        <ProjectCard v-for="(project, index) in projects" :key="index" :project="project" />
       </div>
       <div
         v-else-if="!error && !isLoading && projects.length === 0"
@@ -51,17 +46,13 @@ import { useHead } from '@unhead/vue';
 
 import { useProjectsStore } from '@/stores/useProjectsStore';
 import { storeToRefs } from 'pinia';
-import { onMounted } from 'vue';
 import ProjectCard from '@/components/projects/ProjectCard.vue';
 import SharedSpinner from '@/components/shared/SharedSpinner.vue';
 import CreateProjectButton from '@/components/projects/CreateProjectButton.vue';
+import { watch } from 'vue';
 
 const projectsStore = useProjectsStore();
 const { error, isLoading, projects } = storeToRefs(projectsStore);
-
-onMounted(async () => {
-  await projectsStore.fetchProjects();
-});
 
 useHead({
   title: 'Settingly - Projects',

@@ -20,7 +20,7 @@ import { computed } from 'vue';
 
 const props = defineProps({
   modelValue: {
-    type: [String, Number],
+    type: [String, Number, null],
     default: '',
   },
   label: {
