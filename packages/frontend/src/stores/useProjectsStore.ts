@@ -1,8 +1,7 @@
 import type { Project } from '@/types/projects';
 import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { usePocketbaseStore } from './usePocketbaseStore';
-import { useRoute } from 'vue-router';
 
 export const useProjectsStore = defineStore('projects', () => {
   const projects = ref<Project[]>([]);

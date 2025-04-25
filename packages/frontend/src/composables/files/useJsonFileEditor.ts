@@ -6,7 +6,7 @@ import getNewestFileVersion from '@/utils/get-newest-file-version';
 import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
 import { storeToRefs } from 'pinia';
 import type { ClientResponseError } from 'pocketbase';
-import { onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
 
 export default function useJsonFileEditor() {

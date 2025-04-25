@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
-import useCurrentProjectStore from '@/stores/useCurrentProjectStore';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -91,10 +90,6 @@ router.beforeEach((to) => {
   if (isProtectedRoute && !isAuthenticated) {
     return { name: 'login' };
   }
-});
-
-router.afterEach(async (to) => {
-  useCurrentProjectStore();
 });
 
 export default router;

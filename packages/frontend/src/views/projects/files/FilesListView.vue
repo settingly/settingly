@@ -52,7 +52,7 @@
 
 <script setup lang="ts">
 import { useHead } from '@unhead/vue';
-import { computed, onMounted, watch } from 'vue';
+import { watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useProjectsStore } from '@/stores/useProjectsStore';

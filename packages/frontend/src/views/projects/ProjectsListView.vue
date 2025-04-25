@@ -49,7 +49,6 @@ import { storeToRefs } from 'pinia';
 import ProjectCard from '@/components/projects/ProjectCard.vue';
 import SharedSpinner from '@/components/shared/SharedSpinner.vue';
 import CreateProjectButton from '@/components/projects/CreateProjectButton.vue';
-import { watch } from 'vue';
 
 const projectsStore = useProjectsStore();
 const { error, isLoading, projects } = storeToRefs(projectsStore);

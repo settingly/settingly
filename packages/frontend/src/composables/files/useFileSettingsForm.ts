@@ -1,15 +1,13 @@
 import { storeToRefs } from 'pinia';
-import { onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
 import { useConfirm } from '../utils/useConfirm';
 import { useRouter } from 'vue-router';
-import useCurrentProjectId from '../projects/useCurrentProjectId';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import { useProjectsStore } from '@/stores/useProjectsStore';
 import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
 import useCurrentProjectStore from '@/stores/useCurrentProjectStore';
 import type { File_ } from '@/types/files';
-import type { Project } from '@/types/projects';
 
 export default function useFileSettingsForm() {
   const { confirmDialog } = useConfirm();

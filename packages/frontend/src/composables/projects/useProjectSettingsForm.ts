@@ -2,7 +2,7 @@ import { useProjectsStore } from '@/stores/useProjectsStore';
 import { storeToRefs } from 'pinia';
 import { toast } from 'vue-sonner';
 import { useConfirm } from '../utils/useConfirm';
-import { onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import { useRouter } from 'vue-router';
 import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
