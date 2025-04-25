@@ -40,11 +40,13 @@
   <SharedDialog :title="toView?.name ?? 'Token'" :open="!!toView" @close="toView = null">
     <template #title-action>
       <button
+        v-if="!isDeleting"
         class="icon-button-wrapper"
-        @click="async () => await deleteToken(toView!.id).then(() => (toView = null))"
+        @click="async () => await deleteToken(toView!.id)"
       >
         <TrashIcon class="w-4 h-4 !text-error" />
       </button>
+      <SharedSpinner v-else />
     </template>
     <div class="flex flex-col gap-4 -mt-2">
       <p class="text-xs text-gray-500 max-w-80 leading-tight">
@@ -78,12 +80,11 @@ import type { Token } from '@/types/tokens';
 import { storeToRefs } from 'pinia';
 import prettifyMachineString from '@/utils/prettify-machine-string';
 import useCurrentProjectStore from '@/stores/useCurrentProjectStore';
+import useUpdateTokenForm from '@/composables/tokens/useUpdateTokenForm';
+import SharedSpinner from '../shared/SharedSpinner.vue';
 
 const toView = ref<Token | null>(null);
 
 const { tokens } = storeToRefs(useCurrentProjectStore());
-
-async function deleteToken(id: string) {
-  // await tokensStore.deleteToken(id);
-}
+const { deleteToken, isDeleting } = useUpdateTokenForm(() => (toView.value = null));
 </script>
