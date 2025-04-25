@@ -34,6 +34,7 @@ export default defineStore('currentProject', () => {
   const files = ref<File_[]>([]);
   const fileVersions = ref<FileVersion[]>([]);
   const tokens = ref<Token[]>([]);
+  const lastDefinedProjectId = ref<string | null>(null);
 
   const loaders = reactive(loadersDefaults);
 
@@ -127,23 +128,39 @@ export default defineStore('currentProject', () => {
         return;
       }
 
-      const hasChangedProjectId = newProjectId !== oldProjectId;
+      const hasChangedProjectId =
+        newProjectId !== oldProjectId && newProjectId !== lastDefinedProjectId.value;
 
-      const newSections = ['/files', '/functions', '/logging'];
-      const hasChangedSub = newSections.some(
-        (section) => oldFullPath.includes(section) !== newFullPath.includes(section),
-      );
+      const getSection = (path: string) => {
+        const match = path.match(/^\/projects\/[^/]+(\/[^/]+)?/);
+        return match?.[1] ?? ''; // Gibt z. B. "/files" oder "" zurück
+      };
+
+      const oldSection = getSection(oldFullPath as string);
+      const newSection = getSection(newFullPath as string);
+
+      const sections = ['/files', '/functions', '/logging'];
+
+      const hasChangedSection =
+        newSection !== oldSection && sections.includes(oldSection) && sections.includes(newSection);
+
+      if (hasChangedSection) {
+        console.log(`Section changed: from '${oldSection}' to '${newSection}'`);
+        console.log(`from '${oldFullPath}' to '${newFullPath}'`);
+      }
 
       if (hasChangedProjectId) {
         reset();
         await fetchProject(newProjectId as string);
         await fetchTokens(newProjectId as string);
         await fetchFiles(newProjectId as string);
-      } else if (hasChangedSub) {
+      } else if (hasChangedSection) {
         if (newFullPath.includes('/files')) {
           await fetchFiles(newProjectId as string);
         }
       }
+
+      lastDefinedProjectId.value = newProjectId as string;
     },
   );
 
@@ -155,6 +172,7 @@ export default defineStore('currentProject', () => {
       }
     },
   );
+
   (async () => {
     const projectId = route.params.projectId as string;
     if (projectId) {

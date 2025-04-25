@@ -48,9 +48,7 @@ export default function useCreateProjectForm(dialogCloser?: Ref<boolean, boolean
       projectName.value = '';
       description.value = '';
 
-      console.log('Pre-Push: ', projects.value);
       projects.value.push(createdProject);
-      console.log('Post-Push: ', projects.value);
     } catch (error) {
       if (
         error instanceof ClientResponseError &&
