@@ -53,3 +53,16 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { useHead } from '@unhead/vue';
+useHead({
+  title: 'Imprint & Legal Information - Settingly',
+  meta: [
+    {
+      name: 'description',
+      content: 'Imprint & Legal Information - Settingly',
+    },
+  ],
+});
+</script>

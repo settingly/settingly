@@ -27,6 +27,6 @@ const page = computed(() => {
 });
 
 useHead({
-  title: `Settingly - Documentation - ${page.value ? page.value.name : 'Not Found'}`,
+  title: `${page.value ? page.value.name : 'Not Found'} - Settingly`,
 });
 </script>

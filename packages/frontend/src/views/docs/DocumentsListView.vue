@@ -77,6 +77,6 @@ import categories from '@/docs.config';
 import { useHead } from '@unhead/vue';
 
 useHead({
-  title: 'Settingly - Documentation',
+  title: 'Documentation - Settingly',
 });
 </script>

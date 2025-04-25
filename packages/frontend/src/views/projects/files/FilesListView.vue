@@ -73,7 +73,7 @@ watch(projects, () => {
   }
 });
 
-useHead({
-  title: 'Settingly - Files',
-});
+useHead(() => ({
+  title: project.value ? `${project.value.name} - Settingly Files` : 'Loading Project...',
+}));
 </script>

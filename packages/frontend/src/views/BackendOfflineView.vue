@@ -21,6 +21,7 @@
 <script setup lang="ts">
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import { captureException } from '@sentry/vue';
+import { useHead } from '@unhead/vue';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { toast } from 'vue-sonner';
@@ -47,5 +48,16 @@ onMounted(() => {
       return;
     }
   }, 5000);
+});
+
+useHead({
+  title: 'Offline - Settingly',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Our servers are currently offline. Please check back later or contact support if you need immediate assistance.',
+    },
+  ],
 });
 </script>

@@ -16,6 +16,7 @@
 </template>
 
 <script setup lang="ts">
+import { useHead } from '@unhead/vue';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -29,5 +30,15 @@ const homeRoute = computed(() => {
   } else {
     return '/';
   }
+});
+
+useHead({
+  title: 'Page not found - Settingly',
+  meta: [
+    {
+      name: 'description',
+      content: 'Page not found',
+    },
+  ],
 });
 </script>
