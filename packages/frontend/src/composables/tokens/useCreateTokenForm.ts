@@ -1,13 +1,16 @@
 import { toast } from 'vue-sonner';
-import { useTokensStore } from '@/stores/useTokensStore';
 import { ref } from 'vue';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import { useRoute } from 'vue-router';
 import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
+import { storeToRefs } from 'pinia';
+import useCurrentProjectStore from '@/stores/useCurrentProjectStore';
+import type { Token } from '@/types/tokens';
 
 export default function useCreateTokenForm() {
   const { pocketbase } = usePocketbaseStore();
   const route = useRoute();
+  const { tokens } = storeToRefs(useCurrentProjectStore());
 
   const isSubmitting = ref(false);
   const responsibilities = ref<string[]>([]);
@@ -31,10 +34,8 @@ export default function useCreateTokenForm() {
 
     try {
       const response = await pocketbase.send<{
-        token: string;
-        projectId: string;
-        name: string;
-        responsibilities: string[];
+        secret: string;
+        token: Token;
       }>(`/internal/projects/${route.params.projectId}/tokens`, {
         method: 'POST',
         body: {
@@ -49,13 +50,13 @@ export default function useCreateTokenForm() {
         projectId: route.params.projectId,
       });
 
-      generatedToken.value = response.token;
+      generatedToken.value = response.secret;
 
       canViewGeneratedToken.value = false;
       isSubmitting.value = false;
       toast.success('Token created successfully!');
 
-      await useTokensStore().fetchTokens();
+      tokens.value.push(response.token);
     } catch (error) {
       toast.error((error as Error).message || 'Failed to create token');
     } finally {

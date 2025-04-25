@@ -2,22 +2,23 @@ import { useProjectsStore } from '@/stores/useProjectsStore';
 import { storeToRefs } from 'pinia';
 import { toast } from 'vue-sonner';
 import { useConfirm } from '../utils/useConfirm';
-import { onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import { useRouter } from 'vue-router';
-import { useTokensStore } from '@/stores/useTokensStore';
 import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
+import useCurrentProjectStore from '@/stores/useCurrentProjectStore';
+import type { Project } from '@/types/projects';
 
 export default function useProjectSettingsForm() {
-  const projectsStore = useProjectsStore();
-  const { currentProject } = storeToRefs(projectsStore);
   const { confirmDialog } = useConfirm();
+  const { project } = storeToRefs(useCurrentProjectStore());
+  const { reset: resetProject } = useCurrentProjectStore();
+  const { projects } = storeToRefs(useProjectsStore());
   const { pocketbase } = usePocketbaseStore();
-  const tokensStore = useTokensStore();
   const router = useRouter();
 
-  const name = ref<string | undefined>(undefined);
-  const description = ref<string | undefined>(undefined);
+  const name = ref<null | string>(project.value?.name || null);
+  const description = ref<null | string>(project.value?.description || null);
   const isSubmitting = ref(false);
   const isDeleting = ref(false);
 
@@ -31,12 +32,22 @@ export default function useProjectSettingsForm() {
     }
 
     try {
-      await pocketbase.collection('projects').update(currentProject.value!.id, {
-        name: name.value,
-        description: description.value,
-      });
+      const updatedProject = await pocketbase
+        .collection('projects')
+        .update<Project>(project.value!.id, {
+          name: name.value,
+          description: description.value,
+        });
       toast.success('Project updated successfully!');
-      await projectsStore.fetchProjects();
+
+      projects.value = projects.value.map((p) => {
+        if (p.id === project.value?.id) {
+          return updatedProject;
+        }
+        return p;
+      });
+
+      project.value = updatedProject;
     } catch (error) {
       toast.error((error as Error).message || 'Failed to update project');
     } finally {
@@ -58,17 +69,19 @@ export default function useProjectSettingsForm() {
     }
 
     try {
-      await pocketbase.collection('projects').delete(currentProject.value!.id);
+      await pocketbase.collection('projects').delete(project.value!.id);
       isDeleting.value = false;
       toast.success('Project deleted successfully!');
 
       trackUmamiEvent('delete_project', {
-        projectId: currentProject.value?.id,
-        projectName: currentProject.value?.name,
-        projectDescription: currentProject.value?.description,
+        projectId: project.value?.id,
+        projectName: project.value?.name,
+        projectDescription: project.value?.description,
       });
 
-      await projectsStore.fetchProjects();
+      projects.value = projects.value.filter((p) => p.id !== project.value?.id);
+      resetProject();
+
       router.push('/projects');
     } catch (error) {
       isDeleting.value = false;
@@ -76,21 +89,12 @@ export default function useProjectSettingsForm() {
     }
   };
 
-  watch(
-    () => currentProject.value,
-    async (newProject) => {
-      if (!newProject) return;
-
-      if (name.value === undefined) name.value = newProject.name;
-      if (description.value === undefined) description.value = newProject.description;
-
-      await tokensStore.fetchTokens();
-    },
-    { immediate: true },
-  );
-
-  onMounted(async () => {
-    await projectsStore.fetchProjects();
+  watch(project, (newProject) => {
+    if (!newProject) {
+      return;
+    }
+    name.value = newProject?.name || null;
+    description.value = newProject?.description || null;
   });
 
   return {

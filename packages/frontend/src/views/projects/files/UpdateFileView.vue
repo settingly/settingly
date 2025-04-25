@@ -89,13 +89,23 @@
 </template>
 
 <script lang="ts" setup>
-import { useFilesStore } from '@/stores/useFilesStore';
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import FileSettingsButton from '@/components/files/FileSettingsButton.vue';
 import JsonFileEditor from '@/components/files/JsonFileEditor.vue';
+import useCurrentProjectStore from '@/stores/useCurrentProjectStore';
+import { useRoute, useRouter } from 'vue-router';
 
-const { currentFile } = storeToRefs(useFilesStore());
+const { currentFile, files } = storeToRefs(useCurrentProjectStore());
+
+const route = useRoute();
+const router = useRouter();
+
+watch(files, () => {
+  if (!files.value.some((file) => file.id === route.params.fileId)) {
+    router.push(`/projects/${route.params.projectId}/files`);
+  }
+});
 
 const activeTab = ref<string>('json');
 </script>

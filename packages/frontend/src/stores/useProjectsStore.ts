@@ -1,15 +1,10 @@
 import type { Project } from '@/types/projects';
 import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { usePocketbaseStore } from './usePocketbaseStore';
-import { useRoute } from 'vue-router';
-
-type ProjectResponse = Project & {
-  filesCount: number;
-};
 
 export const useProjectsStore = defineStore('projects', () => {
-  const projects = ref<ProjectResponse[]>([]);
+  const projects = ref<Project[]>([]);
   const isLoading = ref(false);
   const error = ref<string | null>(null);
   const { pocketbase } = usePocketbaseStore();
@@ -18,20 +13,7 @@ export const useProjectsStore = defineStore('projects', () => {
     try {
       isLoading.value = true;
 
-      projects.value = (await pocketbase.collection('projects').getFullList()) as ProjectResponse[];
-
-      projects.value = await Promise.all(
-        projects.value.map(async (project) => {
-          const filesCount = await pocketbase.collection('files').getList(0, 1, {
-            filter: `project = "${project.id}"`,
-          });
-
-          return {
-            ...project,
-            filesCount: filesCount.totalItems,
-          };
-        }),
-      );
+      projects.value = await pocketbase.collection('projects').getFullList<Project>();
     } catch (err) {
       error.value = `Failed to fetch projects: ${(err as Error).message}`;
     } finally {
@@ -39,18 +21,13 @@ export const useProjectsStore = defineStore('projects', () => {
     }
   };
 
-  const route = useRoute();
-  const currentProject = computed(() => {
-    return projects.value.find((p) => {
-      return p.id === route.params.projectId;
-    });
-  });
+  (async () => {
+    await fetchProjects();
+  })();
 
   return {
     projects,
-    currentProject,
     isLoading,
     error,
-    fetchProjects,
   };
 });

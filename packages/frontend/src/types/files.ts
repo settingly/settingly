@@ -4,21 +4,22 @@ export interface File_ {
   id: string;
   name: string;
   description: string;
-  created: Date;
-  updated: Date;
+  created: string;
+  updated: string;
   project: string;
 
   /**
    * Only available when the file was fetched from the server.
    */
-  fileVersions: FileVersion[];
+  versions: FileVersion[];
 }
 
 export interface FileVersion {
   collectionId: string;
   collectionName: string;
   id: string;
-  content: string;
+  content: Record<string, unknown>;
   created: Date;
+  file: string;
   updated: Date;
 }

@@ -7,4 +7,5 @@ export interface Project {
   user: string;
   created: Date;
   updated: Date;
+  fileCount: number;
 }

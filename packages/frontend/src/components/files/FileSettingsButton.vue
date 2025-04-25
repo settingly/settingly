@@ -59,11 +59,11 @@ import SharedDialog from '../shared/SharedDialog.vue';
 import SharedSpinner from '../shared/SharedSpinner.vue';
 import FormsInput from '../forms/FormsInput.vue';
 import { storeToRefs } from 'pinia';
-import { useFilesStore } from '@/stores/useFilesStore';
 import useFileSettingsForm from '@/composables/files/useFileSettingsForm';
 import { ref } from 'vue';
+import useCurrentProjectStore from '@/stores/useCurrentProjectStore';
 
-const { currentFile } = storeToRefs(useFilesStore());
+const { currentFile } = storeToRefs(useCurrentProjectStore());
 
 const { isSubmitting, name, submit, isDeleting, deleteFile, description } = useFileSettingsForm();
 

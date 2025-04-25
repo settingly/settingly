@@ -61,6 +61,9 @@ routerAdd(
         90 * 24 * 60 * 60
       );
 
+      const expirationDate = new Date();
+      expirationDate.setDate(expirationDate.getDate() + 90);
+
       let tokenCollection = $app.findCollectionByNameOrId("tokens");
 
       const tokenRecord = new Record(tokenCollection, {
@@ -72,10 +75,18 @@ routerAdd(
       e.app.save(tokenRecord);
 
       return e.json(200, {
-        token: jwt,
-        projectId: projectId,
-        name: name,
-        responsibilities: responsibilities,
+        secret: jwt,
+        token: {
+          id: tokenRecord.id,
+          collectionName: tokenRecord.collectionName,
+          collectionId: tokenRecord.collectionId,
+          created: tokenRecord.created,
+          updated: tokenRecord.updated,
+          name: tokenRecord.getString("name"),
+          lastUsed: tokenRecord.getString("lastUsed"),
+          expirationDate: expirationDate.toISOString(),
+          responsibilities: responsibilities,
+        },
       });
     } catch (err) {
       return e.error(500, JSON.stringify(err));

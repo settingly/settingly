@@ -1,21 +1,20 @@
-import { useFilesStore } from '@/stores/useFilesStore';
 import { storeToRefs } from 'pinia';
-import { onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
 import { useConfirm } from '../utils/useConfirm';
 import { useRouter } from 'vue-router';
-import useCurrentProjectId from '../projects/useCurrentProjectId';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import { useProjectsStore } from '@/stores/useProjectsStore';
 import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
+import useCurrentProjectStore from '@/stores/useCurrentProjectStore';
+import type { File_ } from '@/types/files';
 
 export default function useFileSettingsForm() {
-  const filesStore = useFilesStore();
   const { confirmDialog } = useConfirm();
-  const { currentFile } = storeToRefs(filesStore);
   const { pocketbase } = usePocketbaseStore();
-  const { fetchProjects } = useProjectsStore();
   const router = useRouter();
+  const { project, currentFile, files } = storeToRefs(useCurrentProjectStore());
+  const { projects } = storeToRefs(useProjectsStore());
 
   const isSubmitting = ref(false);
   const isDeleting = ref(false);
@@ -26,10 +25,12 @@ export default function useFileSettingsForm() {
     isSubmitting.value = true;
 
     try {
-      await pocketbase.collection('files').update(currentFile.value?.id || '', {
-        name: name.value,
-        description: description.value,
-      });
+      const updatedFile = await pocketbase
+        .collection('files')
+        .update<File_>(currentFile.value?.id || '', {
+          name: name.value,
+          description: description.value,
+        });
 
       toast.success('File updated successfully');
 
@@ -37,10 +38,15 @@ export default function useFileSettingsForm() {
         fileId: currentFile.value?.id,
         fileName: name.value,
         fileDescription: description.value,
-        projectId: currentFile.value?.project,
+        projectId: project.value?.id,
       });
 
-      await filesStore.fetchFiles();
+      files.value = files.value.map((file) => {
+        if (file.id === updatedFile.id) {
+          return updatedFile;
+        }
+        return file;
+      });
     } catch (error) {
       toast.error(`Failed to update file: ${(error as Error).message}`);
     } finally {
@@ -69,12 +75,20 @@ export default function useFileSettingsForm() {
         fileId: currentFile.value?.id,
         fileName: currentFile.value?.name,
         fileDescription: currentFile.value?.description,
-        projectId: currentFile.value?.project,
+        projectId: project.value?.id,
       });
 
-      await router.push(`/projects/${currentFile.value?.project}/files`);
-      await filesStore.fetchFiles();
-      await fetchProjects();
+      files.value = files.value.filter((file) => file.id !== currentFile.value?.id);
+      projects.value = projects.value.map((p) => {
+        if (project.value!.id === p?.id) {
+          return {
+            ...p,
+            fileCount: p.fileCount - 1,
+          };
+        }
+        return p;
+      });
+      await router.push(`/projects/${project.value?.id}/files`);
     } catch (error) {
       toast.error(`Failed to delete file: ${(error as Error).message}`);
     } finally {
@@ -90,12 +104,6 @@ export default function useFileSettingsForm() {
     },
     { deep: true },
   );
-
-  onMounted(() => {
-    if (!currentFile.value) {
-      router.push(`/projects/${useCurrentProjectId().value}/files`);
-    }
-  });
 
   return {
     currentFile,

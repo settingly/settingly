@@ -1,5 +1,6 @@
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import { useProjectsStore } from '@/stores/useProjectsStore';
+import type { Project } from '@/types/projects';
 import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
 import { storeToRefs } from 'pinia';
 import { ClientResponseError } from 'pocketbase';
@@ -13,6 +14,7 @@ export default function useCreateProjectForm(dialogCloser?: Ref<boolean, boolean
 
   const pocketbaseStore = usePocketbaseStore();
   const { user } = storeToRefs(pocketbaseStore);
+  const { projects } = storeToRefs(useProjectsStore());
 
   const submit = async () => {
     isSubmitting.value = true;
@@ -24,11 +26,13 @@ export default function useCreateProjectForm(dialogCloser?: Ref<boolean, boolean
     }
 
     try {
-      await pocketbaseStore.pocketbase.collection('projects').create({
-        name: projectName.value,
-        description: description.value,
-        user: user.value?.id,
-      });
+      const createdProject = await pocketbaseStore.pocketbase
+        .collection('projects')
+        .create<Project>({
+          name: projectName.value,
+          description: description.value,
+          user: user.value?.id,
+        });
 
       trackUmamiEvent('create_project', {
         projectName: projectName.value,
@@ -44,7 +48,7 @@ export default function useCreateProjectForm(dialogCloser?: Ref<boolean, boolean
       projectName.value = '';
       description.value = '';
 
-      await useProjectsStore().fetchProjects();
+      projects.value.push(createdProject);
     } catch (error) {
       if (
         error instanceof ClientResponseError &&
