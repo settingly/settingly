@@ -85,6 +85,7 @@ routerAdd(
           name: tokenRecord.getString("name"),
           lastUsed: tokenRecord.getString("lastUsed"),
           expirationDate: expirationDate.toISOString(),
+          responsibilities: responsibilities,
         },
       });
     } catch (err) {
