@@ -31,6 +31,17 @@ import FormsBase from '@/components/forms/FormsBase.vue';
 import FormsInput from '@/components/forms/FormsInput.vue';
 import SharedSpinner from '@/components/shared/SharedSpinner.vue';
 import useResetPasswordForm from '@/composables/auth/useResetPasswordForm';
+import { useHead } from '@unhead/vue';
 
 const { isSubmitting, submit, email } = useResetPasswordForm();
+
+useHead({
+  title: 'Reset your password - Settingly',
+  meta: [
+    {
+      name: 'description',
+      content: 'Reset your password',
+    },
+  ],
+});
 </script>

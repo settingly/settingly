@@ -41,12 +41,16 @@ import FormsBase from '@/components/forms/FormsBase.vue';
 import FormsInput from '@/components/forms/FormsInput.vue';
 import SharedSpinner from '@/components/shared/SharedSpinner.vue';
 import useAccountSettingsForm from '@/composables/auth/useAccountSettingsForm';
+import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import { useHead } from '@unhead/vue';
+import { storeToRefs } from 'pinia';
 
 const { email, changeEmail, isChangingEmail, deleteAccount, isResettingPassword, resetPassword } =
   useAccountSettingsForm();
 
+const { user } = storeToRefs(usePocketbaseStore());
+
 useHead({
-  title: `Settingly - Account Settings`,
+  title: user.value?.email + ' - Settingly',
 });
 </script>

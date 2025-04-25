@@ -1,12 +1,3 @@
-<script setup lang="ts">
-import FormsBase from '@/components/forms/FormsBase.vue';
-import FormsInput from '@/components/forms/FormsInput.vue';
-import SharedSpinner from '@/components/shared/SharedSpinner.vue';
-import useSignUpForm from '@/composables/auth/useSignUpForm';
-
-const { password, passwordConfirm, email, submit, isSubmitting } = useSignUpForm();
-</script>
-
 <template>
   <div class="mx-auto max-w-xl px-4 sm:px-6 lg:px-8 my-24">
     <FormsBase title="Sign Up" subtitle="Create an account to get started." @submit="submit">
@@ -69,3 +60,23 @@ const { password, passwordConfirm, email, submit, isSubmitting } = useSignUpForm
     </FormsBase>
   </div>
 </template>
+
+<script setup lang="ts">
+import FormsBase from '@/components/forms/FormsBase.vue';
+import FormsInput from '@/components/forms/FormsInput.vue';
+import SharedSpinner from '@/components/shared/SharedSpinner.vue';
+import useSignUpForm from '@/composables/auth/useSignUpForm';
+import { useHead } from '@unhead/vue';
+
+const { password, passwordConfirm, email, submit, isSubmitting } = useSignUpForm();
+
+useHead({
+  title: 'Sign Up - Settingly',
+  meta: [
+    {
+      name: 'description',
+      content: 'Create an account to get started.',
+    },
+  ],
+});
+</script>

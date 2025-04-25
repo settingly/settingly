@@ -206,3 +206,17 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { useHead } from '@unhead/vue';
+useHead({
+  title: 'Privacy Policy - Settingly',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Privacy Policy for Settingly, a privacy-focused, open-source, self-hosted productivity app.',
+    },
+  ],
+});
+</script>

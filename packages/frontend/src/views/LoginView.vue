@@ -1,12 +1,3 @@
-<script setup lang="ts">
-import FormsBase from '@/components/forms/FormsBase.vue';
-import FormsInput from '@/components/forms/FormsInput.vue';
-import SharedSpinner from '@/components/shared/SharedSpinner.vue';
-import useLogInForm from '@/composables/auth/useLogInForm';
-
-const { password, email, submit, isSubmitting } = useLogInForm();
-</script>
-
 <template>
   <div class="mx-auto max-w-xl px-4 sm:px-6 lg:px-8 my-24">
     <FormsBase title="Log In" subtitle="Welcome back!" @submit="submit">
@@ -36,3 +27,23 @@ const { password, email, submit, isSubmitting } = useLogInForm();
     </FormsBase>
   </div>
 </template>
+
+<script setup lang="ts">
+import FormsBase from '@/components/forms/FormsBase.vue';
+import FormsInput from '@/components/forms/FormsInput.vue';
+import SharedSpinner from '@/components/shared/SharedSpinner.vue';
+import useLogInForm from '@/composables/auth/useLogInForm';
+import { useHead } from '@unhead/vue';
+
+const { password, email, submit, isSubmitting } = useLogInForm();
+
+useHead({
+  title: 'Log In - Settingly',
+  meta: [
+    {
+      name: 'description',
+      content: 'Log in to your Settingly account',
+    },
+  ],
+});
+</script>

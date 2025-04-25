@@ -54,6 +54,6 @@ const projectsStore = useProjectsStore();
 const { error, isLoading, projects } = storeToRefs(projectsStore);
 
 useHead({
-  title: 'Settingly - Projects',
+  title: 'Projects - Settingly',
 });
 </script>

@@ -95,8 +95,9 @@ import FileSettingsButton from '@/components/files/FileSettingsButton.vue';
 import JsonFileEditor from '@/components/files/JsonFileEditor.vue';
 import useCurrentProjectStore from '@/stores/useCurrentProjectStore';
 import { useRoute, useRouter } from 'vue-router';
+import { useHead } from '@unhead/vue';
 
-const { currentFile, files } = storeToRefs(useCurrentProjectStore());
+const { currentFile, files, project } = storeToRefs(useCurrentProjectStore());
 
 const route = useRoute();
 const router = useRouter();
@@ -106,6 +107,10 @@ watch(files, () => {
     router.push(`/projects/${route.params.projectId}/files`);
   }
 });
+
+useHead(() => ({
+  title: `${currentFile.value?.name}.json - ${project.value?.name} - Settingly Files`,
+}));
 
 const activeTab = ref<string>('json');
 </script>

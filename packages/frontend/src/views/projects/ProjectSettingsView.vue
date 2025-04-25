@@ -63,12 +63,15 @@ import SharedSpinner from '@/components/shared/SharedSpinner.vue';
 import CreateTokenButton from '@/components/tokens/CreateTokenButton.vue';
 import TokensTable from '@/components/tokens/TokensTable.vue';
 import useProjectSettingsForm from '@/composables/projects/useProjectSettingsForm';
+import useCurrentProjectStore from '@/stores/useCurrentProjectStore';
 import { useHead } from '@unhead/vue';
 import { TrashIcon } from 'lucide-vue-next';
+import { storeToRefs } from 'pinia';
 
 const { name, description, isSubmitting, submit, deleteProject } = useProjectSettingsForm();
+const { project } = storeToRefs(useCurrentProjectStore());
 
-useHead({
-  title: `Settingly - Project Settings`,
-});
+useHead(() => ({
+  title: `${project.value?.name} - Settingly Project Settings`,
+}));
 </script>
