@@ -5,24 +5,33 @@
     >
       Settingly
     </h1>
-    <h2 class="lg:text-2xl text-lg max-w-xl text-center">
-      Streamline, control, and elevate your server-side utilities – all in one smart platform.
+    <h2 class="lg:text-2xl text-lg max-w-xl text-center text-dark">
+      Changing settings in your apps should be effortless. Settingly makes it easy to change stuff
+      in your apps after shipping.
     </h2>
     <div class="mt-6 grid grid-rows-1 grid-cols-2 gap-5">
       <a
         target="_blank"
         href="https://www.producthunt.com/products/settingly"
-        class="button-fancy text-xl text-center flex flex-row items-center"
+        class="button flex items-center font-semibold"
         to="#"
       >
-        Upvote
+        Get Started
       </a>
-      <a
-        target="_blank"
-        href="https://www.paypal.com/donate/?hosted_button_id=K95L2SCMBJQDE"
-        class="button-fancy text-xl text-center"
-        >Donate</a
-      >
+      <RouterLink
+        to="/docs"
+        class="flex items-center font-semibold text-sm hover:translate-x-0.5 transition-all text-dark"
+        >Read the docs
+        <ArrowRightIcon class="ml-2 w-4 h-4" />
+      </RouterLink>
+    </div>
+    <div class="min-w-[800px] border border-gray-200 p-6 rounded-xl mt-10 shadow-xl">
+      <JsonFileEditor :mocked="true" />
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ArrowRightIcon } from 'lucide-vue-next';
+import JsonFileEditor from '../files/JsonFileEditor.vue';
+</script>

@@ -1,30 +1,30 @@
 <script setup lang="ts">
-import { BracesIcon, FunctionSquareIcon, SettingsIcon } from 'lucide-vue-next';
+import { DatabaseIcon, KeyIcon, SettingsIcon } from 'lucide-vue-next';
 import { ref } from 'vue';
 
 const servicesData = ref([
   {
     icon: SettingsIcon,
-    title: 'Configuration Storage',
+    title: 'Versioned Configurations',
     paragraph:
       'Configuration sharing between microservices made easy. Store and manage your configurations effortlessly.',
     to: '/#',
     soon: false,
   },
   {
-    icon: BracesIcon,
-    title: 'Logging',
+    icon: KeyIcon,
+    title: 'End-to-End Encryption',
     paragraph:
-      "Gain invaluable insights into your application's performance with our detailed and efficient logging.",
+      'Securely store and manage your configurations. Our end-to-end encryption ensures data privacy.',
 
     to: '/#',
     soon: true,
   },
   {
-    icon: FunctionSquareIcon,
-    title: 'Function Benchmarking',
+    icon: DatabaseIcon,
+    title: 'Self-Hostable',
     paragraph:
-      'Optimize your functions with our benchmarking tool. Identify bottlenecks and enhance performance.',
+      "End-to-end isn't enough for you? We offer self-hosting options for your configurations.",
 
     to: '/#',
     soon: true,

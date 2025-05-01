@@ -9,7 +9,11 @@ import type { ClientResponseError } from 'pocketbase';
 import { ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
 
-export default function useJsonFileEditor() {
+export default function useJsonFileEditor(mocked: boolean = false) {
+  if (mocked) {
+    return useJsonFileEditorMocked();
+  }
+
   const jsonError = ref('');
   const configString = ref(ref(JSON.stringify({}, null, 2)));
   const isSaving = ref(false);
@@ -123,6 +127,67 @@ export default function useJsonFileEditor() {
     },
     { immediate: true, deep: true },
   );
+
+  return {
+    configString,
+    format,
+    copyToClipboard,
+    resetToUnsaved,
+    updateFromJson,
+    save,
+    jsonError,
+    isSaving,
+  };
+}
+
+function useJsonFileEditorMocked() {
+  const jsonError = ref('');
+  const defaultConfig = {
+    message: 'Welcome to Settingly',
+  };
+  const configString = ref(JSON.stringify(defaultConfig, null, 2));
+  const isSaving = ref(false);
+
+  function format() {
+    try {
+      const parsed = JSON.parse(configString.value);
+      configString.value = JSON.stringify(parsed, null, 2);
+      jsonError.value = '';
+      toast.success('JSON formatted successfully (mocked)');
+    } catch (e) {
+      jsonError.value = 'Invalid JSON: ' + (e as Error).message;
+    }
+  }
+
+  const updateFromJson = () => {
+    try {
+      JSON.parse(configString.value);
+      jsonError.value = '';
+    } catch (e) {
+      jsonError.value = 'Invalid JSON: ' + (e as Error).message;
+    }
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(configString.value).then(() => {
+      toast.success('Copied to clipboard');
+    });
+  };
+
+  const resetToUnsaved = async () => {
+    configString.value = JSON.stringify(defaultConfig, null, 2);
+    toast.success('Mocked reset to unsaved state');
+  };
+
+  const save = async () => {
+    try {
+      JSON.parse(configString.value);
+      format();
+      toast.success('The file would have been saved (mocked)');
+    } catch (e) {
+      toast.error('Invalid JSON: ' + (e as Error).message);
+    }
+  };
 
   return {
     configString,

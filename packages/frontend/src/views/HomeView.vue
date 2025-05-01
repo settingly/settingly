@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import HomeFaq from '@/components/home/HomeFaq.vue';
 import HomeHeader from '@/components/home/HomeHeader.vue';
 import HomeServicesList from '@/components/home/HomeServicesList.vue';
 </script>
@@ -15,10 +14,10 @@ import HomeServicesList from '@/components/home/HomeServicesList.vue';
       </p>
     </div>
     <HomeHeader />
+    <hr />
 
     <hr />
     <HomeServicesList />
     <hr />
-    <HomeFaq />
   </div>
 </template>

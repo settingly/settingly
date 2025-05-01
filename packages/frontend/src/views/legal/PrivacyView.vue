@@ -25,7 +25,7 @@
         <p>
           The responsible person for data processing on this website is Leo Gall, who can be
           contacted via the contact details provided in the
-          <a class="text-primary hover:underline" href="/imprint">imprint</a>.
+          <a class="text-primary hover:underline" href="/legal/imprint">imprint</a>.
         </p>
       </section>
 
