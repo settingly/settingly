@@ -25,7 +25,7 @@
         <ArrowRightIcon class="ml-2 w-4 h-4" />
       </RouterLink>
     </div>
-    <div class="min-w-[800px] border border-gray-200 p-6 rounded-xl mt-10 shadow-xl">
+    <div class="min-w-full lg:min-w-[800px] border border-gray-200 p-6 rounded-xl mt-10 shadow-xl">
       <JsonFileEditor :mocked="true" />
     </div>
   </div>
