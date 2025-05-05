@@ -5,7 +5,7 @@ import { ref } from 'vue';
 const servicesData = ref([
   {
     icon: SettingsIcon,
-    title: 'Versioned Configurations',
+    title: ' Configurations',
     paragraph:
       'Configuration sharing between microservices made easy. Store and manage your configurations effortlessly.',
     to: '/#',
@@ -40,14 +40,13 @@ const servicesData = ref([
       <div class="-mx-4 flex flex-wrap">
         <div class="w-full px-4">
           <div class="mx-auto mb-[60px] max-w-[510px] text-center lg:mb-[90px]">
-            <span class="mb-2 block text-lg font-semibold text-primary"> Our Services </span>
+            <span class="mb-2 block text-lg font-semibold text-primary"> Our Features </span>
             <h2 class="mb-3 text-3xl font-bold text-dark sm:text-4xl md:text-[40px]">
               What Settingly Offers
             </h2>
             <p class="text-base text-body-color">
-              Settingly enhances your development with services that boost productivity and simplify
-              processes. We prioritize a developer-friendly experience, self-hosting, minimalism,
-              and simplicity.
+              Settingly enhances your development with configuration management that makes your
+              development process efficient and seamless.
             </p>
           </div>
         </div>

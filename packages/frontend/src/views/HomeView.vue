@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import HomeFeaturesList from '@/components/home/HomeFeaturesList.vue';
 import HomeHeader from '@/components/home/HomeHeader.vue';
-import HomeServicesList from '@/components/home/HomeServicesList.vue';
 </script>
 
 <template>
@@ -17,7 +17,7 @@ import HomeServicesList from '@/components/home/HomeServicesList.vue';
     <hr />
 
     <hr />
-    <HomeServicesList />
+    <HomeFeaturesList />
     <hr />
   </div>
 </template>
