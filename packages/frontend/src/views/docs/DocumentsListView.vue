@@ -12,8 +12,9 @@
     <div class="prose">
       <h2>What is Settingly?</h2>
       <p>
-        Settingly is a platform providing server-side utilities, primarily focused on storage and
-        logging solutions. We prioritize simplicity, data privacy, and performance.
+        Settingly is a lightweight platform for storing and managing configuration data. It provides
+        a simple solution that easily integrates into your existing workflows, making it perfect for
+        developers and teams seeking an easy-to-use configuration management tool.
         <br />
         <br />
         Settingly is fully open-source and self-hostable, giving you the freedom to run it on your
@@ -23,18 +24,19 @@
 
       <h2>Key Features</h2>
       <ul>
-        <li>
-          <strong> JSON-based configuration storage </strong>: Store and manage your configuration
-          data in a structured JSON format.
+        <li v-for="(keyFeature, index) in keyFeatures" :key="index">
+          <strong> {{ keyFeature.name }}:</strong> {{ keyFeature.description }}
         </li>
-        <li>
-          <strong> Simplicity </strong>: Settingly is designed to be simple and easy to use, with a
-          focus on providing a straightforward RESTful API for developers.
-        </li>
-        <li>
-          <strong> That's a bit little, isn't it? </strong>
-          Yes, it is. Settingly is in its early stages (released in April 2025). Your early adoption
-          and feedback will drive our platform's evolution.
+      </ul>
+
+      <h2>Coming Soon</h2>
+      <p>
+        Settingly is constantly evolving, and we're working hard to bring you new features and
+        improvements. Some of the upcoming features include:
+      </p>
+      <ul>
+        <li v-for="(comingSoon, index) in comingSoons" :key="index">
+          <strong> {{ comingSoon.name }}:</strong> {{ comingSoon.description }}
         </li>
       </ul>
 
@@ -42,8 +44,8 @@
       <p>
         Settingly is <strong> not </strong> designed for large-scale projects or enterprise-level
         applications. It is intended for developers and teams who need a simple, efficient solution
-        for configuration storage and logging. If you're looking for a lightweight, easy-to-use tool
-        to manage your configuration data, Settingly is the right choice for you.
+        for configuration storage. If you're looking for a lightweight, easy-to-use tool to manage
+        your configuration data, Settingly is the right choice for you.
       </p>
     </div>
     <hr class="my-16" />
@@ -75,6 +77,34 @@
 <script setup lang="ts">
 import categories from '@/docs.config';
 import { useHead } from '@unhead/vue';
+import { ref } from 'vue';
+
+const keyFeatures = ref([
+  {
+    name: 'JSON-based configuration storage',
+    description: 'Store and manage your configuration data in a structured JSON format.',
+  },
+  {
+    name: 'RESTful API',
+    description:
+      'Settingly is designed to be simple and easy to use, with a focus on providing a straightforward RESTful API for developers.',
+  },
+]);
+
+const comingSoons = ref([
+  {
+    name: 'Versioning',
+    description: 'Easily track and revert changes to your configuration data.',
+  },
+  {
+    name: 'End-to-End Encryption',
+    description: 'Encrypt your configuration data to ensure data privacy.',
+  },
+  {
+    name: 'Self-Hosting',
+    description: 'Run Settingly on your own infrastructure',
+  },
+]);
 
 useHead({
   title: 'Documentation - Settingly',

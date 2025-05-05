@@ -51,6 +51,6 @@ const { email, changeEmail, isChangingEmail, deleteAccount, isResettingPassword,
 const { user } = storeToRefs(usePocketbaseStore());
 
 useHead({
-  title: (user.value?.email ?? 'Account') + ' - Settingly',
+  title: user.value?.email + ' - Settingly',
 });
 </script>

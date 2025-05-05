@@ -54,6 +54,13 @@ import useJsonFileEditor from '@/composables/files/useJsonFileEditor';
 import { CopyIcon, SignatureIcon } from 'lucide-vue-next';
 import SharedSpinner from '../shared/SharedSpinner.vue';
 
+const { mocked } = defineProps({
+  mocked: {
+    type: Boolean,
+    default: false,
+  },
+});
+
 const {
   jsonError,
   resetToUnsaved,
@@ -63,5 +70,5 @@ const {
   configString,
   updateFromJson,
   isSaving,
-} = useJsonFileEditor();
+} = useJsonFileEditor(mocked);
 </script>
