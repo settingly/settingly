@@ -22,7 +22,7 @@
     "@sentry/vue": "^9.15.0",
     "@tailwindcss/vite": "^4.1.4",
     "@unhead/vue": "^2.0.8",
-    "lucide-vue-next": "^0.503.0",
+    "lucide-vue-next": "^0.507.0",
     "pinia": "^3.0.1",
     "pocketbase": "^0.26.0",
     "unplugin-vue-markdown": "^28.3.1",
