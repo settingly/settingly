@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { toast } from 'vue-sonner';
 import { useRouter } from 'vue-router';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
@@ -26,6 +26,12 @@ export default function useResetPasswordForm() {
 
     isSubmitting.value = false;
   };
+
+  onMounted(() => {
+    if (pocketbase.authStore.isValid) {
+      router.push('/projects');
+    }
+  });
 
   return {
     isSubmitting,

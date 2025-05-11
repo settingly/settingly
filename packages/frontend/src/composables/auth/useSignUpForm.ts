@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { toast } from 'vue-sonner';
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
@@ -47,6 +47,12 @@ export default function useSignUpForm() {
       isSubmitting.value = false;
     }
   };
+
+  onMounted(() => {
+    if (pocketbase.authStore.isValid) {
+      router.push('/projects');
+    }
+  });
 
   return {
     email,

@@ -1,7 +1,7 @@
 import { usePocketbaseStore } from '@/stores/usePocketbaseStore';
 import { trackUmamiEvent } from '@jaseeey/vue-umami-plugin';
 import { ClientResponseError } from 'pocketbase';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { toast } from 'vue-sonner';
 
@@ -32,6 +32,12 @@ export default function useLogInForm() {
       isSubmitting.value = false;
     }
   };
+
+  onMounted(() => {
+    if (pocketbase.authStore.isValid) {
+      router.push('/projects');
+    }
+  });
 
   return {
     email,
