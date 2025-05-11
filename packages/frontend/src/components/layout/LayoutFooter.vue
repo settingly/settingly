@@ -2,17 +2,20 @@
   <footer
     class="flex items-center justify-between bg-gray-200/70 py-4 px-8 border-t border-gray-200"
   >
-    <ul class="flex flex-row items-center gap-4">
-      <li><RouterLink to="/legal/imprint">Imprint</RouterLink></li>
-      <li><RouterLink to="/legal/privacy">Privacy</RouterLink></li>
-      <li>
-        <a target="_blank" href="https://github.com/settingly/settingly/blob/main/LICENSE"
-          >License</a
-        >
-      </li>
-      <!-- <li><RouterLink to="/legal/cookies">Cookies</RouterLink></li> -->
-    </ul>
-    <img :src="logo" width="75" height="75" alt="Logo" class="block" />
+    <p>
+      &copy; {{ new Date().getFullYear() }}
+      <a href="https://adfectatio.de" target="_blank" class="text-primary hover:underline"
+        >Adfectatio</a
+      >. Released under the
+      <a
+        href="https://github.com/adfectatio/settingly/blob/main/LICENSE"
+        target="_blank"
+        class="text-primary hover:underline"
+        >MIT</a
+      >
+      License.
+    </p>
+    <img :src="logo" width="75" height="75" alt="Settingly Logo" class="block" />
   </footer>
 </template>
 
