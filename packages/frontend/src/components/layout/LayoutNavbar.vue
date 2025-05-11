@@ -3,7 +3,7 @@
     <div class="container mx-auto">
       <div class="relative flex items-center justify-center lg:justify-between min-h-20 text-lg">
         <div class="flex flex-row items-center gap-8">
-          <RouterLink to="/projects" class="lg:block hidden">
+          <RouterLink to="/" class="lg:block hidden">
             <img :src="logo" alt="logo" width="100" height="100" />
           </RouterLink>
 
@@ -54,9 +54,22 @@
         </ul>
         <ul class="flex flex-row gap-8 text-body" v-else>
           <li>
-            <button class="flex flex-row items-center justify-center gap-2 hover:text-primary">
-              Preferences
-            </button>
+            <a
+              href="https://github.com/adfectatio/settingly"
+              target="_blank"
+              class="flex flex-row items-center justify-center gap-2 hover:text-primary"
+            >
+              Documentation
+            </a>
+          </li>
+
+          <li>
+            <RouterLink
+              to="/account"
+              class="flex flex-row items-center justify-center gap-2 hover:text-primary"
+            >
+              Account
+            </RouterLink>
           </li>
 
           <li>
